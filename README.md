@@ -5,7 +5,8 @@ Users can view listed restaurants, list their own restaurants, create bookings a
 
 ## Database Schema Design
 
-<img width="1369" alt="Screenshot 2024-04-05 at 6 58 08 PM" src="https://github.com/Richa-G22/BookTable/assets/128835846/e9a45d3b-c125-4d2a-b069-25beeb663a45">
+<img width="1364" alt="Screenshot 2024-04-05 at 7 05 42 PM" src="https://github.com/Richa-G22/BookTable/assets/128835846/1ea0c5f4-6870-40a3-9297-002e2e7478f4">
+
 
 <br />
 

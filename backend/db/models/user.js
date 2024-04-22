@@ -1,17 +1,11 @@
 'use strict';
-const {
-  Model,
-  Validator
-} = require('sequelize');
+const { Model, Validator } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      User.hasMany( models.Restaurant, { foreignKey: 'ownerId', onDelete: 'CASCADE' });
+      User.hasMany( models.Review, { foreignKey: 'userId', onDelete: 'CASCADE' });
+      User.hasMany( models.Booking, { foreignKey: 'userId', onDelete: 'CASCADE' });
     }
   }
   User.init({
@@ -31,8 +25,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [3, 256]
+        len: [3, 256],
+        isEmail: true
       }
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+      
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+      
     },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,

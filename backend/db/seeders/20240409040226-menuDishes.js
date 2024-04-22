@@ -4,18 +4,13 @@ const {MenuDish, Sequelize} = require('../models');
 const bcrypt = require('bcryptjs');
 
 let options = {};
-options.tableName = 'MenuDishes';
-
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    options.tableName = "MenuDishes"; 
-    return queryInterface.bulkInsert(options, [
+    await MenuDish.bulkCreate([
       
       {
         restaurantId: 3,

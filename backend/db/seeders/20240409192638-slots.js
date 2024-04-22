@@ -4,17 +4,13 @@ const {Slot, Sequelize} = require('../models');
 const bcrypt = require('bcryptjs');
 
 let options = {};
-options.tableName = 'Slots';
-
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    options.tableName = "Slots"; 
-    return queryInterface.bulkInsert(options, [
+    await Slot.bulkCreate([
       {
         restaurantId: 1,
         slotStartTime: '06:30',
@@ -303,7 +299,7 @@ module.exports = {
     options.tableName = 'Slots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      restaurantId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+      restaurantId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
     }, {});
   }
 };

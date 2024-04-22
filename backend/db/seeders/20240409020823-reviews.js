@@ -4,8 +4,6 @@ const {Review, Sequelize} = require('../models');
 const bcrypt = require('bcryptjs');
 
 let options = {};
-options.tableName = 'Reviews';
-
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -13,8 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    options.tableName = "Reviews"; 
-    return queryInterface.bulkInsert(options, [
+    await Review.bulkCreate([
       {
         restaurantId: 1,
         userId: 4,

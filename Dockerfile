@@ -49,8 +49,8 @@
 
 
 # 1 week JWT. Pre-filled in to avoid having to do this in render
-ARG JWT_EXPIRES_IN=60400
-ENV JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+# ARG JWT_EXPIRES_IN=60400
+# ENV JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
 
 # Create a folder called 'var/www' that will take all the following commands
 

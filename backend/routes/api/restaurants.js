@@ -977,6 +977,29 @@ router.get("/:restaurantId/menudishes", async (req, res) => {
 });
 
 
+//-----------------------------------------------------------------------------------------------------------------------
+// Get all RestaurantImages of a restaurant by Restaurant's id
+
+router.get("/:restaurantId/images", async (req, res) => {
+    const restaurantId  = req.params.restaurantId;
+    const restaurant = await Restaurant.findByPk(restaurantId);
+
+    if (!restaurant) {
+        const err = new Error("Restaurant couldn't be found");
+        err.status = 404;
+        return res.json({ message: "Restaurant couldn't be found" }, err.status);
+    };
+    
+    const images = await RestaurantImage.findAll({
+        where: {
+                restaurantId: req.params.restaurantId
+        },   
+    });
+
+    return res.json({"RestaurantImages": images});    
+});
+
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Edit a MenuDish for a particular restaurant
 

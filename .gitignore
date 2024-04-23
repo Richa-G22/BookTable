@@ -11,8 +11,6 @@ node_modules
 .env
 build
 *.db
-dist
-dist-ssr
 *.local
 
 # Editor directories and files

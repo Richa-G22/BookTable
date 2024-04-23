@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       Slot.belongsTo( models.Restaurant, { foreignKey: 'restaurantId' });
-      // Slot.belongsTo( models.Booking );
-      Slot.hasOne( models.Booking, { foreignKey: 'slotId' });
+      Slot.belongsTo( models.Booking );
+      //Slot.hasOne( models.Booking, { foreignKey: 'slotId' });
     }
   }
   Slot.init({

@@ -19,24 +19,15 @@ module.exports = (sequelize, DataTypes) => {
   Booking.init({
     restaurantId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-      }
+      allowNull: false,  
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-      }
+      allowNull: false,  
     },
     slotId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-      }
+      allowNull: false, 
     },
     bookingDate: {
       type: DataTypes.DATEONLY,

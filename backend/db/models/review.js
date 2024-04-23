@@ -19,16 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     restaurantId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        isInt: true,
-      }
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        isInt: true,
-      }
     },
     review: {
       type: DataTypes.STRING,

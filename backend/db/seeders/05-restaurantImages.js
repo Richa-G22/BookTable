@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         restaurantId: 2,
-        restaurantUrl: 'https://popmenucloud.com/cdn-cgi/image/width=1200,height=630,format=auto,fit=cover/igrmdqve/faf6fd65-a01e-4b0c-b0cb-94ad6a5084f0.jpg'
+        restaurantUrl: 'https://thumbs.dreamstime.com/b/pizza-rustic-italian-mozzarella-cheese-basil-leaves-35669930.jpg'
       },
       {
         restaurantId: 2,
@@ -66,7 +66,7 @@ module.exports = {
       },
       {
         restaurantId: 3,
-        restaurantUrl: 'https://i0.wp.com/culturalfoodies.com/wp-content/uploads/2021/03/San-Pancho14.jpg?resize=1140%2C760&ssl=1https://www.elrincontx.com/wp-content/uploads/2023/07/tacos.jpg'
+        restaurantUrl: 'https://dailytaco.com/wp-content/uploads/2021/11/Home-Tacos.jpg'
       },
       {
         restaurantId: 3,
@@ -82,7 +82,7 @@ module.exports = {
       },
       {
         restaurantId: 4,
-        restaurantUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGWwFeDIFeOKhfJl7_2f_3O7NcMmy7OGPS30S7Z4wyZSuiYWMIHwS9cHdGKbW9xOjLGVY&usqp=CAUhttps://s3-media0.fl.yelpcdn.com/bphoto/R5uVwvXIQ7QCPxmvyBaHdA/1000s.jpg'
+        restaurantUrl: 'https://www.foodrepublic.com/img/gallery/7-things-you-didnt-know-about-hummus/l-intro-1686931598.jpg'
       },
       {
         restaurantId: 4,

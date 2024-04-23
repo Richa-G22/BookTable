@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         reviewId: 2,
-        reviewUrl: 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2021/02/01/5628457_Cantonese-Lobster-Tail_s4x3.jpg.rend.hgtvcom.616.462.suffix/1612202405678.jpeg',
+        reviewUrl: 'https://dailybreadmiami.com/wp-content/uploads/daily-bread-miami-middle-east-kitchen-market-scaled.jpg',
       },
       {
         reviewId: 3,
@@ -33,7 +33,7 @@ module.exports = {
       },
       {
         reviewId: 6,
-        reviewUrl: 'https://www.eatthis.com/wp-content/uploads/sites/4/2019/01/vegetarian-grilled-mexican-style-corn.jpg?quality=82&strip=1https://www.tasteofhome.com/wp-content/uploads/2023/11/TOHcom23_273591_DR_06_29_7b-mexican-street-corn-TMB-studio-SQ.jpg',
+        reviewUrl: 'https://images.everydayhealth.com/images/diabetes/type-2-diabetes/is-the-mediterranean-diet-best-for-diabetes-1440x810.jpg',
       },
       {
         reviewId: 7,
@@ -49,7 +49,7 @@ module.exports = {
       },
       {
         reviewId: 10,
-        reviewUrl: 'https://www.seriouseats.com/thmb/EZN3Vqlkeh_-ZxsFV1_TiVvlIVw=/450x300/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__images__2014__09__20140903-turkish-sweets-baklava-robyn-lee-10-bc9b8a4dd4884d4fa465469548c19437.jpg',
+        reviewUrl: 'https://ozlemsturkishtable.com/files/2020/03/Ozlem_Shot_38_0331_-700x559.jpg',
       },
     ], { validate: true });
   },

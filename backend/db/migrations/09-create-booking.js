@@ -1,12 +1,12 @@
 'use strict';
+const { Model, Validator } = require('sequelize');
 
 let options = {};
-options.tableName = 'Restaurants';
+options.tableName = 'Bookings';
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Bookings', {
@@ -59,8 +59,9 @@ module.exports = {
       }
     }, options);
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Bookings');
+    await queryInterface.dropTable(options);
   }
 };
 

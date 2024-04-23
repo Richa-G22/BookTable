@@ -18,6 +18,7 @@ const ADD_REVIEW_TO_RESTAURANT = "restaurants/ADD_REVIEW_TO_RESTAURANT";
 const ADD_HOLIDAY_TO_RESTAURANT = "restaurants/ADD_HOLIDAY_TO_RESTAURANT";
 const ADD_MENUDISH_TO_RESTAURANT = "restaurants/ADD_MENUDISH_TO_RESTAURANT";
 const ADD_BOOKING_TO_RESTAURANT = "restaurants/ADD_BOOKING_TO_RESTAURANT";
+const GET_RESTAURANT_IMAGES = "restaurants/GET_RESTAURANT_IMAGES";
 
 //----------------------------------------------------------------------------------------
 
@@ -35,6 +36,13 @@ const getDetailedRestaurant = (id) => {
         payload: id,
     }
 };
+
+const getRestaurantImages = (id) => {
+    return {
+        type: GET_RESTAURANT_IMAGES,
+        payload: id, 
+    }
+}
 
 const createNewRestaurant = (restaurant) => {
     return {
@@ -300,6 +308,7 @@ export const updateRestaurantThunk = (id, restaurant) => async(dispatch) => {
                 const data = await response.json();
                 console.log('&&&&&&&&&&&&&&data', data)
                 dispatch(updateRestaurant(data));
+                dispatch(getRestaurantImagesThunk(id));
                 return data;
         } else {
                 throw response;
@@ -428,13 +437,14 @@ export const addMenudishToRestaurantThunk = (restaurantId, menudish) => async (d
         return errors;
     }
 };
+
 //----------------------------------------------------------------------------------------
 // Get Reviews of a restaurant by id
 
 export const getReviewsForRestaurantThunk = (id) => async (dispatch) => {
     
     try {
-        const response = await fetch(`/api/restaurants/${id}/reviews`, {
+        const response = await csrfFetch(`/api/restaurants/${id}/reviews`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
@@ -451,6 +461,29 @@ export const getReviewsForRestaurantThunk = (id) => async (dispatch) => {
         return errors;
     }
 };
+//----------------------------------------------------------------------------------------
+// Get Images of a restaurant by id
+
+export const getRestaurantImagesThunk = (id) => async (dispatch) => {
+    
+    try {
+        const response = await csrfFetch(`/api/restaurants/${id}/images`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(getRestaurantImages(data));
+            return data;
+        } else {
+            throw response;
+        }
+    } catch (e) {
+        const errors = e.json();
+        return errors;
+    }
+};
 
 //----------------------------------------------------------------------------------------
 // Get Holidays of a restaurant by id
@@ -458,7 +491,7 @@ export const getReviewsForRestaurantThunk = (id) => async (dispatch) => {
 export const getHolidaysForRestaurantThunk = (id) => async (dispatch) => {
     
     try {
-        const response = await fetch(`/api/restaurants/${id}/holidays`, {
+        const response = await csrfFetch(`/api/restaurants/${id}/holidays`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
@@ -657,6 +690,20 @@ const restaurantsReducer = (state = initialState, action) => {
                 }
             }
             newState.restaurants_arr = newArr; 
+        }
+        
+        case GET_RESTAURANT_IMAGES: {
+            let newArr = [...newState.restaurants_arr];
+            console.log("....action.payload...", action.payload)
+            for(let i = 0; i < newState.restaurants_arr.length; i++){
+                let currRestaurant = newArr[i];
+                if(currRestaurant.id === action.payload.id){
+                    newArr[i] = {...newArr[i], RestaurantImages: [action.payload.RestaurantImages]}
+                }
+            }
+            newState.restaurants_arr = newArr;
+
+            newState.byId[action.payload.id] = {...newState.byId[action.payload.id], RestaurantImages: [action.payload.RestaurantImages]}   
         }
 
         case DELETE_RESTAURANT: {

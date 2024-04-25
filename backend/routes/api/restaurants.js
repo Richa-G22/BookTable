@@ -168,17 +168,17 @@ router.get("/", async (req, res) => {
                 include: [
                     {
                         model: ReviewImage,
-                        attributes: ['reviewId','reviewUrl']   
+                        attributes: ['id','reviewId','reviewUrl']   
                     },
                     {
                         model: User,
-                        attributes: ['firstName', 'lastName', 'profileImg']
+                        attributes: ['id','firstName', 'lastName', 'profileImg']
                     }
                 ] ,
             },    
             {
                 model: RestaurantImage,
-                attributes: ['restaurantId','restaurantUrl'],  
+                attributes: ['id','restaurantId','restaurantUrl'],  
                 //attributes: [],  
             },{
                 model: Holiday,
@@ -191,7 +191,7 @@ router.get("/", async (req, res) => {
                 //[sequelize.col('RestaurantImages.restaurantUrl'), 'previewImage'],
             ]
         },
-        group: ['Restaurant.id','RestaurantImages.restaurantUrl','Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
+        group: ['Restaurant.id','RestaurantImages.id','Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
     });
     
     const restaurantList = [];
@@ -242,16 +242,16 @@ router.get("/current", requireAuth, async (req, res) => {
                 include: [
                     {
                         model: ReviewImage,
-                        attributes: ['reviewId','reviewUrl']   
+                        attributes: ['id','reviewId','reviewUrl']   
                     },
                     {
                         model: User,
-                        attributes: ['firstName', 'lastName', 'profileImg']
+                        attributes: ['id','firstName', 'lastName', 'profileImg']
                     }
                 ] ,
             }, {
                 model: RestaurantImage,
-                attributes: ['restaurantUrl'],   
+                attributes: ['id','restaurantUrl','restaurantId'],   
             },{
                 model: Holiday,
                 attributes: ['id','occasion']
@@ -262,7 +262,7 @@ router.get("/current", requireAuth, async (req, res) => {
                 [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
             ]
         },
-        group: ['Restaurant.id', 'RestaurantImages.restaurantUrl', 'Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
+        group: ['Restaurant.id', 'RestaurantImages.id', 'Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
         
     });
     
@@ -299,11 +299,11 @@ router.get("/:restaurantId", async (req, res) => {
                 include: [
                     {
                         model: ReviewImage,
-                        attributes: ['reviewId','reviewUrl']   
+                        attributes: ['id','reviewId','reviewUrl']   
                     },
                     {
                         model: User,
-                        attributes: ['firstName', 'lastName', 'profileImg']
+                        attributes: ['id','firstName', 'lastName', 'profileImg']
                     }
                 ],
             },
@@ -920,7 +920,7 @@ router.get("/:restaurantId", async (req, res) => {
                     restaurantId : req.params.restaurantId
                 }
             })
-            console.log('######',allOpenSlots);
+            console.log('###all Open slots###',allOpenSlots);
         
             for ( let i = 0; i < allOpenSlots.length; i++) {
                     const bookingObj = {};

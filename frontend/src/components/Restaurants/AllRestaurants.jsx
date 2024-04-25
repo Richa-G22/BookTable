@@ -8,14 +8,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 const AllRestaurants = () => {
 
     const currentUser = useSelector((state) => state.session.user);
+    console.log("....cyrrent user.....", currentUser)
     const restaurants = useSelector((state) => state.restaurants.restaurants_arr);
-    console.log("######", restaurants);
-    console.log("typeof ", typeof restaurants);
+    console.log("###restaurants in state###", restaurants);
+    console.log("typeof restaurants", typeof restaurants);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
     useEffect(() => {
+        
         const getRestaurants = async () => {
             dispatch(getAllRestaurantsThunk());
         };

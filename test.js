@@ -1314,4 +1314,353 @@ function DeletePhotoModal({albumId, photoId, setDeleteMode}) {
 }
 
 export default DeletePhotoModal;
+
+
+
+import Cookies from 'js-cookie';
+
+export async function csrfFetch(url, options = {}) {
+  // set options.method to 'GET' if there is no method
+  options.method = options.method || 'GET';
+  // set options.headers to an empty object if there is no headers
+  options.headers = options.headers || {};
+
+  // if the options.method is not 'GET', then set the "Content-Type" header to
+  // "application/json", and set the "XSRF-TOKEN" header to the value of the
+  // "XSRF-TOKEN" cookie
+  if (options.method.toUpperCase() !== 'GET') {
+    options.headers['Content-Type'] =
+      options.headers['Content-Type'] || 'application/json';
+    options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
+  }
+  // call the default window's fetch with the url and the options passed in
+  const res = await window.fetch(url, options);
+
+  // if the response status code is 400 or above, then throw an error with the
+  // error being the response
+  if (res.status >= 400) throw res;
+
+  // if the response status code is under 400, then return the response to the
+  // next promise chain
+  return res;
+}
+
+  // call this to get the "XSRF-TOKEN" cookie, should only be used in development
+  
+    export function restoreCSRF() {
+            return csrfFetch('/api/csrf/restore');
+    }
+
+
+    const express = require('express');
+const bcrypt = require('bcryptjs');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { User } = require('../../db/models');
+
+const router = express.Router();
+
+const validateSignup = [
+    check('firstName')
+      .not()
+      .isEmpty()
+      .withMessage('First Name is required'),
+    check('lastName')
+      .not()
+      .isEmpty()
+      .withMessage('Last Name is required'),
+    check('email')
+      .exists({ checkFalsy: true })
+      .isEmail()
+      .withMessage('Please provide a valid email.'),
+    check('email')
+      .not()
+      .isEmpty()
+     // .withMessage('Email or username is required'),
+     .withMessage('Invalid email'),
+    check('username')
+      .exists({ checkFalsy: true })
+      .isLength({ min: 4 })
+      .withMessage('Please provide a username with at least 4 characters.'),
+    check('username')
+      .not()
+      .isEmail()
+      .withMessage('Username cannot be an email.'),
+    check('username')
+      .not()
+      .isEmpty()
+      .withMessage('Username is required'),
+    check('password')
+      .exists({ checkFalsy: true })
+      .isLength({ min: 6 })
+      .withMessage('Password is required.'),
+    handleValidationErrors
+  ];
+
+router.post(
+    '/',
+    validateSignup,
+    async (req, res, next) => {
+      const { email, firstName, lastName, password, username } = req.body;
+      const hashedPassword = bcrypt.hashSync(password);
+
+      //Added to check if email already exists 
+      const emailExists = await User.findOne({ where: { email: email } });
+      if ( emailExists ) {
+        const err = new Error("User already exists");
+        err.status = 500;
+        err.errors = { email: 'User with that email already exists' };
+        return next(err);
+      };
+
+      //Added to check if username already exists
+      const userExists = await User.findOne({ where: { username: username } });
+      if ( userExists ) {
+        const err = new Error("User already exists");
+        err.status = 500;
+        err.errors = { username: 'User with that username already exists' };
+        return next(err);
+      };
+      //
+
+      const user = await User.create({ firstName, lastName, email, username, hashedPassword });
+  
+      const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+      };
+  
+      await setTokenCookie(res, safeUser);
+  
+      return res.json({
+        user: safeUser
+      });
+    }
+  );
+
+module.exports = router;
+
+
+// backend/routes/api/index.js
+const router = require('express').Router();
+const sessionRouter = require('./session.js');
+const usersRouter = require('./users.js');
+const spotsRouter = require('./spots.js');
+const bookingsRouter = require('./bookings.js');
+const reviewsRouter = require('./reviews.js');
+const spotImagesRouter = require('./spot-images.js');
+const reviewImagesRouter = require('./review-images.js');
+const { restoreUser } = require("../../utils/auth.js");
+
+// Connect restoreUser middleware to the API router
+  // If current user session is valid, set req.user to the user in the database
+  // If current user session is not valid, set req.user to null
+router.use(restoreUser);
+
+router.use('/session', sessionRouter);
+
+router.use('/users', usersRouter);
+router.use('/spots', spotsRouter);
+router.use('/bookings', bookingsRouter);
+router.use('/reviews', reviewsRouter);
+router.use('/spot-images', spotImagesRouter);
+router.use('/review-images', reviewImagesRouter);
+
+router.post('/test', (req, res) => {
+  res.json({ requestBody: req.body });
+});
+
+module.exports = router;
+
+
+
+// backend/utils/auth.js
+const jwt = require('jsonwebtoken');
+const { jwtConfig } = require('../config');
+const { User } = require('../db/models');
+
+const { secret, expiresIn } = jwtConfig;
+
+const setTokenCookie = (res, user) => {
+    // Create the token.
+    const safeUser = {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+    };
+    const token = jwt.sign(
+      { data: safeUser },
+      secret,
+      { expiresIn: parseInt(expiresIn) } // 604,800 seconds = 1 week
+    );
+  
+    const isProduction = process.env.NODE_ENV === "production";
+  
+    // Set the token cookie
+    res.cookie('token', token, {
+      maxAge: expiresIn * 1000, // maxAge in milliseconds
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction && "Lax"
+    });
+  
+    return token;
+  };
+
+  const restoreUser = (req, res, next) => {
+    // token parsed from cookies
+    const { token } = req.cookies;
+    req.user = null;
+  
+    return jwt.verify(token, secret, null, async (err, jwtPayload) => {
+      if (err) {
+        return next();
+      }
+  
+      try {
+        const { id } = jwtPayload.data;
+        req.user = await User.findByPk(id, {
+          attributes: {
+            include: ['email', 'createdAt', 'updatedAt']
+          }
+        });
+      } catch (e) {
+        res.clearCookie('token');
+        return next();
+      }
+  
+      if (!req.user) res.clearCookie('token');
+  
+      return next();
+    });
+  };
+
+  const requireAuth = function (req, _res, next) {
+    if (req.user) return next();
+  
+    /*const err = new Error('Authentication required');
+    err.title = 'Authentication required';
+    err.errors = { message: 'Authentication required' };
+    err.status = 401;
+    return next(err);*/
+    return _res.status(401).json({ message: 'Authentication required' });
+  }
+
+  module.exports = { setTokenCookie, restoreUser, requireAuth };
+
+
+
+  import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import * as sessionActions from './store/session';
+import Spots from "./components/Spots";
+import AllSpots from "./components/AllSpots"; 
+import DetailedSpot from "./components/DetailedSpot";
+import NewSpot from "./components/NewSpot";
+import UpdateSpot from "./components/UpdateSpot"
+
+function Layout() {
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => {
+      setIsLoaded(true)
+    });
+  }, [dispatch]);
+
+  return (
+    <>
+      <Navigation isLoaded={isLoaded} />
+      {isLoaded && <Outlet />}
+    </>
+  );
+}
+
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <AllSpots />
+      },
+      {
+        path: '/spots/current',
+        element: <Spots />
+      },
+      {
+        path: '/spots/:spotId',
+        element: <DetailedSpot />
+      },
+      {
+        path: '/spots/new',
+        element: <NewSpot />
+      },
+      {
+        path: '/spots/:spotId/edit',
+        element: <UpdateSpot />
+      },
+    ]
+  }
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+
+
+
+// backend/routes/index.js
+const express = require('express');
+const router = express.Router();
+const apiRouter = require('./api');
+
+router.use('/api', apiRouter);
+
+// Static routes
+// Serve React build files in production
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  // Serve the frontend's index.html file at the root route
+  router.get('/', (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.sendFile(
+      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
+    );
+  });
+
+  // Serve the static assets in the frontend's build folder
+  router.use(express.static(path.resolve("../frontend/dist")));
+
+  // Serve the frontend's index.html file at all other routes NOT starting with /api
+  router.get(/^(?!\/?api).*/, (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.sendFile(
+      path.resolve(__dirname, '../../frontend', 'dist', 'index.html')
+    );
+  });
+}
+
+// Add a XSRF-TOKEN cookie in development
+if (process.env.NODE_ENV !== 'production') {
+  router.get("/api/csrf/restore", (req, res) => {
+    const csrfToken = req.csrfToken();
+    res.cookie("XSRF-TOKEN", csrfToken);
+    res.status(200).json({
+      'XSRF-Token': csrfToken
+    });
+  });
+}
+
+module.exports = router;
+        
         

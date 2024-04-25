@@ -191,7 +191,7 @@ router.get("/", async (req, res) => {
                 //[sequelize.col('RestaurantImages.restaurantUrl'), 'previewImage'],
             ]
         },
-        group: ['Restaurant.id','RestaurantImages.restaurantUrl','Holidays.id','Reviews.id']
+        group: ['Restaurant.id','RestaurantImages.restaurantUrl','Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
     });
     
     const restaurantList = [];
@@ -262,7 +262,7 @@ router.get("/current", requireAuth, async (req, res) => {
                 [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
             ]
         },
-        group: ['Restaurant.id', 'RestaurantImages.restaurantUrl', 'Holidays.id']
+        group: ['Restaurant.id', 'RestaurantImages.restaurantUrl', 'Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
         
     });
     
@@ -326,7 +326,7 @@ router.get("/:restaurantId", async (req, res) => {
                     [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
                 ],
             },
-            group: ['Restaurant.id', 'RestaurantImages.id', 'Holidays.id','MenuDishes.id','Reviews.id'],
+            group: ['Restaurant.id', 'RestaurantImages.id', 'Holidays.id','MenuDishes.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id'],
             //group: ['Restaurant.id'],
             
         });

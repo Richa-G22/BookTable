@@ -200,10 +200,10 @@ router.get("/", async (req, res) => {
         if (restaurantJson['avgRating'] === null) {
             restaurantJson['avgRating'] = 0
         } 
-        restaurantJson['avgRating'] = Number(restaurantJson['avgRating'].toFixed(2))
-        if ( restaurantJson['previewImage'] === null ) {
-            restaurantJson['previewImage'] = "no image found"
-        }
+        // restaurantJson['avgRating'] = Number(restaurantJson['avgRating'].toFixed(2))
+        // if ( restaurantJson['previewImage'] === null ) {
+        //     restaurantJson['previewImage'] = "no image found"
+        // }
         restaurantList.push(restaurantJson)
     });
     
@@ -273,9 +273,9 @@ router.get("/current", requireAuth, async (req, res) => {
         if (restaurantJson['avgRating']) {
             restaurantJson['avgRating'] = parseFloat(restaurantJson['avgRating'])
         };
-        if ( restaurantJson['previewImage'] === null ) {
-            restaurantJson['previewImage'] = "no image found"
-        }
+        // if ( restaurantJson['previewImage'] === null ) {
+        //     restaurantJson['previewImage'] = "no image found"
+        // }
         restaurantList.push(restaurantJson)
         
     });

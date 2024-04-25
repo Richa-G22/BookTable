@@ -224,15 +224,17 @@ export const getAllRestaurantsThunk = () => async (dispatch) => {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
-
+        console.log("....response in thunk after accessing database", response)
         if (response.ok) {
             const data = await response.json();
+            console.log("data before dispatch", data)
             dispatch(getAllRestaurants(data));
             return data;
         } else {
             throw response;
         }
     } catch (e) {
+        console.log("...error in catch..", e)
         const errors = e.json();
         return errors;
     }

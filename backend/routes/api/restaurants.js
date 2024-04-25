@@ -183,7 +183,7 @@ router.get("/", async (req, res) => {
             },{
                 model: Holiday,
                 attributes: ['id','occasion']
-            }
+            },
         ],
         attributes: {
             include: [
@@ -191,7 +191,7 @@ router.get("/", async (req, res) => {
                 //[sequelize.col('RestaurantImages.restaurantUrl'), 'previewImage'],
             ]
         },
-        group: ['Restaurant.id','RestaurantImages.restaurantUrl','Holidays.id']
+        group: ['Restaurant.id','RestaurantImages.restaurantUrl','Holidays.id','Reviews.id']
     });
     
     const restaurantList = [];
@@ -610,7 +610,7 @@ router.get("/:restaurantId", async (req, res) => {
             include: [
                 {
                     model: User,
-                    attributes: ["id", "firstName", "lastName"] 
+                    attributes: ["id", "firstName", "lastName", "profileImg"] 
             }, {
                     model: ReviewImage,
                     attributes: ['id','reviewUrl'],  
@@ -691,17 +691,45 @@ router.get("/:restaurantId", async (req, res) => {
             review,
             stars,
         });
-        
-        const revRes = {};
-        revRes.id = newReview.id;
-        revRes.userId = newReview.userId;
-        revRes.restaurantId = newReview.restaurantId;
-        revRes.review = newReview.review;
-        revRes.stars = newReview.stars;
-        revRes.createdAt = newReview.createdAt;
-        revRes.updatedAt = newReview.updatedAt;
 
-        return res.json(revRes, res.status);
+
+        const reviews = await Review.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "firstName", "lastName", "profileImg"] 
+            }, {
+                    model: ReviewImage,
+                    attributes: ['id','reviewUrl'],  
+            }],
+            where: {
+                    restaurantId: req.params.restaurantId
+            },   
+        });
+
+        //for ( let i = 0 ; i < reviews.length ; i++) {
+        //    reviews[i] .id = newReview.id;
+        //    reviews[i] .userId = newReview.userId;
+        //    reviews[i] .restaurantId = newReview.restaurantId;
+        //    reviews[i] .review = newReview.review;
+        //    reviews[i] .stars = newReview.stars;
+        //    reviews[i] .createdAt = newReview.createdAt;
+        //    reviews[i] .updatedAt = newReview.updatedAt;
+        //}
+
+        //return res.json({"Reviews": reviews});    
+        
+        //const revRes = {};
+        //revRes.id = newReview.id;
+        //revRes.userId = newReview.userId;
+        //revRes.restaurantId = newReview.restaurantId;
+        //revRes.review = newReview.review;
+        //revRes.stars = newReview.stars;
+        //revRes.createdAt = newReview.createdAt;
+        //revRes.updatedAt = newReview.updatedAt;
+
+        //return res.json(revRes, res.status);
+        return res.json({"Reviews": reviews});
     });
 
 
@@ -802,11 +830,60 @@ router.get("/:restaurantId", async (req, res) => {
         }    
     );
 
+    //-----------------------------------------------------------------------------------------------------------------------
+    // // Get all current user Bookings 
+
+    // router.get("/:restaurantId/bookings/:bookingDate", requireAuth, async (req, res) => {
+
+    //     const restaurant = await Restaurant.findByPk(req.params.restaurantId);
+
+    //     if (!restaurant) {
+    //         const err = new Error("Restaurant couldn't be found");
+    //         err.status = 404;
+    //         return res.json({ message: "Restaurant couldn't be found" }, err.status);
+    //     };
+        
+    //         const bookings =  await Booking.findAll({
+           
+    //             where: {
+    //                     restaurantId: req.params.restaurantId,   
+    //                     bookingDate: req.params.bookingDate     
+    //             },   
+    //     })
+
+    //     console.log("$$$$$$$", bookings);
+    //     const bookingList = []; 
+    //     if ( bookings ) {
+    //         for ( let index = 0; index < bookings.length ; index++ ) {
+    //             let slot_id = bookings[index].dataValues.slotId
+    //             console.log("slotId $$$", slot_id)
+    //             const slotDetails = await Slot.findByPk(slot_id)
+    //             console.log('******', slotDetails);
+    //             const bookingObj = {};
+    //             bookingObj.id = bookings[index].dataValues.id;
+    //             bookingObj.userId = bookings[index].dataValues.userId;
+    //             bookingObj.bookingDate = req.params.bookingDate;
+    //             bookingObj.restaurantId = slotDetails.restaurantId;
+    //             bookingObj.slotId = bookings[index].dataValues.slotId;
+    //             bookingObj.slotStartTime = slotDetails.slotStartTime;
+    //             bookingObj.slotDuration = slotDetails.slotDuration;
+    //             bookingObj.tableCapacity = slotDetails.tableCapacity;
+    //             bookingObj.tableNum = slotDetails.tableNum;
+    //             bookingList.push(bookingObj)
+    //         }
+    //     } else {
+    //         return res.json({ message: "No bookings have been made for the restaurant." }); 
+    //     } 
+            
+    //         return res.json({"Bookings": bookingList})
+    //     }    
+    // );
+
 
     //-----------------------------------------------------------------------------------------------------------------------
     // Get all open Slots for a Restaurant based on the Restaurant's id and booking date
 
-    router.get("/:restaurantId/bookings/:bookingDate/slots", requireAuth, async (req, res) => {
+    router.get("/:restaurantId/slots/:bookingDate", requireAuth, async (req, res) => {
 
         const restaurant = await Restaurant.findByPk(req.params.restaurantId);
 
@@ -861,7 +938,7 @@ router.get("/:restaurantId", async (req, res) => {
             return res.json({ message: "No bookings have been made for the restaurant." }); 
         } 
             
-            return res.json({"Bookings": bookingList})
+            return res.json({"OpenSlots": bookingList})
         }    
     );
 
@@ -871,6 +948,7 @@ router.get("/:restaurantId", async (req, res) => {
     router.post("/:restaurantId/:slotId", requireAuth, async (req, res) => {
         const restaurantId  = req.params.restaurantId;
         const restaurant = await Restaurant.findByPk(restaurantId);
+        const { bookingDate } = req.body;    
 
         if (!restaurant) {
             const err = new Error("Restaurant couldn't be found");
@@ -881,7 +959,8 @@ router.get("/:restaurantId", async (req, res) => {
         const booking = await Booking.findOne({
             where: {    
                 restaurantId: req.params.restaurantId,
-                slotId: req.params.slotId
+                slotId: req.params.slotId,
+                bookingDate: bookingDate
             }
         });
         console.log('@@@@@@', booking);
@@ -893,7 +972,6 @@ router.get("/:restaurantId", async (req, res) => {
         }
 
         res.status = 201;
-        const { bookingDate } = req.body;    
         
         const newBooking = await Booking.create({ 
             restaurantId: req.params.restaurantId,
@@ -911,7 +989,7 @@ router.get("/:restaurantId", async (req, res) => {
         bookingObj.createdAt = newBooking.createdAt;
         bookingObj.updatedAt = newBooking.updatedAt;
 
-        return res.json(bookingObj, res.status);
+        return res.json({"Bookings": bookingObj}, res.status);
     });
 
     //-----------------------------------------------------------------------------------------------------------------------
@@ -950,6 +1028,37 @@ router.get("/:restaurantId", async (req, res) => {
         await existingReview.save();
         return res.json( existingReview );
     });
+
+//-----------------------------------------------------------------------------------------------------------------------
+// Delete a Review for a particular restaurant
+
+router.delete('/:restaurantId/reviews/:reviewId', requireAuth, async (req, res, next) => {
+    const restaurantId  = req.params.restaurantId;
+    const restaurant = await Restaurant.findByPk(restaurantId);
+    if (!restaurant) {
+        const err = new Error("Restaurant couldn't be found");
+        err.status = 404;
+        return res.json({ message: "Restaurant couldn't be found" }, err.status);
+    };
+
+    const deleteReview = await Review.findByPk(req.params.reviewId);
+    
+    if (!deleteReview) {
+        const err = new Error("Review couldn't be found");
+        err.status = 404;
+        return res.json({ message: "Review couldn't be found" }, err.status);
+    };
+    
+    if (parseInt(deleteReview.userId) !== parseInt(req.user.id)) {
+        const err = new Error("Forbidden");
+        err.status = 403;
+        return res.json({ message: "Forbidden" }, err.status); 
+    };
+    
+    await deleteReview.destroy();
+    return res.json({ message: "Successfully deleted" });
+})
+
 
 //-----------------------------------------------------------------------------------------------------------------------
 // Get all MenuDishes of a restaurant by Restaurant's id

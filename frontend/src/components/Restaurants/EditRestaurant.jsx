@@ -32,12 +32,18 @@ const EditRestaurant = () => {
     const [dressCode, setDressCode] = useState(currentRestaurant? currentRestaurant.dressCode : dressCode);
     const [executiveChef, setExecutiveChef] = useState(currentRestaurant? currentRestaurant.executiveChef : executiveChef);
     const [menuUrl, setMenuUrl] = useState(currentRestaurant? currentRestaurant.menuUrl : menuUrl);
-    const [image1, setImage1] = useState(currentRestaurant.RestaurantImages[0]? currentRestaurant.RestaurantImages[0].restaurantUrl : "");
-    const [image2, setImage2] = useState(currentRestaurant.RestaurantImages[1]? currentRestaurant.RestaurantImages[1].restaurantUrl : "");
-    const [image3, setImage3] = useState(currentRestaurant.RestaurantImages[2]? currentRestaurant.RestaurantImages[2].restaurantUrl : "");
-    const [image4, setImage4] = useState(currentRestaurant.RestaurantImages[3]? currentRestaurant.RestaurantImages[3].restaurantUrl : "");
-    const [image5, setImage5] = useState(currentRestaurant.RestaurantImages[4]? currentRestaurant.RestaurantImages[4].restaurantUrl : "");
-    const [image6, setImage6] = useState(currentRestaurant.RestaurantImages[5]? currentRestaurant.RestaurantImages[5].restaurantUrl : "");
+    // const [image1, setImage1] = useState(currentRestaurant.RestaurantImages[0]? currentRestaurant.RestaurantImages[0].restaurantUrl : "");
+    // const [image2, setImage2] = useState(currentRestaurant.RestaurantImages[1]? currentRestaurant.RestaurantImages[1].restaurantUrl : "");
+    // const [image3, setImage3] = useState(currentRestaurant.RestaurantImages[2]? currentRestaurant.RestaurantImages[2].restaurantUrl : "");
+    // const [image4, setImage4] = useState(currentRestaurant.RestaurantImages[3]? currentRestaurant.RestaurantImages[3].restaurantUrl : "");
+    // const [image5, setImage5] = useState(currentRestaurant.RestaurantImages[4]? currentRestaurant.RestaurantImages[4].restaurantUrl : "");
+    // const [image6, setImage6] = useState(currentRestaurant.RestaurantImages[5]? currentRestaurant.RestaurantImages[5].restaurantUrl : "");
+    // const [image1, setImage1] = useState(currentRestaurant? currentRestaurant.RestaurantImages[0].restaurantUrl : "");
+    // const [image2, setImage2] = useState(currentRestaurant? currentRestaurant.RestaurantImages[1].restaurantUrl : "");
+    // const [image3, setImage3] = useState(currentRestaurant? currentRestaurant.RestaurantImages[2].restaurantUrl : "");
+    // const [image4, setImage4] = useState(currentRestaurant? currentRestaurant.RestaurantImages[3].restaurantUrl : "");
+    // const [image5, setImage5] = useState(currentRestaurant? currentRestaurant.RestaurantImages[4].restaurantUrl : "");
+    // const [image6, setImage6] = useState(currentRestaurant? currentRestaurant.RestaurantImages[5].restaurantUrl : "");
     const [occasion1, setOccasion1] = useState(currentRestaurant? currentRestaurant.occasion1 : occasion1);
     const [occasion2, setOccasion2] = useState(currentRestaurant? currentRestaurant.occasion2 : occasion2);
     const [occasion3, setOccasion3] = useState(currentRestaurant? currentRestaurant.occasion3 : occasion3);
@@ -57,10 +63,10 @@ const EditRestaurant = () => {
         return <h2>Restaurant to be edited not found!!</h2>
     }
 
-    console.log('..current restaurant...', currentRestaurant)
-    console.log("....images", currentRestaurant.RestaurantImages[0].restaurantUrl)
-    console.log("....images", currentRestaurant.RestaurantImages[1].restaurantUrl)
-    console.log("....images", currentRestaurant.RestaurantImages[2].restaurantUrl)
+    // console.log('..current restaurant...', currentRestaurant)
+    // console.log("....images", currentRestaurant.RestaurantImages[0].restaurantUrl)
+    // console.log("....images", currentRestaurant.RestaurantImages[1].restaurantUrl)
+    // console.log("....images", currentRestaurant.RestaurantImages[2].restaurantUrl)
    
 
     const validate = () => {
@@ -176,7 +182,7 @@ const EditRestaurant = () => {
             console.log('........executiveChef.....', executiveChef, foundError);
         }
 
-        if (locationMapUrl !== " ") {
+        if (locationMapUrl) {
             try {
                 new URL(locationMapUrl);
                 return true;
@@ -200,59 +206,59 @@ const EditRestaurant = () => {
             console.log('........menuUrl.....', menuUrl, foundError);
         }
 
-        if (
-            image1 && (
-                !image1.endsWith(".png") &&
-                !image1.endsWith(".jpg") &&
-                !image1.endsWith(".jpeg"))
-        ) {
-            setErrors((errors) => ({ ...errors, image1: "Image URL must end in .png, .jpg, or .jpeg" }));
-        }
+        // if (
+        //     image1 && (
+        //         !image1.endsWith(".png") &&
+        //         !image1.endsWith(".jpg") &&
+        //         !image1.endsWith(".jpeg"))
+        // ) {
+        //     setErrors((errors) => ({ ...errors, image1: "Image URL must end in .png, .jpg, or .jpeg" }));
+        // }
 
-        if (
-            image2 && (
-                !image2.endsWith(".png") &&
-                !image2.endsWith(".jpg") &&
-                !image2.endsWith(".jpeg"))
-        ) {
-            setErrors((errors) => ({ ...errors, image2: "Image URL must end in .png, .jpg, or .jpeg" }));
-        }
+        // if (
+        //     image2 && (
+        //         !image2.endsWith(".png") &&
+        //         !image2.endsWith(".jpg") &&
+        //         !image2.endsWith(".jpeg"))
+        // ) {
+        //     setErrors((errors) => ({ ...errors, image2: "Image URL must end in .png, .jpg, or .jpeg" }));
+        // }
 
-        if (
-            image3 && (
-                !image3.endsWith(".png") &&
-                !image3.endsWith(".jpg") &&
-                !image3.endsWith(".jpeg"))
-        ) {
-            setErrors((errors) => ({ ...errors, image3: "Image URL must end in .png, .jpg, or .jpeg" }));
-        }
+        // if (
+        //     image3 && (
+        //         !image3.endsWith(".png") &&
+        //         !image3.endsWith(".jpg") &&
+        //         !image3.endsWith(".jpeg"))
+        // ) {
+        //     setErrors((errors) => ({ ...errors, image3: "Image URL must end in .png, .jpg, or .jpeg" }));
+        // }
 
-        if (
-            image4 && (
-                !image4.endsWith(".png") &&
-                !image4.endsWith(".jpg") &&
-                !image4.endsWith(".jpeg"))
-        ) {
-            setErrors((errors) => ({ ...errors, image4: "Image URL must end in .png, .jpg, or .jpeg" }));
-        }
+        // if (
+        //     image4 && (
+        //         !image4.endsWith(".png") &&
+        //         !image4.endsWith(".jpg") &&
+        //         !image4.endsWith(".jpeg"))
+        // ) {
+        //     setErrors((errors) => ({ ...errors, image4: "Image URL must end in .png, .jpg, or .jpeg" }));
+        // }
 
-        if (
-            image5 && (
-                !image5.endsWith(".png") &&
-                !image5.endsWith(".jpg") &&
-                !image5.endsWith(".jpeg"))
-        ) {
-            setErrors((errors) => ({ ...errors, image4: "Image URL must end in .png, .jpg, or .jpeg" }));
-        }
+        // if (
+        //     image5 && (
+        //         !image5.endsWith(".png") &&
+        //         !image5.endsWith(".jpg") &&
+        //         !image5.endsWith(".jpeg"))
+        // ) {
+        //     setErrors((errors) => ({ ...errors, image4: "Image URL must end in .png, .jpg, or .jpeg" }));
+        // }
 
-        if (
-            image6 && (
-                !image6.endsWith(".png") &&
-                !image6.endsWith(".jpg") &&
-                !image6.endsWith(".jpeg"))
-        ) {
-            setErrors((errors) => ({ ...errors, image4: "Image URL must end in .png, .jpg, or .jpeg" }));
-        }
+        // if (
+        //     image6 && (
+        //         !image6.endsWith(".png") &&
+        //         !image6.endsWith(".jpg") &&
+        //         !image6.endsWith(".jpeg"))
+        // ) {
+        //     setErrors((errors) => ({ ...errors, image4: "Image URL must end in .png, .jpg, or .jpeg" }));
+        // }
     };
 
 const handleSubmit = async (e) => {
@@ -294,34 +300,34 @@ const handleSubmit = async (e) => {
             if (data.errors) {
                 setErrors((errors) => ({ ...errors, ...data.errors }));
         }
-        {
+        // {
             
-            if (image1) {
-                dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[0].id, { restaurantUrl: image1}));
-            }
+        //     if (currentRestaurant.RestaurantImages[0]) {
+        //         dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[0].id, { restaurantUrl: image1}));
+        //     }
 
-            if (image2) {
-                dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[1].id, { restaurantUrl: image2 }));
-            }
+        //     if (currentRestaurant.RestaurantImages[1]) {
+        //         dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[1].id, { restaurantUrl: image2 }));
+        //     }
 
-            if (image3) {
-                dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[2].id, { restaurantUrl: image3 }));
-            }
+        //     if (currentRestaurant.RestaurantImages[2]) {
+        //         dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[2].id, { restaurantUrl: image3 }));
+        //     }
 
-            if (image4) {
-                dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[3].id, { restaurantUrl: image4 }));
-            }
+        //     if (currentRestaurant.RestaurantImages[3]) {
+        //         dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[3].id, { restaurantUrl: image4 }));
+        //     }
 
-            if (image5) {
-                dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[4].id, { restaurantUrl: image5 }));
-            }
+        //     if (currentRestaurant.RestaurantImages[4]) {
+        //         dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[4].id, { restaurantUrl: image5 }));
+        //     }
 
-            if (image6) {
-                dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[5].id, { restaurantUrl: image6 }));
-            }
-        }
+        //     if (currentRestaurant.RestaurantImages[5]) {
+        //         dispatch(updateRestaurantImageThunk(currentRestaurant.id, currentRestaurant.RestaurantImages[5].id, { restaurantUrl: image6 }));
+        //     }
+        // }
     })
-    navigate('/restaurants/current')
+    //navigate('/restaurants/current')
     }} catch (error) {
         const data = await error.json();
         console.log('$$$$$$$$$$data', data)
@@ -641,7 +647,7 @@ return (
                 {errors.description && <p className="error">{errors.description}</p>}
             </div>
 
-            <div style={{paddingTop:"2em"}} className="inner-section-div">
+            {/* <div style={{paddingTop:"2em"}} className="inner-section-div">
                 <h3 className="section-h3">Liven up your Restaurant with photos of your specialities</h3>
                 <p className="section-p">
                     Submit a link to at least one photo to publish your Restaurant. Please dubmit .png, .jpg or .jpeg photos only.
@@ -792,7 +798,7 @@ return (
                         id="occasion5"
                     />
                 </div>
-            </div>
+            </div> */}
 
 
             <div className="submit-button-div">

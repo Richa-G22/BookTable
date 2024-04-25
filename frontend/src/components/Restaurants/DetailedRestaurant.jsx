@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
-import { detailedRestaurantThunk, getslotsbyidDateThunk } from "../../redux/restaurants";
+import { detailedRestaurantThunk, getslotsbyidDateThunk, addNewBookingThunk } from "../../redux/restaurants";
 import { useEffect, useState } from "react";
 import "./DetailedRestaurant.css";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import OpenReviewModalButton from "../OpenModalButton/OpenReviewModalButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DeleteReviewModal from "./DeleteReviewModal";
+import CreateReviewModal from "./CreateReviewModal";
 
 const DetailedRestaurant = () => {
     const dispatch = useDispatch();
@@ -13,24 +16,26 @@ const DetailedRestaurant = () => {
     let { restaurantId } = useParams();
     const id = parseInt(restaurantId);
     restaurantId = parseInt(restaurantId);
-   
+
     const sessionUser = useSelector((state) => state.session.user);
+    console.log(".....sessionUser.....", sessionUser)
     const currRestaurant = useSelector((state) => state.restaurants.byId[restaurantId]);
     console.log('.......currentRestaurant........', currRestaurant);
     const [isLoaded, setisLoaded] = useState(false);
-    const [isOpen, setIsOpen] = useState(false)
-    const showModal = () => setIsOpen(true)
-    // const [Cdate, setDate] = useState(new Date().toLocaleDateString('fr-FR'));
+    const [isOpen, setIsOpen] = useState(false);
+    const [updateMode, setUpdateMode] = useState(false);
+    const [createMode, setCreateMode] = useState(false);
+    const showModal = () => setIsOpen(true);
     const [date, setDate] = useState(new Date());
 
     useEffect(() => {
         const getData = async () => {
             await dispatch(detailedRestaurantThunk(restaurantId));
             setisLoaded(true);
+            setUpdateMode(true); 
+            setCreateMode(true); 
         };
-        // if (!currRestaurant) {
         getData();
-        // }
     }, [dispatch, restaurantId]);
 
 
@@ -44,6 +49,8 @@ const DetailedRestaurant = () => {
 
     const currentDate = new Date();
     let bookingDate = new Date();
+    let dateMDY = new Date();
+    let testDate = new Date();
     console.log('........CURRENT date.....', currentDate);
     // const validate = () => {
     //     console.log('.......inside validate........')
@@ -114,36 +121,104 @@ const DetailedRestaurant = () => {
                 {/* {currRestaurant.numReviews}{currRestaurant.numReviews > 1 ? " reviews" : " review"} */}
                 {/* </>
                 ) : (" ")}</span> */}
-                <div>{currRestaurant.Reviews.map((review) => (
+                {!currRestaurant.Reviews.length && sessionUser ?
                     <div>
-                        <div className="user-info" style={{ display: "flex" }}>
-                            <img style={{ height: "3em", width: "3em", borderRadius: "2em" }}
-                                src={review.User.profileImg} />
-                            <p style={{ fontWeight: "bold", paddingRight: "2rem", paddingLeft: "1em", color: "green" }}>
-                                {review.User.firstName} {review.User.lastName}
-                            </p>
-                            <span style={{ color: "rgb(141, 4, 4)" }}>
-                                {review.stars}
-                                <i style={{ paddingLeft: "0.25rem", paddingTop: "1rem", color: "rgb(141, 4, 4)" }} className="fa-solid fa-star"></i>
-                            </span>
+                    { sessionUser.id !== currRestaurant.ownerId ?   
+                        <div>
+                            <h4 style={{ paddingLeft: "1rem" }}>Be the first person to leave a review!!</h4>
                         </div>
-
-                        <div className="review" style={{ paddingBottom: "1.25em", fontSize: "1.10em" }}>{review.review}
-                        </div>
-
-                        {/* <div className="reviewImage"> {review.ReviewImages.map((reviewImage) => (
-                                <>
-                                    <img src={reviewImage.reviewUrl} />
-                                </>
-                            ))}
-                        </div> */}
-
-                        <div style={{ paddingBottom: "2em" }}>
-                            <img style={{ height: "12em", width: "12em", borderRadius: "0.75em" }} src={review.ReviewImages[0].reviewUrl} />
-                        </div>
+                    
+                    : 
+                        <div>
+                            <h4 style={{ paddingLeft: "1rem" }}>No reviews yet!!</h4>
+                        </div> 
+                    }  
                     </div>
-                ))}
-                </div>
+                : ""  
+                }
+                
+                {currRestaurant.Reviews.length ?
+                    <div>{currRestaurant.Reviews.map((review) => (
+                        <div>
+                            {console.log("...review...", review)};
+                            <div className="user-info" style={{ display: "flex" }}>
+                                <img style={{ height: "3em", width: "3em", borderRadius: "2em" }}
+                                    src={review.User.profileImg} />
+                                <p style={{ fontWeight: "bold", paddingRight: "2rem", paddingLeft: "1em", color: "green" }}>
+                                    {review.User.firstName} {review.User.lastName}
+                                </p>
+                                <span style={{ color: "rgb(141, 4, 4)" }}>
+                                    {review.stars}
+                                    <i style={{ paddingLeft: "0.25rem", paddingTop: "1rem", color: "rgb(141, 4, 4)" }} className="fa-solid fa-star"></i>
+                                </span>
+                            </div>
+
+                            <div className="review" style={{ paddingBottom: "1.25em", fontSize: "1.10em" }}>{review.review}
+                            </div>
+
+                            {review.ReviewImages.length ?
+                                <div style={{ paddingBottom: "0.5em" }} className="reviewImage">
+                                    {review.ReviewImages.map((reviewImage) => (
+                                        <>
+                                            <img style={{ height: "12em", width: "12em", borderRadius: "0.75em" }} src={reviewImage.reviewUrl} />
+                                        </>
+                                    ))}
+                                </div>
+                                : null
+                            }
+
+                            {sessionUser.id && review.userId == sessionUser.id ?
+                                <div className='upadte-delete' style={{ display: "flex", marginBottom: "0.50em", paddingBottom: "0px", paddingTop: "0.25rem" }}>
+                                    <span style={{ marginLeft: "0%", margin: '0px', paddingBottom: "0px", marginTop: "0.05em" }} className="Delete">
+                                        <OpenReviewModalButton
+                                            //    <i className="fa-solid fa-trash"></i> 
+                                            buttonText="- Delete "
+                                            modalComponent={
+                                                <DeleteReviewModal restaurantId={currRestaurant.id} 
+                                                                    reviewId={review.id}
+                                                                    setUpdateMode={setUpdateMode}  />
+                                            }
+                                        />
+                                    </span> &nbsp;
+                                    <span className="Edit">
+                                        <button style={{
+                                            backgroundColor: "rgb(141, 4, 4)", color: "white",
+                                            boxShadow: "5px 5px 5px black", height: "1.75em", width: "7em", cursor: "pointer",
+                                            position: "relative", marginRight: "30%", marginTop: "0.05em", marginLeft: "5%"
+                                        }}
+                                            onClick={() => navigate(`/restaurants/update/${restaurant.id}`)}>
+                                            <i className="fa-sharp fa-solid fa-pen"></i> &nbsp;Edit
+                                        </button> &nbsp;
+                                    </span>
+                                </div>
+                                : ""
+                            }
+                            {/* <div style={{ paddingBottom: "2em" }}>
+                            <img style={{ height: "12em", width: "12em", borderRadius: "0.75em" }} src={review.ReviewImages[0].reviewUrl} />
+                        </div> */}
+                        </div>
+                    ))}
+                    </div>
+                    : " "
+                }
+
+                {/* { sessionUser.id && sessionUser.id != currRestaurant.ownerId ? */}
+                { sessionUser.id  && sessionUser.id != currRestaurant.ownerId ?
+                <>
+                    <div style={{paddingTop:"10px"}}>
+                        <OpenModalButton 
+                            buttonText="Please Review"
+                            modalComponent={
+                                <CreateReviewModal restaurantId={currRestaurant.id}
+                                                   setCreateMode={setCreateMode} />
+                            }
+                        />
+                    </div>
+
+
+                </>
+                :""
+                }
             </div>
 
             <div style={{ paddingBottom: "2.5em", width: "67%", float: "right" }}>
@@ -160,43 +235,79 @@ const DetailedRestaurant = () => {
                             </label>
                         </form>
                     </div> */}
-                    {/* <DatePicker
-                        dateFormat="dd/MM/yyyy"
-                        value={Cdate}
-                        onChange={(date) => {
-                        const d = new Date(date).toLocaleDateString('fr-FR');
-                        console.log(d);
-                        setDate(d);
-                        }}
-                    /> */}
-                    {/* <form onSubmit={handleSubmit}> */}
-                        <div>
-                            <label style={{ fontSize: "1.15rem", marginRight: "0.75rem" }}>
-                                Select date to view available slots:
-                            </label>
-                            <DatePicker selected={date} onChange={(date) => setDate(date)} />
-                            {/* { bookingDate = new Date(date)} */}
-                            <div style={{ paddingTop: "1em" }}>
-                                <button
-                                    className="slots-button"
-                                    onClick={() => dispatch(getslotsbyidDateThunk(restaurantId, date))}    
-                                >
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-                    {/* </form> */}
-                    {console.log("......booking date....", date)}
-                    {sessionUser ?
-                        <div style={{ paddingTop: "48em", paddingBottom: "2.5em" }}>
-                            <button style={{ backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black", height: "3em", width: "8em", cursor: "pointer" }}>
-                                <NavLink style={{ textDecoration: "none", color: "white", paddingRight: "2em", paddingLeft: "1.5em", paddingTop: "1.5em", paddingBottom: "1.5em" }}
-                                    className="Manage" to="/restaurants/current">
-                                    Manage
-                                </NavLink>
+
+                    <div>
+                        <label style={{ fontSize: "1.15rem", marginRight: "0.75rem" }}>
+                            Select date to view available slots:
+                        </label>
+                        <DatePicker selected={date} onChange={(date) => setDate(date)} />
+
+                        <span style={{ color: "rgb(232, 229, 229)" }}>{bookingDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`}</span>
+                        <div style={{ paddingTop: "1em" }}>
+                            <button
+                                className="slots-button"
+                                onClick={() => dispatch(getslotsbyidDateThunk(restaurantId, bookingDate))}
+                            >
+                                Submit
                             </button>
                         </div>
+                    </div>
+                    {currRestaurant.OpenSlots ?
+                        <div style={{ paddingTop: "1em" }}>
+                            <div style={{ fontWeight: "bold", display: "flex", paddingBottom: "1em" }}>
+                                <div style={{ paddingRight: "1em" }}>Time</div>
+                                <div style={{ paddingRight: "1em" }}>Duration</div>
+                                <div>Capacity</div>
+                            </div>
+                            {currRestaurant.OpenSlots.map((slot) => (
+                                <>
+                                    <div style={{ display: "flex", paddingBottom: "1.50em" }}>
+                                        <div style={{ paddingRight: "1em" }}>{slot.slotStartTime}</div>
+                                        <div style={{ paddingRight: "3.5em" }}>{slot.slotDuration} min</div>
+                                        <div style={{ paddingRight: "1.5em" }}>{slot.tableCapacity}</div>
+
+                                        <button style={{ backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "3px 3px 3px black", height: "1.5em", width: "5em", cursor: "pointer" }}
+                                            onClick={() => dispatch(addNewBookingThunk(currRestaurant.id, slot.slotId, bookingDate)).then(() => alert("Slot Reserved"))} >
+                                            Reserve
+                                        </button>
+                                    </div>
+                                </>
+                            ))}
+                        </div>
                         : ""}
+                    {/* </form> */}
+                    {/* {console.log("......booking date....", date)} */}
+                    {/* {dateMDY = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`} */}
+                    {/* {dateMDY = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`} */}
+                    {/* {console.log(".....datemdy....", testDate)} */}
+                    {sessionUser ?
+                        <>
+                            <div style={{ display: "flex", paddingTop: "48em", paddingBottom: "2.5em" }}>
+                                <button style={{
+                                    backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black", height: "3em",
+                                    width: "8em", cursor: "pointer",
+                                    position: "relative", marginRight: "5%", marginTop: "0.09%", marginLeft: "20%", marginBottom: "1.90em"
+                                }}>
+                                    <NavLink style={{ textDecoration: "none", color: 'white' }}
+                                        to="/restaurants/new">Your Bookings
+                                    </NavLink>
+                                </button>
+                                <button style={{
+                                    backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black",
+                                    height: "3em", width: "8em", cursor: "pointer"
+                                }}>
+                                    <NavLink style={{
+                                        textDecoration: "none", color: "white", paddingRight: "2em", paddingLeft: "1.5em",
+                                        paddingTop: "1.5em", paddingBottom: "1.5em"
+                                    }}
+                                        className="Manage" to="/restaurants/current">
+                                        Manage
+                                    </NavLink>
+                                </button>
+                            </div>
+                        </>
+                        : ""
+                    }
                 </div>
 
                 <div style={{ width: "50%", float: "right" }}>
@@ -290,7 +401,7 @@ const DetailedRestaurant = () => {
                 </div>
             </div>
 
-            
+
         </div>
     )
 }

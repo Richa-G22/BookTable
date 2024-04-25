@@ -1,13 +1,13 @@
 import { getCurrUserOwnedRestaurantsThunk } from "../../redux/restaurants";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import "./GetCurrUserRestaurants.css";
+import "./AllCurrUserBookings.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import DeleteRestaurantModal from "./DeleteRestaurantModal";
+// import DeleteRestaurantModal from "./DeleteRestaurantModal";
 
 
-const GetCurrUserRestaurants = () => {
+const AllCurrUserBookings = () => {
 
     const user = useSelector((state) => state.session.user);
     const currentRestaurants = useSelector((state) => state.restaurants.restaurants_arr);
@@ -132,4 +132,4 @@ const GetCurrUserRestaurants = () => {
     );
 }
 
-export default GetCurrUserRestaurants;
+export default AllCurrUserBookings;

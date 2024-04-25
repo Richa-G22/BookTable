@@ -29,18 +29,26 @@ const AllRestaurants = () => {
 
     return (
         <div>
-            <div className="restaurants-grid" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+            <button style={{ backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black", height: "3em", 
+                    width:"8em",cursor: "pointer", 
+                    position: "relative", marginRight: "0%", marginTop: "1.9%", marginLeft: "93%", marginBottom: "1.90em" }}>
+                    <NavLink style={{ textDecoration: "none", color: 'white' }}
+                            to="/restaurants/new">Your Bookings
+                    </NavLink>
+            </button>
+
+            <div className="restaurants-grid" style={{ paddingTop: "1rem", paddingBottom: "5rem" }}>
                 {restaurants.map((restaurant) => (
                     <>
                         <div className="photos-div">
-                            <div className="title">
+                            <div style={{maxWidth: "60%", marginLeft: "20%"}} className="title">
                                 <p>{restaurant.name}</p>
                                 <i style={{ paddingLeft: "2rem", paddingTop: "1.5rem", color: "rgb(141, 4, 4)" }} className="fa-solid fa-star"></i>
                                 <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.5rem", color: "rgb(141, 4, 4)" }}>{restaurant.avgRating > 0 ? restaurant.avgRating.toFixed(1) : "New"}</span>
                                 <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.10rem", color: "olive" , fontFamily: "cursive" }}>{restaurant.avgRating > 4 ? "Trending Currently!!!" : ""}</span>
 
                             </div>
-                            <div className="photos">
+                            <div style={{maxWidth: "65%", marginLeft: "20%", paddingLeft: "2%"}} className="photos">
                                 <img className="photo-image"
                                     onClick={() => navigate(`/restaurants/${restaurant.id}`)}
                                     src={restaurant.RestaurantImages[0].restaurantUrl}

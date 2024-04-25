@@ -129,13 +129,17 @@ function ProfileButton() {
                   <div style={{position:"relative", zIndex: "1"}}>{user.email}</div>
               </div> */}
               <br></br><br></br><br></br>
-              <div style={{ display: "flex", alignContent: "center", justifyContent: "center", padding: "5px", borderBottom: "solid 2px", borderRight: "solid 2px", borderLeft: "solid 2px", paddingBottom: "0px" }} className="logout-button">
-                <button style={{ position: "absolute", zIndex: "1", borderRadius: "0.5rem", width: "70px", boxShadow: "2px 2px" }} onClick={logout}>Log Out</button>
+              <div  
+                    className="logout-button">
+                {/* <button style={{ position: "absolute", zIndex: "1", borderRadius: "0.5rem", width: "70px", boxShadow: "2px 2px" }}  */}
+                <button style={{position: "relative", marginLeft:"2rem",width: "5rem", height: "2rem", zIndex:"1", backgroundColor:"rgb(141,4,4)", color:"white", marginRight: "0px", paddingTop:"0px", marginTop:"0px"}} 
+                        onClick={logout}>Log Out
+                </button>
                
               </div>
             </>
           ) : (
-            <div style = {{paddingRight: "60px", display:"flex", alignContent:"center", justifyContent:"center", paddingTop:"5px"}}>
+            <div style = {{marginRight: "3rem", display:"flex", alignContent:"center", justifyContent:"center", paddingTop:"0.05rem"}}>
               <div>
               <OpenModalMenuItem
                 itemText="Log In"

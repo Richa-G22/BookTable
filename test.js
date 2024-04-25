@@ -612,4 +612,706 @@ const EditPhotos = () => {
 }
 
 export default EditPhotos;
+
+
+
+import { csrfFetch } from './csrf';
+
+//action types
+const SET_USER = "session/setUser";
+const REMOVE_USER = "session/removeUser";
+
+//action creators
+const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user
+  };
+};
+
+const removeUser = () => {
+  return {
+    type: REMOVE_USER
+  };
+};
+
+//login thunk action
+export const login = (user) => async (dispatch) => {
+  const { credential, password } = user;
+  const response = await csrfFetch("/api/session", {
+    method: "POST",
+    body: JSON.stringify({
+      credential,
+      password
+    })
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
+//restoreUser thunk action to retain the logged in session user
+export const restoreUser = () => async (dispatch) => {
+    const response = await csrfFetch("/api/session");
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
+};
+
+//signup thunk action
+export const signup = (user) => async (dispatch) => {
+    const { username, firstName, lastName, email, password } = user;
+    const response = await csrfFetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        firstName,
+        lastName,
+        email,
+        password
+      })
+    });
+    const data = await response.json();
+    console.log('.......inside thunk.....', data );
+    dispatch(setUser(data.user));
+    return response;
+};
+
+//logout thunk action
+export const logout = () => async (dispatch) => {
+    const response = await csrfFetch('/api/session', {
+      method: 'DELETE'
+    });
+    dispatch(removeUser());
+    return response;
+  };
+
+//initialState should not have any logged in user  
+const initialState = { user: null };
+
+//session Reducer
+const sessionReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_USER:
+      return { ...state, user: action.payload };
+    case REMOVE_USER:
+      return { ...state, user: null };
+    default:
+      return state;
+  }
+};
+
+export default sessionReducer;
+
+
+import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { thunkLogout } from "../../redux/session";
+import OpenModalMenuItem from "./OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
+import { resetFavThunk } from "../../redux/favorites";
+import { NavLink, useNavigate } from "react-router-dom";
+
+
+function ProfileButton() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
+  const user = useSelector((store) => store.session.user);
+  const ulRef = useRef();
+
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setShowMenu(!showMenu);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  const closeMenu = () => setShowMenu(false);
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(thunkLogout());
+    dispatch(resetFavThunk())
+    closeMenu();
+    navigate("/photos/");   //RG - to fix logging out on same screen
+  };
+
+  return (
+    <>
+      <button onClick={toggleMenu}>
+        {/* <i className="fas fa-user-circle" /> */}
+        <i className="fas fa-user" />
+      </button>
+
+      {showMenu && (
+        <div className={"profile-dropdown"} ref={ulRef}>
+          {user ? (
+            <>
+              {/* <li>
+                <NavLink to="/">Home</NavLink>
+              </li> */}
+
+              {/* <div style={{display: "flex",alignContent:"center", justifyContent:"center",flexDirection: "column",paddingBottom: "5px", paddingLeft: "5px", paddingRight: "5px", border: "solid 2px", borderTop: "solid 2px"}}>
+                  <div style={{position:"relative", zIndex: "1"}}>{user.username}</div>
+                  <div style={{position:"relative", zIndex: "1"}}>{user.email}</div>
+              </div> */}
+              <br></br><br></br><br></br>
+              <div style={{ display: "flex", alignContent: "center", justifyContent: "center", padding: "5px", borderBottom: "solid 2px", borderRight: "solid 2px", borderLeft: "solid 2px", paddingBottom: "0px" }} className="logout-button">
+                <button style={{ position: "absolute", zIndex: "1", borderRadius: "0.5rem", width: "70px", boxShadow: "2px 2px" }} onClick={logout}>Log Out</button>
+               
+              </div>
+            </>
+          ) : (
+            <div style = {{paddingRight: "60px", display:"flex", alignContent:"center", justifyContent:"center", paddingTop:"5px"}}>
+              <div>
+              <OpenModalMenuItem
+                itemText="Log In"
+                onItemClick={closeMenu}
+                modalComponent={<LoginFormModal />}
+              />
+              </div>
+              <div>
+              <OpenModalMenuItem
+                itemText="Sign Up"
+                onItemClick={closeMenu}
+                modalComponent={<SignupFormModal />}
+              />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+export default ProfileButton;
+
+
+.profile-dropdown {
+  position: absolute;
+  
+}
+
+.hidden {
+  display: none;
+}
+
+.logo-div {
+  display: flex;
+  align-items: center;
+  padding-left: 120px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  color:white;
+  font-size: 25px;
+  font-weight: bolder;
+
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 2px solid rgb(230, 224, 224);
+  text-decoration: none;
+  background-color: black;
+}
+
+.nav-footer {
+  position: fixed;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 10;
+  background-color: black;
+  width: 100%;
+  height: 40px;
+  
+}
+
+.profile-menu-button{
+  display: flex;
+  border-radius: 15px;
+  width: 65px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-new-album{
+  color: rgb(35, 35, 124);
+  font-size: 20px;
+}
+
+.bottom-menu{
+  display: flex;
+  border-bottom: 2px solid rgb(211, 208, 208);
+  /* height: 40px; */
+  height: 2.5em;
+  align-items:center;
+  padding-bottom: 2px;
+  box-sizing: border-box;
+}
+
+.menu{
+  display: flex;
+  color: white;
+}
+
+.logout-button {
+  border: 1px solid black;
+  border-radius: 50px;
+  font-size: 14px;
+  margin: 5px 0;
+  background-color: rgb(102, 100, 100);
+  cursor: pointer;
+  color: white;
+  padding: 7px;
+}
+
+.nav-image {
+  border-top: black 2px;
+  display: flex;
+  height: 300px;
+  width: 100%
+}
+
+.nav-background-image {
+  background-image: url("https://photofocus.com/photography/five-tips-to-photograph-cityscape-panoramas/attachment/killing-softly/");
+  border-top: black 2px;
+  display: flex;
+  height: 300px;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.footer-text {
+  color: rgb(223, 220, 220);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 12px;
+  font-family: serif;
+}
+
+.container {
+  display: flex;
+  align-items: last baseline;
+  justify-content: center;
+  padding-bottom: 20px;
+  padding-left: 45%;
+}
+
+.nav-links {
+  text-decoration: none;
+  padding-top: 2px;
+  color: black;
+}
+
+import { useModal } from '../../context/Modal';
+
+function OpenModalMenuItem({
+  modalComponent, // component to render inside the modal
+  itemText, // text of the button that opens the modal
+  onItemClick, // optional: callback function that will be called once the button that opens the modal is clicked
+  onModalClose // optional: callback function that will be called once the modal is closed
+}) {
+  const { setModalContent, setOnModalClose } = useModal();
+
+  const onClick = () => {
+    if (onModalClose) setOnModalClose(onModalClose);
+    setModalContent(modalComponent);
+    if (typeof onItemClick === "function") onItemClick();
+  };
+
+  return (
+    <button style={{borderRadius: "7px", width: "70px", height: "30px"}} onClick={onClick}>{itemText}</button>
+  );
+}
+
+export default OpenModalMenuItem;
+
+
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../context/Modal';
+import * as sessionActions from '../../store/session';
+import './SignupForm.css';
+
+
+function SignupFormModal() {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const { closeModal } = useModal();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === confirmPassword) {
+      setErrors({});
+      return dispatch(
+        sessionActions.signup({
+          email,
+          username,
+          firstName,
+          lastName,
+          password
+        })
+      )
+        .then(closeModal)
+        .catch(async (res) => {
+          const data = await res.json();
+          console.log('.......data.......', data);
+          if (data && data.errors) {
+            setErrors({...data.errors });
+            console.log('......data.errors....', data.errors);
+            console.log('.....email....', email);
+            console.log('.....username....', username);
+          //  setErrors(data.errors);
+          }
+        });
+    }
+    return setErrors({...errors,
+      confirmPassword: "Confirm Password field must be the same as the Password field"
+    });
+  };
+
+  return (
+    <>
+      <div>
+          <h1 className="sign-up">Sign Up</h1>
+      </div>
+    
+      {errors.firstName && <p className="error">{errors.firstName}</p>}
+      {errors.lastName && <p className="error">{errors.lastName}</p>}
+      {errors.email && <p className="error">{errors.email}</p>}
+      {errors.username && <p className="error">{errors.username}</p>}
+      {errors.password && <p className="error">{errors.password}</p>}
+      {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
+
+      <div className='input-fields-div'>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input className='input'
+            type="text"
+            placeholder='First Name'
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          /> 
+        </div>
+        <br></br>
+
+        <div>
+          <input className='input'
+            type="text"
+            placeholder='Last Name'
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          /> 
+        </div>
+        <br></br>
+        
+        <div>
+          <input className='input'
+            type="text"
+            placeholder='Email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          /> 
+        </div>
+        <br></br>
+
+        <div>
+          <input className='input'
+            type="text"
+            placeholder='Username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          /> 
+        </div>   
+        <br></br> 
+        
+        <div>
+          <input className='input'
+            type="password"
+            placeholder='Password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          /> 
+        </div>
+        <br></br>
+
+        <div>   
+          <input className='input'
+            type="password"
+            placeholder='Confirm Password'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          /> 
+        </div> 
+        <br></br> 
+        
+        <button className="sign-up-button" type="submit" disabled={
+          email.length === 0 || username.length < 4 ||
+          firstName.length === 0 || lastName.length === 0 ||
+          password.length < 6 || confirmPassword.length === 0
+        }>Sign Up</button> 
+       
+      </form>
+      </div>
+    </>
+  );
+}
+
+export default SignupFormModal;
+
+
+// backend/routes/api/session.js
+const express = require('express');
+const { Op } = require('sequelize');
+const bcrypt = require('bcryptjs');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+
+const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { User } = require('../../db/models');
+const router = express.Router();
+
+const validateLogin = [
+    check('credential')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+     // .withMessage('Please provide a valid email or username.'),
+     .withMessage('Email or username is required'), 
+    check('password')
+      .exists({ checkFalsy: true })
+     // .withMessage('Please provide a password.'),
+     .withMessage('Password is required'),
+    handleValidationErrors
+  ];
+
+router.post(
+    '/',
+    validateLogin,
+    async (req, res, next) => {
+      const { credential, password } = req.body;
+  
+      const user = await User.unscoped().findOne({
+        where: {
+          [Op.or]: {
+            username: credential,
+            email: credential
+          }
+        }
+      });
+  
+      if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
+        const err = new Error("Invalid credentials");
+        err.status = 401;
+        //res.message = "Invalid credentials"; 
+        //err.title = 'Login failed';
+        //res.title = "Invalid credentials";
+        //err.errors = { credential: 'The provided credentials were invalid.' };
+        //return res.json();
+        return res.json({ message: "Invalid credentials" }, err.status);
+        //return (err);
+      }
+  
+      const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+      };
+  
+      await setTokenCookie(res, safeUser);
+  
+      return res.json({
+        user: safeUser
+      });
+    }
+  );
+
+  router.delete(
+    '/',
+    (_req, res) => {
+      res.clearCookie('token');
+      return res.json({ message: 'success' });
+    }
+  );
+
+  router.get(
+    '/',
+    (req, res) => {
+      const { user } = req;
+      if (user) {
+        const safeUser = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          username: user.username,
+        };
+        return res.json({
+          user: safeUser
+        });
+      } else return res.json({ user: null });
+    }
+  );
+  
+module.exports = router;
+
+import { csrfFetch } from './csrf';
+
+//action types
+const SET_USER = "session/setUser";
+const REMOVE_USER = "session/removeUser";
+
+//action creators
+const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user
+  };
+};
+
+const removeUser = () => {
+  return {
+    type: REMOVE_USER
+  };
+};
+
+//login thunk action
+export const login = (user) => async (dispatch) => {
+  const { credential, password } = user;
+  const response = await csrfFetch("/api/session", {
+    method: "POST",
+    body: JSON.stringify({
+      credential,
+      password
+    })
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
+//restoreUser thunk action to retain the logged in session user
+export const restoreUser = () => async (dispatch) => {
+    const response = await csrfFetch("/api/session");
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
+};
+
+//signup thunk action
+export const signup = (user) => async (dispatch) => {
+    const { username, firstName, lastName, email, password } = user;
+    const response = await csrfFetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        firstName,
+        lastName,
+        email,
+        password
+      })
+    });
+    const data = await response.json();
+    console.log('.......inside thunk.....', data );
+    dispatch(setUser(data.user));
+    return response;
+};
+
+//logout thunk action
+export const logout = () => async (dispatch) => {
+    const response = await csrfFetch('/api/session', {
+      method: 'DELETE'
+    });
+    dispatch(removeUser());
+    return response;
+  };
+
+//initialState should not have any logged in user  
+const initialState = { user: null };
+
+//session Reducer
+const sessionReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_USER:
+      return { ...state, user: action.payload };
+    case REMOVE_USER:
+      return { ...state, user: null };
+    default:
+      return state;
+  }
+};
+
+export default sessionReducer;
+
+
+import { deletePhotoFromAlbumThunk } from '../../redux/albums';
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../context/Modal';
+import './DeletePhotoModal.css';
+
+function DeletePhotoModal({albumId, photoId, setDeleteMode}) {
+  console.log('......albumId inside deleteModal..albumId..',albumId, typeof(albumId));
+  console.log('......photoId inside deleteModal..photoId...',photoId, typeof(photoId));
+  const dispatch = useDispatch();
+  const { closeModal } = useModal();
+
+  const handleDelete = async () => {
+    await dispatch(deletePhotoFromAlbumThunk(albumId,photoId))
+    // setDeleteMode(false),
+    closeModal()
+  }
+
+  return (
+        <div className='main-div'>
+            <h2 style={{ marginBottom: 0, paddingBottom: "0px" }}>Confirm Delete</h2>
+            <p style={{ padding: "20px",paddingBottom: "0px",marginTop: 0, fontSize: "19px" }}>
+              Are you sure you want to remove this photo? </p>
+            <button className='yes-button' onClick={handleDelete} >Yes (Delete Photo)
+                    
+            </button>
+            <button className='no-button' onClick={() => closeModal()}>No (Keep Photo)
+            {/* <button className='no-button' onClick={() => setDeleteMode(false) .then(() => closeModal())}>No (Keep Photo) */}
+            
+            
+            </button><br></br>           
+        </div>   
+  )
+}
+
+export default DeletePhotoModal;
         

@@ -22,16 +22,16 @@ function Navigation() {
         <div  className="user">
           {sessionUser ?
             <>
-              <div style={{ position:"relative", paddingLeft:"45em", fontSize: "20px", color:"white", paddingTop:"4.2em", zIndex:"1"}}>
-                    Hello, {sessionUser.firstName}
+              <div style={{ position:"relative", marginLeft:"50em", fontSize: "20px", color:"white", paddingTop:"4.2em", zIndex:"1"}}>
+                    Hello, &nbsp;{sessionUser.firstName}
               </div>&nbsp;
               <div style={{ fontSize: "20px", justifyContent:"center", color:"white",paddingTop:"4em", zIndex:"1"}}>
                   {sessionUser.lastName}!
               </div>
               {/* <div style={{ fontSize: "20px", justifyContent:"center", fontStyle:"italic" }}>{sessionUser.email}</div> */}
             </>
-            :
-            <div style={{ paddingLeft:"50rem", fontSize: "20px", justifyContent:"center", fontFamily: "cursive" }}>Signup & Earn Rewards !!</div>
+            : ""
+            // <div style={{ paddingLeft:"50rem", fontSize: "20px", justifyContent:"center", fontFamily: "cursive" }}>Signup & Earn Rewards !!</div>
           }
         </div>
         <div className='menu'>

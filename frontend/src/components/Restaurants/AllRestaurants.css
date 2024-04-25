@@ -9,7 +9,7 @@ body {
     grid-template-columns: repeat(8, 1fr);
     /* padding-top: 40px;
     padding-bottom: 30px; */
-    /* max-width: 70%; */
+    /* max-width: 50%; */
     /* margin: auto; */
     grid-gap: 8px;
     padding-left: 5rem;
@@ -44,7 +44,7 @@ body {
 
 .photo-image {
     display: flex;
-    width: 14rem;
+    width: 18rem;
     height: 14rem;
     border-radius: 1rem; 
     cursor: pointer;

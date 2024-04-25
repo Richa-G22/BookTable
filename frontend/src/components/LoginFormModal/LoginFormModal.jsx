@@ -109,7 +109,7 @@ function LoginFormModal() {
   return (
     <>
       <div className="login-div">
-        <i className="fa-solid fa-utensils" style={{ color: "red", fontSize: "2em" }}></i>
+        <i className="fa-solid fa-utensils" style={{ color: "rgb(141,4,4)", fontSize: "2em" }}></i>
 
         <h1>Log in to BookTable </h1>
         <form className="login-form" onSubmit={handleSubmit}>
@@ -144,7 +144,7 @@ function LoginFormModal() {
           </button>
           <div className="demo-link">
             <p>
-              <a href="#" className="demo-user-link" onClick={handleDemoLogin}>
+              <a style={{color:"rgb(141,4,4)"}} href="#" className="demo-user-link" onClick={handleDemoLogin}>
                 Demo User
               </a>
             </p>

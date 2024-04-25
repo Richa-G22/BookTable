@@ -73,12 +73,14 @@
   .logout-button {
     border: 1px solid black;
     border-radius: 50px;
-    font-size: 14px;
-    margin: 5px 0;
-    background-color: rgb(102, 100, 100);
+    /* font-size: 14px; */
+    /* margin: 5px 0; */
+    /* background-color: rgb(102, 100, 100); */
     cursor: pointer;
     color: white;
-    padding: 7px;
+    /* padding: 7px; */
+    margin-top: 0px;
+    padding-top: 0px;
   }
   
   .nav-image {
@@ -112,8 +114,8 @@
   .user{
     display: flex;
     align-items: last baseline;
-    justify-content: center;
-    max-width: 70%;
+    /* justify-content: center; */
+    /* max-width: 70%; */
     /* padding-bottom: 20px; */
     
   }

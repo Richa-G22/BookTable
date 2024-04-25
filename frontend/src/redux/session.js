@@ -14,8 +14,6 @@ const removeUser = () => ({
 });
 
 
-
-
 export const thunkAuthenticate = () => async (dispatch) => {
     try{
         const response = await csrfFetch("/api/restore-user");
@@ -37,7 +35,8 @@ export const thunkLogin = (credentials) => async dispatch => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(setUser(data));
+        // dispatch(setUser(data));
+        dispatch(setUser(data.user));
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages
@@ -78,7 +77,8 @@ function sessionReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
         case SET_USER:
-            return { ...state, user: action.payload };
+             return { ...state, user: action.payload };
+            // return { ...state, ...action.payload };
         case REMOVE_USER:
             return { ...state, user: null };
         default:

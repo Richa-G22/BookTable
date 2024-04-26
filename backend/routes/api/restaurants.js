@@ -139,6 +139,7 @@ router.get("/", async (req, res) => {
     const restaurantList = [];
     restaurants.forEach(restaurant => {
         let restaurantJson = restaurant.toJSON()
+        console.log("getAllRestaurants restaurantJson ",restaurantJson)
         if (restaurantJson['avgRating'] === null) {
             restaurantJson['avgRating'] = 0
         } 

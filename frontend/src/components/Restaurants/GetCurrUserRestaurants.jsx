@@ -48,10 +48,10 @@ const GetCurrUserRestaurants = () => {
                                             <p>{restaurant.name}</p>
                                             <i style={{ paddingLeft: "2rem", paddingTop: "1.5rem" }} className="fa-solid fa-star"></i>
                                             <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.5rem" }}>
-                                                {restaurant.avgRating > 0 ? restaurant.avgRating.toFixed(1) : "New"}
+                                                {Number(restaurant.avgRating) > 0 ? Number(restaurant.avgRating).toFixed(1) : "New"}
                                             </span>
                                             <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.25rem", color: "green", fontFamily: "cursive" }}>
-                                                {restaurant.avgRating > 4 ? "Trending Currently!!!" : ""}
+                                                {Number(restaurant.avgRating) > 4 ? "Trending Currently!!!" : ""}
                                             </span>
 
                                         </div>

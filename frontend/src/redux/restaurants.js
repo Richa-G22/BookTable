@@ -122,10 +122,10 @@ const getMenudishesForRestaurant = (id) => {
     }
 };
 
-const updateRestaurantReview = (id, review) => {
+const updateRestaurantReview = (review) => {
     return {
         type: UPDATE_RESTAURANT_REVIEW,
-        payload: { id, review }
+        payload: {review}
     }
 };
 
@@ -235,7 +235,7 @@ export const getAllRestaurantsThunk = () => async (dispatch) => {
         }
     } catch (e) {
         console.log("...error in catch..", e)
-        const errors = e.json();
+        const errors = await e.json();
         return errors;
     }
 };
@@ -388,6 +388,37 @@ export const updateRestaurantThunk = (id, restaurant) => async(dispatch) => {
                 console.log('&&&&&&&&&&&&&&data', data)
                 dispatch(updateRestaurant(data));
                 dispatch(getRestaurantImagesThunk(id));
+                return data;
+        } else {
+                throw response;
+        }
+    } catch (e) {
+        const errors =  e.json();
+        return errors;
+    }
+};
+
+//----------------------------------------------------------------------------------------
+// Update a Restaurant Review
+
+export const updateRestaurantReviewThunk = (restaurantId, review) => async(dispatch) => {
+ 
+    try {
+         //console.log('...................reached edit thunk............')
+         //console.log('$$$$$$$$$$$$$$$$$ . restaurantId, reVIEW......',id, review)
+         const options = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(review)
+        };
+        const response = await csrfFetch(`/api/restaurants/${restaurantId}/${review.id}`, options);
+        console.log('&&&&&&&&&&&&&&response', response)
+        if (response.ok) {
+                const data = await response.json();
+                console.log('&&&&&&&&&&&&&&data', data)
+                dispatch(updateRestaurantReview(data));
+                console.log("going to fetech all reviews again");
+                //dispatch(getReviewsForRestaurantThunk(restaurantId));
                 return data;
         } else {
                 throw response;
@@ -997,6 +1028,32 @@ const restaurantsReducer = (state = initialState, action) => {
             
             newUpdatedId[action.payload.id] = action.payload;
             newState.byId = newUpdatedId
+            return newState;
+        }
+        
+        //---------------------------------------------------------------------------------------------------------
+        
+        case UPDATE_RESTAURANT_REVIEW: {
+            console.log(".....inside reducer....", action.payload);
+            console.log("....action.payload...", action.payload)
+            const newArr = [...newState.restaurants_arr];
+            const newUpdatedId = {...newState.byId};
+            let currRestaurant = {}
+            for(let i = 0; i < newState.restaurants_arr.length; i++){
+                currRestaurant = newArr[i];
+                if(currRestaurant.id === action.payload.restaurantId){
+                    let reviewObj = currRestaurant.Reviews.find((review)=>{
+                        return review.id == action.payload.id
+                    });
+                    reviewObj.review = action.payload.review
+                    reviewObj.stars = action.payload.stars
+                    newArr[i] = currRestaurant;
+                    break;
+                }
+            }
+            newUpdatedId[action.payload.restaurantId] = currRestaurant;
+            newState.restaurants_arr = JSON.parse(JSON.stringify(newArr))
+            newState.byId = JSON.parse(JSON.stringify(newUpdatedId))
             return newState;
         }
         

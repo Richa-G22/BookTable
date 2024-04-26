@@ -99,64 +99,8 @@ const validateRestaurant = [
     handleValidationErrors
   ]; 
 
-
-//   const validateBooking = [
-//     check('bookingDate')
-//         .custom(({req}) => {
-//             const currentDate = new DATE();
-//             console.log("%%%%%currentDatehere", currentDate)
-//             console.log("#####", bookingDate)
-
-//             if (bookingDate < currentDate) {
-//                 return false
-//             }
-//             return true
-//         })
-    
-//       .withMessage('Booking can not be made for past dates'),
-//     handleValidationErrors
-//   ]; 
-
 //-----------------------------------------------------------------------------------------------------------------------
 // Get all Restaurants
-// router.get("/", async (req, res) => {
-//     const restaurants = await Restaurant.findAll({
-        
-//         include: [
-            
-//             {
-//                 model: Review,
-//                 attributes: [],
-//             },    
-//             {
-//                 model: RestaurantImage,
-//                 attributes: ['restaurantId','restaurantUrl'],  
-//                 //attributes: [],  
-//             }
-//         ],
-//         attributes: {
-//             include: [
-//                 [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-//                 //[sequelize.col('RestaurantImages.restaurantUrl'), 'previewImage'],
-//             ]
-//         },
-//         group: ['Restaurant.id','RestaurantImages.restaurantUrl']
-//     });
-    
-//     const restaurantList = [];
-//     restaurants.forEach(restaurant => {
-//         let restaurantJson = restaurant.toJSON()
-//         if (restaurantJson['avgRating'] === null) {
-//             restaurantJson['avgRating'] = 0
-//         } 
-//         restaurantJson['avgRating'] = Number(restaurantJson['avgRating'].toFixed(2))
-//         if ( restaurantJson['previewImage'] === null ) {
-//             restaurantJson['previewImage'] = "no image found"
-//         }
-//         restaurantList.push(restaurantJson)
-//     });
-    
-//     return res.json(restaurantList);
 router.get("/", async (req, res) => {
     const restaurants = await Restaurant.findAll({
         
@@ -178,8 +122,7 @@ router.get("/", async (req, res) => {
             },    
             {
                 model: RestaurantImage,
-                attributes: ['id','restaurantId','restaurantUrl'],  
-                //attributes: [],  
+                attributes: ['id','restaurantId','restaurantUrl'],   
             },{
                 model: Holiday,
                 attributes: ['id','occasion']
@@ -187,8 +130,7 @@ router.get("/", async (req, res) => {
         ],
         attributes: {
             include: [
-                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-                //[sequelize.col('RestaurantImages.restaurantUrl'), 'previewImage'],
+                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
             ]
         },
         group: ['Restaurant.id','RestaurantImages.id','Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
@@ -201,9 +143,6 @@ router.get("/", async (req, res) => {
             restaurantJson['avgRating'] = 0
         } 
         // restaurantJson['avgRating'] = Number(restaurantJson['avgRating'].toFixed(2))
-        // if ( restaurantJson['previewImage'] === null ) {
-        //     restaurantJson['previewImage'] = "no image found"
-        // }
         restaurantList.push(restaurantJson)
     });
     
@@ -273,9 +212,7 @@ router.get("/current", requireAuth, async (req, res) => {
         if (restaurantJson['avgRating']) {
             restaurantJson['avgRating'] = parseFloat(restaurantJson['avgRating'])
         };
-        // if ( restaurantJson['previewImage'] === null ) {
-        //     restaurantJson['previewImage'] = "no image found"
-        // }
+      
         restaurantList.push(restaurantJson)
         
     });
@@ -327,7 +264,7 @@ router.get("/:restaurantId", async (req, res) => {
                 ],
             },
             group: ['Restaurant.id', 'RestaurantImages.id', 'Holidays.id','MenuDishes.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id'],
-            //group: ['Restaurant.id'],
+           
             
         });
         
@@ -621,34 +558,6 @@ router.get("/:restaurantId", async (req, res) => {
         });
         return res.json({"Reviews": reviews});    
     });
-
-
-    // router.get("/reviews/:restaurantId", async (req, res) => {
-    //     const restaurantId  = req.params.restaurantId;
-    //     const restaurant = await Restaurant.findByPk(restaurantId);
-
-    //     if (!restaurant) {
-    //         const err = new Error("Restaurant couldn't be found");
-    //         err.status = 404;
-    //         return res.json({ message: "Restaurant couldn't be found" }, err.status);
-    //     };
-        
-    //     const reviews = await Review.findAll({
-    //         include: [
-    //             {
-    //                 model: User,
-    //                 attributes: ["id", "firstName", "lastName"] 
-    //         }, {
-    //                 model: ReviewImage,
-    //                 attributes: ['id','reviewUrl'],  
-    //         }],
-    //         where: {
-    //                 restaurantId: req.params.restaurantId
-    //         },   
-    //     });
-    //     return res.json({"Reviews": reviews});    
-    // });
-
 
     //-----------------------------------------------------------------------------------------------------------------------
     // Create a Review for a restaurant based on the Restaurant's id

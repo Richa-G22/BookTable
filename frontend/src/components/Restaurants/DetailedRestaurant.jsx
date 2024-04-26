@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DeleteReviewModal from "./DeleteReviewModal";
 import CreateReviewModal from "./CreateReviewModal";
+import EditReviewModal from "./EditReviewModal";
 
 const DetailedRestaurant = () => {
     const dispatch = useDispatch();
@@ -27,13 +28,15 @@ const DetailedRestaurant = () => {
     const [createMode, setCreateMode] = useState(false);
     const showModal = () => setIsOpen(true);
     const [date, setDate] = useState(new Date());
+    let reviewPresent = "no";
+    
 
     useEffect(() => {
         const getData = async () => {
             await dispatch(detailedRestaurantThunk(restaurantId));
             setisLoaded(true);
-            setUpdateMode(true); 
-            setCreateMode(true); 
+            setUpdateMode(true);
+            setCreateMode(true);
         };
         getData();
     }, [dispatch, restaurantId]);
@@ -92,6 +95,10 @@ const DetailedRestaurant = () => {
         }
     };
 
+    const reviewExists = currRestaurant.Reviews.some((review)=>{
+        return review.userId == sessionUser.id
+    });
+
     return (
 
         <div className="restaurant-detail-div">
@@ -123,20 +130,20 @@ const DetailedRestaurant = () => {
                 ) : (" ")}</span> */}
                 {!currRestaurant.Reviews.length && sessionUser ?
                     <div>
-                    { sessionUser.id !== currRestaurant.ownerId ?   
-                        <div>
-                            <h4 style={{ paddingLeft: "1rem" }}>Be the first person to leave a review!!</h4>
-                        </div>
-                    
-                    : 
-                        <div>
-                            <h4 style={{ paddingLeft: "1rem" }}>No reviews yet!!</h4>
-                        </div> 
-                    }  
+                        {sessionUser.id !== currRestaurant.ownerId ?
+                            <div>
+                                <h4 style={{ paddingLeft: "1rem" }}>Be the first person to leave a review!!</h4>
+                            </div>
+
+                            :
+                            <div>
+                                <h4 style={{ paddingLeft: "1rem" }}>No reviews yet!!</h4>
+                            </div>
+                        }
                     </div>
-                : ""  
+                    : ""
                 }
-                
+
                 {currRestaurant.Reviews.length ?
                     <div>{currRestaurant.Reviews.map((review) => (
                         <div>
@@ -172,23 +179,30 @@ const DetailedRestaurant = () => {
                                     <span style={{ marginLeft: "0%", margin: '0px', paddingBottom: "0px", marginTop: "0.05em" }} className="Delete">
                                         <OpenReviewModalButton
                                             //    <i className="fa-solid fa-trash"></i> 
-                                            buttonText="- Delete "
+                                            buttonText="Delete"
                                             modalComponent={
-                                                <DeleteReviewModal restaurantId={currRestaurant.id} 
-                                                                    reviewId={review.id}
-                                                                    setUpdateMode={setUpdateMode}  />
+                                                <DeleteReviewModal restaurantId={currRestaurant.id}
+                                                    reviewId={review.id}
+                                                    setUpdateMode={setUpdateMode} />
                                             }
                                         />
                                     </span> &nbsp;
                                     <span className="Edit">
-                                        <button style={{
+                                        {/* <button style={{
                                             backgroundColor: "rgb(141, 4, 4)", color: "white",
                                             boxShadow: "5px 5px 5px black", height: "1.75em", width: "7em", cursor: "pointer",
                                             position: "relative", marginRight: "30%", marginTop: "0.05em", marginLeft: "5%"
                                         }}
                                             onClick={() => navigate(`/restaurants/update/${restaurant.id}`)}>
                                             <i className="fa-sharp fa-solid fa-pen"></i> &nbsp;Edit
-                                        </button> &nbsp;
+                                        </button> &nbsp; */}
+                                        <OpenReviewModalButton
+                                            //    <i className="fa-solid fa-trash"></i> 
+                                            buttonText="Edit"
+                                            modalComponent={
+                                                <EditReviewModal review={review} />
+                                            }
+                                        />
                                     </span>
                                 </div>
                                 : ""
@@ -202,22 +216,32 @@ const DetailedRestaurant = () => {
                     : " "
                 }
 
-                {/* { sessionUser.id && sessionUser.id != currRestaurant.ownerId ? */}
-                { sessionUser.id  && sessionUser.id != currRestaurant.ownerId ?
-                <>
-                    <div style={{paddingTop:"10px"}}>
-                        <OpenModalButton 
-                            buttonText="Please Review"
-                            modalComponent={
-                                <CreateReviewModal restaurantId={currRestaurant.id}
-                                                   setCreateMode={setCreateMode} />
+                {/* Check if review already present for the current logged in user */}
+                {/* <div>
+                    {(() => {
+                        for (let i = 0; i < currRestaurant.Reviews.length; i++) {
+                            console.log("currentRestaurant.Reviews[i].userId, sessionUser.id", currRestaurant.Reviews[i].userId, sessionUser.id, typeof currRestaurant.Reviews[i].userId, typeof sessionUser.id )
+                            if (currRestaurant.Reviews[i].userId == sessionUser.id) {
+                                reviewPresent = "yes"
                             }
-                        />
-                    </div>
-
-
-                </>
-                :""
+                        }
+                        return reviewPresent;
+                    })}
+                </div> */}
+                 {console.log(".....review present....", reviewPresent)}   
+                {sessionUser && sessionUser.id != currRestaurant.ownerId &&  !reviewExists ?
+                    <>
+                        <div style={{ paddingTop: "10px" }}>
+                            <OpenModalButton
+                                buttonText="Please Review"
+                                modalComponent={
+                                    <CreateReviewModal restaurantId={currRestaurant.id}
+                                        setCreateMode={setCreateMode} />
+                                }
+                            />
+                        </div>
+                    </>
+                    : ""
                 }
             </div>
 

@@ -15,7 +15,7 @@ function OpenReviewModalButton({
   };
 
   return <button style={{backgroundColor: "rgb(141, 4, 4)", color: "white",
-  boxShadow: "5px 5px 5px black", height: "1.75em", width: "7em",cursor: "pointer"}}onClick={onClick}>{buttonText}</button>;
+  boxShadow: "5px 5px 5px black", height: "1.75em", width: "6em",cursor: "pointer"}}onClick={onClick}>{buttonText}</button>;
 }
 
 export default OpenReviewModalButton;

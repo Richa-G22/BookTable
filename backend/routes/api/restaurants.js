@@ -143,7 +143,7 @@ router.get("/", async (req, res) => {
         if (restaurantJson['avgRating'] === null) {
             restaurantJson['avgRating'] = 0
         } 
-        restaurantJson['avgRating'] = Number(restaurantJson['avgRating'].toFixed(2))
+        restaurantJson['avgRating'] = Number(restaurantJson['avgRating']).toFixed(2)
         restaurantList.push(restaurantJson)
     });
      

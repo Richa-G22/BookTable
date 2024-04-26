@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // Action Types
 const GET_ALL_RESTAURANTS = "restaurants/GET_ALL_RESTAURANTS";
 const GET_DETAILED_RESTAURANT = "restaurants/GET_DETAILED_RESTAURANT";

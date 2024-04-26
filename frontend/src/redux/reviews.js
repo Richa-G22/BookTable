@@ -1,4 +1,4 @@
-
+import { csrfFetch } from "./csrf";
 //Action Type
 const GET_RESTAURANT_REVIEWS = "reviews/GET_RESTAURANT_REVIEWS";
 const DELETE_REVIEW = "reviews/DELETE_REVIEW";

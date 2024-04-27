@@ -12,6 +12,7 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImg, setProfileImg] = useState("https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
@@ -194,6 +195,16 @@ function SignupFormModal() {
             required
           /> 
         </div> 
+
+        {/* <div>   
+          <input className='input'
+            type="password"
+            placeholder='Confirm Password'
+            defaultValue={profileImg}
+            onChange={(e) => setProfileImg(e.target.value)}
+            required
+          /> 
+        </div>  */}
         <br></br> 
         
         <button className="sign-up-button" type="submit" disabled={

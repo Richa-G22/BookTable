@@ -435,9 +435,8 @@ export const updateRestaurantReviewThunk = (restaurantId, review) => async(dispa
 // Add Image to a Restaurant
 
 export const addImageToRestaurantThunk = (restaurantId, image) => async (dispatch) => {
-
     try {
-        
+        console.log("addImageToRestaurantThunk->");
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/images`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

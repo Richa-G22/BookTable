@@ -25,12 +25,17 @@ router.use('/reviewImages', reviewImagesRouter);
 router.use('/restaurantImages', restaurantImagesRouter);
 router.use('/menuDishes', menuDishesRouter);
 
+router.post('/test', (req, res) => {
+    res.json({ requestBody: req.body });
+  });
 
-// Restore user
-router.get('/restore-user', (req, res) => {
-    return res.json(req.user);
-});
+// // Restore user
+// router.get('/restore-user', (req, res) => {
+//     return res.json(req.user);
+// });
 
 
 
 module.exports = router;
+
+

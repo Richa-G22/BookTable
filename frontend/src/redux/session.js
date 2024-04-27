@@ -14,9 +14,11 @@ const removeUser = () => ({
 });
 
 
-export const thunkAuthenticate = () => async (dispatch) => {
+//export const thunkAuthenticate = () => async (dispatch) => {
+export const restoreUser = () => async (dispatch) => {
     try{
-        const response = await csrfFetch("/api/restore-user");
+        // const response = await csrfFetch("/api/restore-user");
+        const response = await csrfFetch("/api/session");
         if (response.ok) {
             const data = await response.json();
             // dispatch(setUser(data));    //added RG
@@ -55,7 +57,7 @@ export const thunkSignup = (user) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(setUser(data));
+        dispatch(setUser(data.user));
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages

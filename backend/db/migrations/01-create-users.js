@@ -53,7 +53,7 @@ module.exports = {
       profileImg: {
         type: Sequelize.STRING(255),
         allowNull: false,
-        defaultValue: ""
+        defaultValue: "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"
       },
       createdAt: {
         allowNull: false,

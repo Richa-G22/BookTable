@@ -134,6 +134,7 @@ router.get("/", async (req, res) => {
             ]
         },
         group: ['Restaurant.id','RestaurantImages.id','Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
+        //group: ['Restaurant.id','RestaurantImages.id','Holidays.id']
     });
     
     const restaurantList = [];

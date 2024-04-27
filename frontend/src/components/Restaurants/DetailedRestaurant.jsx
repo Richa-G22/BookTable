@@ -29,7 +29,8 @@ const DetailedRestaurant = () => {
     const showModal = () => setIsOpen(true);
     const [date, setDate] = useState(new Date());
     let reviewPresent = "no";
-    
+    let reviewExists = "";
+
 
     useEffect(() => {
         const getData = async () => {
@@ -50,11 +51,13 @@ const DetailedRestaurant = () => {
         return <h1>Be the first to review!</h1>
     }
 
-    const currentDate = new Date();
+    let currentDate = new Date();
     let bookingDate = new Date();
     let dateMDY = new Date();
     let testDate = new Date();
+    let currTime = new Date().toLocaleTimeString();
     console.log('........CURRENT date.....', currentDate);
+    console.log('........CURRENT time.....', currTime);
     // const validate = () => {
     //     console.log('.......inside validate........')
     //     foundError = false;
@@ -95,9 +98,12 @@ const DetailedRestaurant = () => {
         }
     };
 
-    const reviewExists = currRestaurant.Reviews.some((review)=>{
-        return review.userId == sessionUser.id
-    });
+    if (sessionUser) {
+        reviewExists = currRestaurant.Reviews.some((review) => {
+            return review.userId == sessionUser.id
+        });
+    }
+
 
     return (
 
@@ -147,7 +153,7 @@ const DetailedRestaurant = () => {
                 {currRestaurant.Reviews.length ?
                     <div>{currRestaurant.Reviews.map((review) => (
                         <div>
-                            {console.log("...review...", review)};
+                            {console.log("...review...", review)}
                             <div className="user-info" style={{ display: "flex" }}>
                                 <img style={{ height: "3em", width: "3em", borderRadius: "2em" }}
                                     src={review.User.profileImg} />
@@ -164,17 +170,18 @@ const DetailedRestaurant = () => {
                             </div>
 
                             {review.ReviewImages.length ?
-                                <div style={{ paddingBottom: "0.5em" }} className="reviewImage">
-                                    {review.ReviewImages.map((reviewImage) => (
+                                <div style={{ paddingBottom: "1.5em" }} className="reviewImage">
+                                    {/* {review.ReviewImages.map((reviewImage) => (
                                         <>
                                             <img style={{ height: "12em", width: "12em", borderRadius: "0.75em" }} src={reviewImage.reviewUrl} />
                                         </>
-                                    ))}
+                                    ))} */}
+                                    <img style={{ height: "12em", width: "12em", borderRadius: "0.75em" }} src={review.ReviewImages[0].reviewUrl} />
                                 </div>
                                 : null
                             }
 
-                            {sessionUser.id && review.userId == sessionUser.id ?
+                            {sessionUser && review.userId == sessionUser.id ?
                                 <div className='upadte-delete' style={{ display: "flex", marginBottom: "0.50em", paddingBottom: "0px", paddingTop: "0.25rem" }}>
                                     <span style={{ marginLeft: "0%", margin: '0px', paddingBottom: "0px", marginTop: "0.05em" }} className="Delete">
                                         <OpenReviewModalButton
@@ -228,12 +235,12 @@ const DetailedRestaurant = () => {
                         return reviewPresent;
                     })}
                 </div> */}
-                 {console.log(".....review present....", reviewPresent)}   
-                {sessionUser && sessionUser.id != currRestaurant.ownerId &&  !reviewExists ?
+                {console.log(".....review present....", reviewPresent)}
+                {sessionUser && sessionUser.id != currRestaurant.ownerId && !reviewExists ?
                     <>
-                        <div style={{ paddingTop: "10px" }}>
+                        <div style={{ paddingTop: "1em" }}>
                             <OpenModalButton
-                                buttonText="Please Review"
+                                buttonText="Post Review"
                                 modalComponent={
                                     <CreateReviewModal restaurantId={currRestaurant.id}
                                         setCreateMode={setCreateMode} />
@@ -244,6 +251,7 @@ const DetailedRestaurant = () => {
                     : ""
                 }
             </div>
+
 
             <div style={{ paddingBottom: "2.5em", width: "67%", float: "right" }}>
                 <div style={{ width: "50%", float: "left" }}>
@@ -264,7 +272,7 @@ const DetailedRestaurant = () => {
                         <label style={{ fontSize: "1.15rem", marginRight: "0.75rem" }}>
                             Select date to view available slots:
                         </label>
-                        <DatePicker selected={date} onChange={(date) => setDate(date)} />
+                        <DatePicker selected={date} onChange={(date) => setDate(date)} minDate={currentDate} />
 
                         <span style={{ color: "rgb(232, 229, 229)" }}>{bookingDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`}</span>
                         <div style={{ paddingTop: "1em" }}>
@@ -285,8 +293,16 @@ const DetailedRestaurant = () => {
                             </div>
                             {currRestaurant.OpenSlots.map((slot) => (
                                 <>
+                                {/* {currentDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`} */}
+                                {console.log("....bookingDate..", bookingDate)}
+                                {console.log("....date..", date)}
+                                {console.log("....currentDate..", currentDate)}
+                                {console.log("....currTime..", currTime)}
+                                 {/* {bookingDate == currentDate && slot.slotStartTime > currTime ? */}
                                     <div style={{ display: "flex", paddingBottom: "1.50em" }}>
-                                        <div style={{ paddingRight: "1em" }}>{slot.slotStartTime}</div>
+                                        {console.log("....startTime..", slot.slotStartTime)}
+                                       
+                                        <div style={{ paddingRight: "1em" }}>{slot.slotStartTime} pm</div>                   
                                         <div style={{ paddingRight: "3.5em" }}>{slot.slotDuration} min</div>
                                         <div style={{ paddingRight: "1.5em" }}>{slot.tableCapacity}</div>
 
@@ -295,6 +311,8 @@ const DetailedRestaurant = () => {
                                             Reserve
                                         </button>
                                     </div>
+                                      {/* : ""
+                                    } */}
                                 </>
                             ))}
                         </div>
@@ -307,7 +325,7 @@ const DetailedRestaurant = () => {
                     {sessionUser ?
                         <>
                             <div style={{ display: "flex", paddingTop: "48em", paddingBottom: "2.5em" }}>
-                                <button style={{
+                                {/* <button style={{
                                     backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black", height: "3em",
                                     width: "8em", cursor: "pointer",
                                     position: "relative", marginRight: "5%", marginTop: "0.09%", marginLeft: "20%", marginBottom: "1.90em"
@@ -315,10 +333,10 @@ const DetailedRestaurant = () => {
                                     <NavLink style={{ textDecoration: "none", color: 'white' }}
                                         to="/restaurants/new">Your Bookings
                                     </NavLink>
-                                </button>
+                                </button> */}
                                 <button style={{
                                     backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black",
-                                    height: "3em", width: "8em", cursor: "pointer"
+                                    height: "3em", width: "8em", cursor: "pointer", marginLeft: "40%"
                                 }}>
                                     <NavLink style={{
                                         textDecoration: "none", color: "white", paddingRight: "2em", paddingLeft: "1.5em",
@@ -406,7 +424,8 @@ const DetailedRestaurant = () => {
                                 <i className="fa-solid fa-book-open" style={{ paddingRight: "0.5rem" }}></i>
                                 <span style={{ fontWeight: "bold" }}>Menu :</span>
                                 {currRestaurant.menuUrl ?
-                                    <div style={{ paddingLeft: "1.58rem" }}><a style={{ textDecoration: "none", color: "rgb(30, 30, 158)", cursor: "pointer" }} href={currRestaurant.menuUrl}>Menu</a></div>
+                                    <div style={{ paddingLeft: "1.58rem" }}><a style={{ textDecoration: "none", color: "rgb(30, 30, 158)", cursor: "pointer" }}
+                                        href={currRestaurant.menuUrl} target="_blank" rel="noopener noreferrer">Menu</a></div>
                                     : <div style={{ paddingLeft: "1.58rem" }}>&#9785; Currently unavailable!</div>
                                 }
                             </div>

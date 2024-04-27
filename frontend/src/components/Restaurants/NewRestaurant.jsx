@@ -47,6 +47,11 @@ const NewRestaurant = () => {
         foundError = false;
         setErrors({});
         console.log('.......inside validate........')
+        if (!name.trim()) {
+            foundError = true;
+            setErrors((errors) => ({ ...errors, name: "Name is required" }));
+            console.log('........name.....', name, foundError);
+        }
 
         if (!restaurantType.trim()) {
             foundError = true;
@@ -90,23 +95,21 @@ const NewRestaurant = () => {
             console.log('........phone.....', phone, foundError);
         }
 
+        
+
         if (!description.trim() || description.length < 30) {
             foundError = true;
             setErrors((errors) => ({ ...errors, description: "Description needs a minimum of 30 characters" }));
             console.log('........description1.....', description, foundError);
         }
 
-        if (!description.trim() || description.length > 1000) {
+        if (description.length > 255) {
             foundError = true;
-            setErrors((errors) => ({ ...errors, description: "Description can not exceed 1000 characters" }));
+            setErrors((errors) => ({ ...errors, description: "Description can not exceed 255 characters" }));
             console.log('........description2.....', description, foundError);
         }
 
-        if (!name.trim()) {
-            foundError = true;
-            setErrors((errors) => ({ ...errors, name: "Name is required" }));
-            console.log('........name.....', name, foundError);
-        }
+        
 
         if (!cuisines.trim()) {
             foundError = true;
@@ -243,6 +246,92 @@ const NewRestaurant = () => {
         ) {
             setErrors((errors) => ({ ...errors, image4: "Image URL must end in .png, .jpg, or .jpeg" }));
         }
+
+        if(!image1 && !image2 && !image3 && !image4 && !image5 && !image6){
+            setErrors((errors) => ({ ...errors, image1: "Please add atleast 1 image." }));
+        }
+
+        let str = phone;
+         for ( let i = 0; i < str.length ; i++ ) {
+             if( str[i] != '0' &&  
+             str[i] != '1' && 
+             str[i] != '2' && 
+             str[i] != '3' && 
+             str[i] != '4' && 
+             str[i] != '5' && 
+             str[i] != '6' && 
+             str[i] != '7' && 
+             str[i] != '8' && 
+             str[i] != '9' && 
+             str[i] != '9' && 
+             str[i] != '(' && 
+             str[i] != ')' && 
+             str[i] != ' ' && 
+             str[i] != '-' ) { 
+                foundError = true;
+                setErrors((errors) => ({ ...errors, phone: "Phone number contains invalid characters" }));
+                console.log('........phone.....', phone, foundError);
+             }
+         }
+         if ( !foundError ) {
+            let phone_number_real = ""
+            for ( let i = 0; i < str.length ; i++ ) {
+                if( str[i] == '0' ||  
+                str[i] == '1' || 
+                str[i] == '2' || 
+                str[i] == '3' || 
+                str[i] == '4' || 
+                str[i] == '5' || 
+                str[i] == '6' || 
+                str[i] == '7' || 
+                str[i] == '8' || 
+                str[i] == '9'  
+                ) { 
+                    phone_number_real += str[i];
+                }
+            }
+            if ( phone_number_real.length != 10 ) {
+                    foundError = true;
+                    setErrors((errors) => ({ ...errors, phone: "Phone number should be 10 digits long" }));
+                    console.log('........phone.....', phone, foundError);
+            } else {
+                console.log('phone number cleaned : ', phone_number_real)
+                setPhone(phone_number_real)
+            }
+         }
+
+        // let str = phone;
+        // let regex = /[a-zA-Z0-9]/g; // only count letters and number
+        // console.log(str.match(regex).length); // prints 13 to the console
+        // let str2 = phone;
+        // let regex1 = /[^a-z]/gi; // only count letters
+        // console.log(str2.replace(/[^a-z]/gi, "").length); // prints 10 to the console
+        // const numbers = regex - regex1;
+
+        // if (numbers != 10) {
+        //     foundError = true;
+        //     setErrors((errors) => ({ ...errors, phone: "Phone number contains exactly 10 digits" }));
+        //     console.log('........phone.....', phone, foundError);
+        // } else {
+        //     foundError = true;
+        //     setErrors((errors) => ({ ...errors, phone: " " })); 
+        // }
+
+         //let str = phone;
+         //let regex = /[^(,), ,0-9]/g; // only count letters and number
+         //console.log("regex match : " , str.match(regex)); // prints 13 to the console
+         //if ( str.match(regex).length)  {
+         //    foundError = true;
+         //    setErrors((errors) => ({ ...errors, phone: "Phone number contains invalid characters" }));
+         //    console.log('........phone.....', phone, foundError);
+         //}
+         //let regex1 = /[0-9]/g; // only count letters
+         //console.log("regex1 match : " , str.match(regex1)); // prints 13 to the console
+         //if (str.match(regex1).length != 10) {
+         //    foundError = true;
+         //    setErrors((errors) => ({ ...errors, phone: "Phone number contains exactly 10 digits" }));
+         //    console.log('........phone.....', phone, foundError);
+         //}
     };
 
     const handleSubmit = async (e) => {
@@ -250,7 +339,7 @@ const NewRestaurant = () => {
         e.preventDefault();
         console.log('.........moving on to validate function..........');
         validate();
-        console.log('..........errors after validate..........', errors )
+        console.log('..........errors after validate..........', errors)
         console.log("......foundError.....", foundError)
 
         try {
@@ -287,68 +376,128 @@ const NewRestaurant = () => {
                     console.log(".....errors.......", errors)
                 })
                 console.log(".....NEW Res.......", newRestaurant)
-                if (newRestaurant && newRestaurant.id) 
-                    {
-            
-                        if (image1) {
-                            dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image1}));
-                        }
-            
-                        if (image2) {
-                            dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image2 }));
-                        }
-            
-                        if (image3) {
-                            dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image3 }));
-                        }
-            
-                        if (image4) {
-                            dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image4 }));
-                        }
+                if ( newRestaurant && newRestaurant.id && image1 ) {
+                    const func_ = 
+                            addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image1 });
+                    await func_(dispatch)
+                }
+                if ( newRestaurant && newRestaurant.id && image2 ) {
+                    const func_ = 
+                            addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image2 });
+                    await func_(dispatch)
+                }
+                if ( newRestaurant && newRestaurant.id && image3 ) {
+                    const func_ = 
+                            addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image3 });
+                    await func_(dispatch)
+                }
+                if ( newRestaurant && newRestaurant.id && image4 ) {
+                    const func_ = 
+                            addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image4 });
+                    await func_(dispatch)
+                }
+                if ( newRestaurant && newRestaurant.id && image5 ) {
+                    const func_ = 
+                            addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image5 });
+                    await func_(dispatch)
+                }
+                if ( newRestaurant && newRestaurant.id && image6 ) {
+                    const func_ = 
+                            addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image6 });
+                    await func_(dispatch)
+                }
+                if (newRestaurant && newRestaurant.id && occasion1) {
+                    const func_  = addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion1 });
+                    await func_(dispatch)
+                }
 
-                        if (image5) {
-                            dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image5 }));
-                        }
+                if (newRestaurant && newRestaurant.id && occasion2) {
+                    const func_ = addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion2 });
+                    await func_(dispatch)
+                }
 
-                        if (image6) {
-                            dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image6 }));
-                        }
+                if (newRestaurant && newRestaurant.id && occasion3) {
+                    const func_ = addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion3 });
+                    await func_(dispatch)
+                }
 
-                        if (occasion1) {
-                            dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion1 }));
-                        }
+                if (newRestaurant && newRestaurant.id && occasion4) {
+                    const func_ = addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion4 });
+                    await func_(dispatch)
+                }
 
-                        if (occasion2) {
-                            dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion2 }));
-                        }
+                if (newRestaurant && newRestaurant.id && occasion5) {
+                    const func_ = addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion5 });
+                    await func_(dispatch)
+                }
 
-                        if (occasion3) {
-                            dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion3 }));
-                        }
+                navigate('/restaurants/current')
 
-                        if (occasion4) {
-                            dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion4 }));
-                        }
+                // if (newRestaurant && newRestaurant.id) {
 
-                        if (occasion5) {
-                            dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion5 }));
-                        }
-                //         // navigate(`/restaurants/${newRestaurant.id}`);    
-                    }
+                //     console.log("inside the image block");
+
+                //     if (image1) {
+                //         console.log("image1 ",image1);
+                //         dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image1 }));
+                //         console.log("did not wait for thunk to complete");
+                //     }
+
+                //     if (image2) {
+                //         dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image2 }));
+                //     }
+
+                //     if (image3) {
+                //         dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image3 }));
+                //     }
+
+                //     if (image4) {
+                //         dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image4 }));
+                //     }
+
+                //     if (image5) {
+                //         dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image5 }));
+                //     }
+
+                //     if (image6) {
+                //         dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image6 }));
+                //     }
+
+                //     if (occasion1) {
+                //         dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion1 }));
+                //     }
+
+                //     if (occasion2) {
+                //         dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion2 }));
+                //     }
+
+                //     if (occasion3) {
+                //         dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion3 }));
+                //     }
+
+                //     if (occasion4) {
+                //         dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion4 }));
+                //     }
+
+                //     if (occasion5) {
+                //         dispatch(addHoildayToRestaurantThunk(newRestaurant.id, { occasion: occasion5 }));
+                //     }
+                //             //  navigate('/restaurants/current');    
+                // }
                 // navigate('/restaurants/current')
             }
         } catch (error) {
             console.log("......error.....", error)
             const data = await error.json();
             console.log(".....data......", data)
-            if (data.errors) {  
+            if (data.errors) {
                 setErrors((errors) => ({ ...errors, ...data.errors }));
             }
         }
     }
 
     // console.log('..........newRestaurant before entering images.........', newRestaurant);
-    
+
 
 
     return (
@@ -370,7 +519,7 @@ const NewRestaurant = () => {
                     placeholder="Name of your Restaurant"
                     id="name"
                 />
-                {errors.name && <p className="error">{errors.name}</p>}
+                {/* {errors.name && <p className="error">{errors.name}</p>} */}
             </div>
 
             <div className="input-row">
@@ -653,10 +802,10 @@ const NewRestaurant = () => {
                 {errors.description && <p className="error">{errors.description}</p>}
             </div>
 
-            <div style={{paddingTop:"2em"}} className="inner-section-div">
+            <div style={{ paddingTop: "2em" }} className="inner-section-div">
                 <h3 className="section-h3">Liven up your Restaurant with photos of your specialities</h3>
                 <p className="section-p">
-                    Submit a link to at least one photo to publish your Restaurant. Please dubmit .png, .jpg or .jpeg photos only.
+                    Submit a link to at least one photo to publish your Restaurant. Please add .png, .jpg or .jpeg photos only.
                 </p>
             </div>
 
@@ -734,7 +883,7 @@ const NewRestaurant = () => {
                 </div>
             </div>
 
-            <div style={{paddingTop:"2em"}}className="inner-section-div">
+            <div style={{ paddingTop: "2em" }} className="inner-section-div">
                 <h3 className="section-h3">Mention the occasions on which Restaurant will be closed</h3>
             </div>
 

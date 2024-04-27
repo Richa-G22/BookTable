@@ -79,134 +79,125 @@ const EditRestaurant = () => {
             setErrors((errors) => ({ ...errors, restaurantType: "Restaurant Type is required" }));
             console.log('........restaurantType.....', restaurantType, foundError);
         }
-
+        console.log("....................................1............................")
         if (!address.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, address: "Address is required" }));
             console.log('........address.....', address, foundError);
         }
-
+        console.log("....................................2............................")
+        
         if (!city.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, city: "City is required" }));
             console.log('........city.....', city, foundError);
         }
-
+        console.log("....................................3............................")
+        
         if (!state.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, state: "State is required" }));
             console.log('........state.....', state, foundError);
         }
-
+        console.log("....................................4............................")
+        
         if (!country.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, country: "Country is required" }));
             console.log('........country.....', country);
         }
-
+        
+        console.log("....................................5............................")
         if (!zipCode) {
             foundError = true;
             setErrors((errors) => ({ ...errors, zipCode: "ZipCode is required" }));
             console.log('........zipCode.....', zipCode, foundError);
         }
-
+        console.log("....................................6............................")
+        
         if (!phone.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, phone: "Phone is required" }));
             console.log('........phone.....', phone, foundError);
         }
-
+        console.log("....................................7............................")
+        
         if (!description.trim() || description.length < 30) {
             foundError = true;
             setErrors((errors) => ({ ...errors, description: "Description needs a minimum of 30 characters" }));
             console.log('........description1.....', description, foundError);
         }
-
+        console.log("....................................8............................")
+        
         if (description.length > 255) {
             foundError = true;
             setErrors((errors) => ({ ...errors, description: "Description can not exceed 255 characters" }));
             console.log('........description2.....', description, foundError);
         }
-
+        console.log("....................................9...........................")
+        
         if (!name.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, name: "Name is required" }));
             console.log('........name.....', name, foundError);
         }
-
+        console.log("....................................10...........................")
+        
         if (!cuisines.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, cuisines: "Cuisines are required" }));
             console.log('........cuisines.....', cuisines, foundError);
         }
-
+        
+        console.log("....................................11...........................")
         if (!dayClosed.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, dayClosed: "Day Closed is required" }));
             console.log('........dayClosed.....', dayClosed, foundError);
         }
-
+        
+        console.log("....................................12...........................")
         if (!hoursOfOperation.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, hoursOfOperation: "Hours of Operation are required" }));
             console.log('........hoursOfOperation.....', hoursOfOperation, foundError);
         }
-
+        
+        console.log("....................................13...........................")
         if (!avgMealPrice.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, avgMealPrice: "Average Meal Price is required" }));
             console.log('........avgMealPrice.....', avgMealPrice, foundError);
         }
-
+        console.log("....................................14...........................")
+        
         if (!parkingAvailability.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, parkingAvailability: "Parking Availability is required" }));
             console.log('........parkingAvailability.....', parkingAvailability, foundError);
         }
-
+        console.log("....................................15...........................")
+        
         if (!paymentOption.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, paymentOption: "Payment Options are required" }));
             console.log('........paymentOption.....', paymentOption, foundError);
         }
-
+        console.log("....................................16...........................")
+        
         if (!dressCode.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, dressCode: "Dress Code is required" }));
             console.log('........dressCode.....', dressCode, foundError);
         }
-
+        console.log("....................................17...........................")
+        
         if (!executiveChef.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, executiveChef: "Executive Chef required" }));
             console.log('........executiveChef.....', executiveChef, foundError);
         }
-
-        if (locationMapUrl) {
-            try {
-                new URL(locationMapUrl);
-                return true;
-            } catch (errors) {
-                foundError = true;
-                setErrors((errors) => ({ ...errors, locationMapUrl: "Please enter a valid Location URL" }));
-
-            }
-            console.log('........locationMapUrl.....', locationMapUrl, foundError);
-        }
-
-        if (menuUrl) {
-            try {
-                new URL(menuUrl);
-                return true;
-            } catch (errors) {
-                foundError = true;
-                setErrors((errors) => ({ ...errors, menuUrl: "Please enter a valid Menu URL" }));
-
-            }
-            console.log('........menuUrl.....', menuUrl, foundError);
-        }
-        console.log(".....phone, phone.length....", phone, phone.length, phone.trim())
-        console.log("near phone validation")
+        console.log("....................................18...........................")
 
         if (phone) { 
             console.log(".................................................................")
@@ -251,17 +242,48 @@ const EditRestaurant = () => {
                     }
                 }
                 if ( phone_number_real.length != 10 ) {
-                        foundError = true;
-                        setErrors((errors) => ({ ...errors, phone: "Phone number should be 10 digits long" }));
-                        console.log('........phone.....', phone, foundError);
+                    foundError = true;
+                    setErrors((errors) => ({ ...errors, phone: "Phone number should be 10 digits long" }));
+                    console.log('........phone.....', phone, foundError);
                 } else {
                     console.log('phone number cleaned : ', phone_number_real)
                     setPhone(phone_number_real)
                 }
             }
+            console.log("....................................19...........................")
         }
-         //let regex = '/[^0-9]/g'; // only count letters and number
-         //console.log("phone number ", str );
+        
+        if (locationMapUrl) {
+            try {
+                new URL(locationMapUrl);
+                return true;
+            } catch (errors) {
+                foundError = true;
+                setErrors((errors) => ({ ...errors, locationMapUrl: "Please enter a valid Location URL" }));
+                
+            }
+            console.log('........locationMapUrl.....', locationMapUrl, foundError);
+        }
+        console.log("....................................20...........................")
+        
+        if (menuUrl) {
+            try {
+                new URL(menuUrl);
+                return true;
+            } catch (errors) {
+                foundError = true;
+                setErrors((errors) => ({ ...errors, menuUrl: "Please enter a valid Menu URL" }));
+                
+            }
+            console.log('........menuUrl.....', menuUrl, foundError);
+        }
+        console.log(".....phone, phone.length....", phone, phone.length, phone.trim())
+        console.log("near phone validation")
+        
+        console.log("....................................21...........................")
+        
+        //let regex = '/[^0-9]/g'; // only count letters and number
+        //console.log("phone number ", str );
          //let match_ = str.match("/[0-9]*/");
          //console.log("regex match : " , match_); // prints 13 to the console
          //if (match_ && match_.length)  {

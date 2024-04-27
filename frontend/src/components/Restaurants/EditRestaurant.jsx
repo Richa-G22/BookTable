@@ -205,55 +205,61 @@ const EditRestaurant = () => {
             }
             console.log('........menuUrl.....', menuUrl, foundError);
         }
+        console.log(".....phone, phone.length....", phone, phone.length, phone.trim())
+        console.log("near phone validation")
 
-         let str = phone;
-         for ( let i = 0; i < str.length ; i++ ) {
-             if( str[i] != '0' &&  
-             str[i] != '1' && 
-             str[i] != '2' && 
-             str[i] != '3' && 
-             str[i] != '4' && 
-             str[i] != '5' && 
-             str[i] != '6' && 
-             str[i] != '7' && 
-             str[i] != '8' && 
-             str[i] != '9' && 
-             str[i] != '9' && 
-             str[i] != '(' && 
-             str[i] != ')' && 
-             str[i] != ' ' && 
-             str[i] != '-' ) { 
-                foundError = true;
-                setErrors((errors) => ({ ...errors, phone: "Phone number contains invalid characters" }));
-                console.log('........phone.....', phone, foundError);
-             }
-         }
-         if ( !foundError ) {
-            let phone_number_real = ""
+        if (phone) { 
+            console.log(".................................................................")
+            console.log("inside phone validation")
+            let str = phone;
             for ( let i = 0; i < str.length ; i++ ) {
-                if( str[i] == '0' ||  
-                str[i] == '1' || 
-                str[i] == '2' || 
-                str[i] == '3' || 
-                str[i] == '4' || 
-                str[i] == '5' || 
-                str[i] == '6' || 
-                str[i] == '7' || 
-                str[i] == '8' || 
-                str[i] == '9'  
-                ) { 
-                    phone_number_real += str[i];
+                if( str[i] != '0' &&  
+                str[i] != '1' && 
+                str[i] != '2' && 
+                str[i] != '3' && 
+                str[i] != '4' && 
+                str[i] != '5' && 
+                str[i] != '6' && 
+                str[i] != '7' && 
+                str[i] != '8' && 
+                str[i] != '9' && 
+                str[i] != '9' && 
+                str[i] != '(' && 
+                str[i] != ')' && 
+                str[i] != ' ' && 
+                str[i] != '-' ) { 
+                    foundError = true;
+                    setErrors((errors) => ({ ...errors, phone: "Phone number contains invalid characters" }));
+                    console.log('........phone.....', phone, foundError);
                 }
             }
-            if ( phone_number_real.length != 10 ) {
-                    foundError = true;
-                    setErrors((errors) => ({ ...errors, phone: "Phone number should be 10 digits long" }));
-                    console.log('........phone.....', phone, foundError);
-            } else {
-                console.log('phone number cleaned : ', phone_number_real)
-                setPhone(phone_number_real)
+            if ( !foundError ) {
+                let phone_number_real = ""
+                for ( let i = 0; i < str.length ; i++ ) {
+                    if( str[i] == '0' ||  
+                    str[i] == '1' || 
+                    str[i] == '2' || 
+                    str[i] == '3' || 
+                    str[i] == '4' || 
+                    str[i] == '5' || 
+                    str[i] == '6' || 
+                    str[i] == '7' || 
+                    str[i] == '8' || 
+                    str[i] == '9'  
+                    ) { 
+                        phone_number_real += str[i];
+                    }
+                }
+                if ( phone_number_real.length != 10 ) {
+                        foundError = true;
+                        setErrors((errors) => ({ ...errors, phone: "Phone number should be 10 digits long" }));
+                        console.log('........phone.....', phone, foundError);
+                } else {
+                    console.log('phone number cleaned : ', phone_number_real)
+                    setPhone(phone_number_real)
+                }
             }
-         }
+        }
          //let regex = '/[^0-9]/g'; // only count letters and number
          //console.log("phone number ", str );
          //let match_ = str.match("/[0-9]*/");

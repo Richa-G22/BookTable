@@ -251,7 +251,10 @@ const NewRestaurant = () => {
             setErrors((errors) => ({ ...errors, image1: "Please add atleast 1 image." }));
         }
 
-        let str = phone;
+        console.log("near phone validation")
+        if (phone.trim()) { 
+         console.log("inside phone validation")
+         let str = phone;
          for ( let i = 0; i < str.length ; i++ ) {
              if( str[i] != '0' &&  
              str[i] != '1' && 
@@ -299,6 +302,7 @@ const NewRestaurant = () => {
                 setPhone(phone_number_real)
             }
          }
+        }
 
         // let str = phone;
         // let regex = /[a-zA-Z0-9]/g; // only count letters and number

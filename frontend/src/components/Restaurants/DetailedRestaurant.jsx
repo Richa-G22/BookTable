@@ -287,8 +287,8 @@ const DetailedRestaurant = () => {
                     {currRestaurant.OpenSlots ?
                         <div style={{ paddingTop: "1em" }}>
                             <div style={{ fontWeight: "bold", display: "flex", paddingBottom: "1em" }}>
-                                <div style={{ paddingRight: "1em" }}>Time</div>
-                                <div style={{ paddingRight: "1em" }}>Duration</div>
+                                <div style={{ paddingRight: "2.5em" }}>Time</div>
+                                <div style={{ paddingRight: "2em" }}>Duration</div>
                                 <div>Capacity</div>
                             </div>
                             {currRestaurant.OpenSlots.map((slot) => (
@@ -302,7 +302,7 @@ const DetailedRestaurant = () => {
                                     <div style={{ display: "flex", paddingBottom: "1.50em" }}>
                                         {console.log("....startTime..", slot.slotStartTime)}
                                        
-                                        <div style={{ paddingRight: "1em" }}>{slot.slotStartTime} pm</div>                   
+                                        <div style={{ paddingRight: "1em" }}>{slot.slotStartTime.substr(0,5)} pm</div>                   
                                         <div style={{ paddingRight: "3.5em" }}>{slot.slotDuration} min</div>
                                         <div style={{ paddingRight: "1.5em" }}>{slot.tableCapacity}</div>
 

@@ -122,9 +122,9 @@ const EditRestaurant = () => {
             console.log('........description1.....', description, foundError);
         }
 
-        if (!description.trim() || description.length > 1000) {
+        if (description.length > 255) {
             foundError = true;
-            setErrors((errors) => ({ ...errors, description: "Description can not exceed 1000 characters" }));
+            setErrors((errors) => ({ ...errors, description: "Description can not exceed 255 characters" }));
             console.log('........description2.....', description, foundError);
         }
 

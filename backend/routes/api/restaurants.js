@@ -265,7 +265,7 @@ router.get("/:restaurantId", async (req, res) => {
                     [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
                 ],
             },
-            group: ['Restaurant.id', 'RestaurantImages.id', 'Holidays.id','MenuDishes.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id'],
+            group: ['Restaurant.id', 'RestaurantImages.id', 'Holidays.id','MenuDishes.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id','Owner.id'],
            
             
         });

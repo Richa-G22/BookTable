@@ -334,7 +334,7 @@ const DetailedRestaurant = () => {
                                         to="/restaurants/new">Your Bookings
                                     </NavLink>
                                 </button> */}
-                                <button style={{
+                                {/* <button style={{
                                     backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black",
                                     height: "3em", width: "8em", cursor: "pointer", marginLeft: "40%"
                                 }}>
@@ -345,7 +345,7 @@ const DetailedRestaurant = () => {
                                         className="Manage" to="/restaurants/current">
                                         Manage
                                     </NavLink>
-                                </button>
+                                </button> */}
                             </div>
                         </>
                         : ""

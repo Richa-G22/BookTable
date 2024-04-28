@@ -18,7 +18,7 @@ const AllRestaurants = () => {
 
 
     useEffect(() => {
-        
+
         const getRestaurants = async () => {
             dispatch(getAllRestaurantsThunk());
         };
@@ -32,41 +32,46 @@ const AllRestaurants = () => {
 
     return (
         <div>
-            {/* <button style={{ backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black", height: "3em", 
-                    width:"8em",cursor: "pointer", 
-                    position: "relative", marginRight: "0%", marginTop: "1.9%", marginLeft: "93%", marginBottom: "1.90em" }}>
+            {currentUser ?
+                <button style={{
+                    backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black", height: "3em",
+                    width: "8em", cursor: "pointer",
+                    position: "relative", marginRight: "0%", marginTop: "1.9%", marginLeft: "93%", marginBottom: "1.90em"
+                }}>
                     <NavLink style={{ textDecoration: "none", color: 'white' }}
-                            to="/restaurants/new">Your Bookings
+                        to="/restaurants/current">Manage
                     </NavLink>
-            </button> */}
+                </button>
+                : ""
+            }
 
             <div className="restaurants-grid" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
                 {restaurants.map((restaurant) => (
                     <>
                         <div className="photos-div">
-                            <div style={{maxWidth: "60%", marginLeft: "20%"}} className="title">
+                            <div style={{ maxWidth: "60%", marginLeft: "20%" }} className="title">
                                 <p>{restaurant.name}</p>
                                 <i style={{ paddingLeft: "2rem", paddingTop: "1.25rem", color: "rgb(141, 4, 4)" }} className="fa-solid fa-star"></i>
                                 {rating = () => {
                                     sum = 0;
                                     for (let i = 0; i < restaurant.Reviews.length; i++) {
-                                            sum = sum + restaurant.Reviews[i].stars
-                                            // console.log("...sum....", sum)
+                                        sum = sum + restaurant.Reviews[i].stars
+                                        // console.log("...sum....", sum)
                                     }
-                                     avg = sum/restaurant.Reviews.length;  
+                                    avg = sum / restaurant.Reviews.length;
                                     //  console.log("......rating inside loop....", avg)
-                                   
+
                                 }}
-                                {value= rating()}
-                                {console.log("....avg....",  avg, typeof avg, avg.toFixed(1))}
+                                {value = rating()}
+                                {console.log("....avg....", avg, typeof avg, avg.toFixed(1))}
                                 {console.log("....rating..", rating)}
                                 {/* <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.5rem", color: "rgb(141, 4, 4)" }}>{Number(restaurant.avgRating) > 0 ? Number(restaurant.avgRating).toFixed(1) : "New"}</span> */}
                                 <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.25rem", color: "rgb(141, 4, 4)" }}>{avg > 0 ? avg.toFixed(1) : "New"}</span>
                                 {/* <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.10rem", color: "olive" , fontFamily: "cursive" }}>{Number(restaurant.avgRating) > 4 ? "Trending Currently!!!" : ""}</span> */}
-                                <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.10rem", color: "olive" , fontFamily: "cursive" }}>{avg > 4 ? "Trending Currently!!!" : ""}</span>
+                                <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.10rem", color: "olive", fontFamily: "cursive" }}>{avg > 4 ? "Trending Currently!!!" : ""}</span>
 
                             </div>
-                            <div style={{maxWidth: "65%", marginLeft: "20%", paddingLeft: "2%"}} className="photos">
+                            <div style={{ maxWidth: "65%", marginLeft: "20%", paddingLeft: "2%" }} className="photos">
                                 <img className="photo-image"
                                     onClick={() => navigate(`/restaurants/${restaurant.id}`)}
                                     src={restaurant.RestaurantImages[0].restaurantUrl}
@@ -89,8 +94,8 @@ const AllRestaurants = () => {
                                           href={restaurant.menuUrl}>Checkout our Menu here</a>
                                     </div> */}
                                     <div style={{ paddingTop: "0.75rem", fontSize: "1.15rem" }}>
-                                            <span><i style = {{color: "rgb(141, 4, 4)", paddingRight: "0.5rem", fontSize: "1.15rem"}} className="fa-solid fa-bell-concierge"></i> {restaurant.restaurantType}</span>
-                                            <span><i style = {{color: "rgb(141, 4, 4)", paddingLeft: "3rem", paddingRight: "0.5rem", fontSize: "1.15rem"}} className="fa-solid fa-bowl-food"></i>  {restaurant.cuisines}</span>
+                                        <span><i style={{ color: "rgb(141, 4, 4)", paddingRight: "0.5rem", fontSize: "1.15rem" }} className="fa-solid fa-bell-concierge"></i> {restaurant.restaurantType}</span>
+                                        <span><i style={{ color: "rgb(141, 4, 4)", paddingLeft: "3rem", paddingRight: "0.5rem", fontSize: "1.15rem" }} className="fa-solid fa-bowl-food"></i>  {restaurant.cuisines}</span>
                                     </div>
                                     <div style={{ display: "flex" }}>
                                         <div style={{ fontSize: "1.15rem", color: "rgb(94, 5, 5)", paddingTop: "0.75rem" }}>Hours of Operation:</div>

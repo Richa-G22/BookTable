@@ -15,12 +15,45 @@ const EditReviewModal = ({ review }) => {
     const { closeModal } = useModal();
     //const [reviewMsg, setReviewMsg] = useState(currentReview ? currentReview.review : reviewMsg);
     //const [stars, setStars] = useState(currentReview ? currentReview.stars : stars);
-    const [reviewMsg, setReviewMsg] = useState('');
-    const [stars, setStars] = useState(1);
+    //const [reviewMsg, setReviewMsg] = useState('');
+    const [reviewMsg, setReviewMsg] = useState(review.review);
+    const [stars, setStars] = useState(review.stars);
+    //const [star1, setStar1] = useState(1);
+    //const [star2, setStar2] = useState(2);
+    //const [star3, setStar3] = useState(3);
+    //const [star4, setStar4] = useState(4);
+    //const [star5, setStar5] = useState(5);
     //const [error, setError] = useState({});
     //const [error, setError] = useState('');
     let foundError = false;
 
+    let star1Value = false;
+    let star2Value = false;
+    let star3Value = false;
+    let star4Value = false;
+    let star5Value = false;
+
+    if ( stars == 5 ) {
+      star5Value = true;
+    }
+    else if ( stars == 4 ) {
+      star4Value = true;
+    }
+    else if ( stars == 3 ) {
+      star3Value = true;
+    }
+    else if ( stars == 2 ) {
+      star2Value = true;
+    }
+    else if ( stars == 1 ) {
+      star1Value = true;
+    }
+
+    console.log("star5 ",star5Value )
+    console.log("star4 ",star4Value )
+    console.log("star3 ",star3Value )
+    console.log("star2 ",star2Value )
+    console.log("star1 ",star1Value )
 
     if (!currentRestaurant) {
         return <h2>Restaurant not found!!</h2>
@@ -35,7 +68,9 @@ const EditReviewModal = ({ review }) => {
         //setError({});
         console.log('.......inside validate........')
 
-        if (!reviewMsg.trim()) {
+        console.log("review Msg",reviewMsg)
+
+        if (!reviewMsg.trim().length) {
             foundError = true;
             //setError((errors) => ({ ...errors, reviewMsg: "Review is required" }));
             console.log('........review.....', reviewMsg, foundError);
@@ -55,10 +90,12 @@ const EditReviewModal = ({ review }) => {
         validate();
         //console.log('..........errors after validate..........', errors)
         console.log("......foundError.....", foundError)
-        review.review = reviewMsg
-        review.stars = stars
+        //review.review = reviewMsg
+        //review.stars = stars
         try {
             if (!foundError) {
+                review.review = reviewMsg
+                review.stars = stars
                 const updatedReview = await dispatch(
                     updateRestaurantReviewThunk(currentRestaurant.id,review)
 
@@ -100,8 +137,15 @@ const EditReviewModal = ({ review }) => {
                     type="radio"
                     id="star5"
                     name="rate"
-                    defaultValue={review.stars}
-                    onChange={() => setStars(5)}
+                    // defaultValue={review.stars}
+                    //defaultValue={review.star5}
+                    //defaultValue={star5Value}
+                    // onChange={() => setStars(5)}
+                    checked={star5Value}
+                    value={stars}
+                    //onChange={() => setStars(5)}
+                    //onChange={(e) => {e.target.value=!star5Value;setStars(5)}}
+                    onChange={() => {setStars(5)}}
                 />
                 <label htmlFor="star5" title="text">
                     5 stars
@@ -110,8 +154,15 @@ const EditReviewModal = ({ review }) => {
                     type="radio"
                     id="star4"
                     name="rate"
-                    defaultvalue={review.stars}
-                    onChange={() => setStars(4)}
+                    // defaultvalue={review.stars}
+                    // onChange={() => setStars(4)}
+                    //defaultValue={review.star4}
+                    //defaultValue={star4Value}
+                    checked={star4Value}
+                    value={stars}
+                    //onChange={() => setStars(4)}
+                    //onChange={(e) => {e.target.value=!star4Value;setStars(4)}}
+                    onChange={() => {setStars(4)}}
                 />
                 <label htmlFor="star4" title="text">
                     4 stars
@@ -120,8 +171,15 @@ const EditReviewModal = ({ review }) => {
                     type="radio"
                     id="star3"
                     name="rate"
-                    defaultvalue={review.stars}
-                    onChange={() => setStars(3)}
+                    // defaultvalue={review.stars}
+                    //defaultValue={review.star3}
+                    // onChange={() => setStars(3)}
+                    //defaultValue={star3Value}
+                    value={stars}
+                    checked={star3Value}
+                    //onChange={() => setStars(3)}
+                    //onChange={(e) => {e.target.value=!star3Value;setStars(3)}}
+                    onChange={() => {setStars(3)}}
                 />
                 <label htmlFor="star3" title="text">
                     3 stars
@@ -130,8 +188,15 @@ const EditReviewModal = ({ review }) => {
                     type="radio"
                     id="star2"
                     name="rate"
-                    defaultvalue={review.stars}
-                    onChange={() => setStars(2)}
+                    // defaultvalue={review.stars}
+                    // onChange={() => setStars(2)}
+                    //defaultValue={review.star2}
+                    //defaultValue={star2Value}
+                    value={stars}
+                    checked={star2Value}
+                    //onChange={() => setStars(2)}
+                    //onChange={(e) => {e.target.value=!star2Value;setStars(2)}}
+                    onChange={() => {setStars(2)}}
                 />
                 <label htmlFor="star2" title="text">
                     2 stars
@@ -140,8 +205,14 @@ const EditReviewModal = ({ review }) => {
                     type="radio"
                     id="star1"
                     name="rate"
-                    defaultvalue={review.stars}
-                    onChange={() => setStars(1)}
+                    // defaultvalue={review.stars}
+                    // onChange={() => setStars(1)}
+                    // defaultValue={review.star1}
+                    // defaultValue={star1Value}
+                    value={stars}
+                    checked={star1Value}
+                    //onChange={(e) => {e.target.value=!star1Value;setStars(1)}}
+                    onChange={() => {setStars(1)}}
                 />
                 <label htmlFor="star1" title="text">
                     1 star
@@ -152,7 +223,8 @@ const EditReviewModal = ({ review }) => {
 
         <button
             className="submit-review-btn"
-            disabled={review.length < 10 || stars < 1}
+            // disabled={review.length < 10 || stars < 1}
+            disabled={review.length < 10 }
             onClick={handleSubmit}
         >
             Edit Review

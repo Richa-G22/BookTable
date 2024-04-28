@@ -1,5 +1,5 @@
 import { getCurrUserOwnedRestaurantsThunk } from "../../redux/restaurants";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import "./GetCurrUserRestaurants.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -10,15 +10,18 @@ import DeleteRestaurantModal from "./DeleteRestaurantModal";
 const GetCurrUserRestaurants = () => {
 
     const user = useSelector((state) => state.session.user);
+    // const currentRestaurants = useSelector((state) => state.restaurants.restaurants_arr);
     const currentRestaurants = useSelector((state) => state.restaurants.restaurants_arr);
-
+    console.log("......currRestaurants.....", currentRestaurants);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isLoaded, setisLoaded] = useState(false);
     let rating, sum = 0, value, avg;
 
     useEffect(() => {
         const getCurrentUserRestaurants = async () => {
-            dispatch(getCurrUserOwnedRestaurantsThunk());
+            await dispatch(getCurrUserOwnedRestaurantsThunk());
+            setisLoaded(true);
         }
         getCurrentUserRestaurants()
     }, [dispatch]);
@@ -28,6 +31,9 @@ const GetCurrUserRestaurants = () => {
     }
 
     return (
+    
+     <>
+     {isLoaded ?
         <div style={{ marginBottom: "5em" }} >
             {user ?
                 <div>
@@ -156,6 +162,9 @@ const GetCurrUserRestaurants = () => {
                 </div >
                 : <h2>Please log in to view your Restaurants !!</h2>}
         </div >
+        : <span>Loading..</span>
+        }
+    </>                                                
     );
 }
 

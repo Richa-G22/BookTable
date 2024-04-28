@@ -36,7 +36,7 @@ const AllRestaurants = () => {
                 <button style={{
                     backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "5px 5px 5px black", height: "3em",
                     width: "8em", cursor: "pointer",
-                    position: "relative", marginRight: "0%", marginTop: "1.9%", marginLeft: "93%", marginBottom: "1.90em"
+                    position: "relative", marginRight: "0%", marginTop: "1.9%", marginLeft: "93%"
                 }}>
                     <NavLink style={{ textDecoration: "none", color: 'white' }}
                         to="/restaurants/current">Manage
@@ -45,7 +45,7 @@ const AllRestaurants = () => {
                 : ""
             }
 
-            <div className="restaurants-grid" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+            <div className="restaurants-grid" style={{ paddingTop: "2rem", paddingBottom: "5rem" }}>
                 {restaurants.map((restaurant) => (
                     <>
                         <div className="photos-div">
@@ -56,15 +56,11 @@ const AllRestaurants = () => {
                                     sum = 0;
                                     for (let i = 0; i < restaurant.Reviews.length; i++) {
                                         sum = sum + restaurant.Reviews[i].stars
-                                        // console.log("...sum....", sum)
                                     }
-                                    avg = sum / restaurant.Reviews.length;
-                                    //  console.log("......rating inside loop....", avg)
-
+                                    avg = sum / restaurant.Reviews.length;  
                                 }}
                                 {value = rating()}
-                                {console.log("....avg....", avg, typeof avg, avg.toFixed(1))}
-                                {console.log("....rating..", rating)}
+                              
                                 {/* <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.5rem", color: "rgb(141, 4, 4)" }}>{Number(restaurant.avgRating) > 0 ? Number(restaurant.avgRating).toFixed(1) : "New"}</span> */}
                                 <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.25rem", color: "rgb(141, 4, 4)" }}>{avg > 0 ? avg.toFixed(1) : "New"}</span>
                                 {/* <span style={{ fontWeight: "bold", paddingLeft: "1rem", paddingTop: "1.10rem", color: "olive" , fontFamily: "cursive" }}>{Number(restaurant.avgRating) > 4 ? "Trending Currently!!!" : ""}</span> */}

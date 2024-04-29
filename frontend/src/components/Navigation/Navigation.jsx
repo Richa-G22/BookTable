@@ -50,7 +50,7 @@ function Navigation() {
         {/* <NavLink style={{ paddingLeft: '68em', paddingRight: '2em', paddingTop: '5em', textDecoration: 'none', color: 'white', justifyContent: 'center', justifyItems: 'center' }} to="/restaurants/">
           About Us
         </NavLink> */}
-        <NavLink style={{ paddingTop:"2px", textDecoration: 'none', justifyItems: 'center', fontSize:"15px" }} className="footer-text" to="/restaurants/">
+        <NavLink style={{ paddingTop:"2px", textDecoration: 'none', justifyItems: 'center', fontSize:"15px" }} className="footer-text" to="/about/">
           About Us
         </NavLink>
         <h2 className="footer-text">BookTable : Reserve in advance and have peace of mind</h2>

@@ -284,6 +284,7 @@ const DetailedRestaurant = () => {
                             </button>
                         </div>
                     </div>
+                    {console.log(".......currRestaurant.openslots...........", currRestaurant.OpenSlots)}
                     {currRestaurant.OpenSlots ?
                         <div style={{ paddingTop: "1em" }}>
                             <div style={{ fontWeight: "bold", display: "flex", paddingBottom: "1em" }}>
@@ -291,32 +292,39 @@ const DetailedRestaurant = () => {
                                 <div style={{ paddingRight: "2em" }}>Duration</div>
                                 <div>Capacity</div>
                             </div>
-                            {currRestaurant.OpenSlots.map((slot) => (
-                                <>
-                                {/* {currentDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`} */}
-                                {console.log("....bookingDate..", bookingDate)}
-                                {console.log("....date..", date)}
-                                {console.log("....currentDate..", currentDate)}
-                                {console.log("....currTime..", currTime)}
-                                 {/* {bookingDate == currentDate && slot.slotStartTime > currTime ? */}
-                                    <div style={{ display: "flex", paddingBottom: "1.50em" }}>
-                                        {console.log("....startTime..", slot.slotStartTime)}
-                                       
-                                        <div style={{ paddingRight: "1em" }}>{slot.slotStartTime.substr(0,5)} pm</div>                   
-                                        <div style={{ paddingRight: "3.5em" }}>{slot.slotDuration} min</div>
-                                        <div style={{ paddingRight: "1.5em" }}>{slot.tableCapacity}</div>
+                            {currRestaurant.OpenSlots.length ?
+                                <div>
+                                    {currRestaurant.OpenSlots.map((slot) => (
+                                        <>
+                                            {/* {currentDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`} */}
+                                            {console.log("....bookingDate..", bookingDate)}
+                                            {console.log("....date..", date)}
+                                            {console.log("....currentDate..", currentDate)}
+                                            {console.log("....currTime..", currTime)}
+                                            {/* {bookingDate == currentDate && slot.slotStartTime > currTime ? */}
+                                            <div style={{ display: "flex", paddingBottom: "1.50em" }}>
+                                                {console.log("....startTime..", slot.slotStartTime)}
 
-                                        <button style={{ backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "3px 3px 3px black", height: "1.5em", width: "5em", cursor: "pointer" }}
-                                            onClick={() => dispatch(addNewBookingThunk(currRestaurant.id, slot.slotId, bookingDate)).then(() => alert("Slot Reserved"))} >
-                                            Reserve
-                                        </button>
-                                    </div>
-                                      {/* : ""
-                                    } */}
-                                </>
-                            ))}
+                                                <div style={{ paddingRight: "1em" }}>{slot.slotStartTime.substr(0, 5)} pm</div>
+                                                <div style={{ paddingRight: "3.5em" }}>{slot.slotDuration} min</div>
+                                                <div style={{ paddingRight: "1.5em" }}>{slot.tableCapacity}</div>
+
+                                                <button style={{ backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "3px 3px 3px black", height: "1.5em", width: "5em", cursor: "pointer" }}
+                                                    onClick={() => dispatch(addNewBookingThunk(currRestaurant.id, slot.slotId, bookingDate)).then(() => alert("Slot Reserved"))} >
+                                                    Reserve
+                                                </button>
+                                            </div>
+                                        </>
+                                    ))}
+                                </div>
+                                
+                            : <div style={{ paddingTop: "1em", color: "red" }}>
+                                    "No slots available currently!!"
+                                </div>
+                            }
                         </div>
-                        : ""}
+                        : ""
+                    }
                     {/* </form> */}
                     {/* {console.log("......booking date....", date)} */}
                     {/* {dateMDY = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`} */}

@@ -14,6 +14,7 @@ const AllRestaurants = () => {
     console.log("typeof restaurants", typeof restaurants);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isLoaded, setisLoaded] = useState(false);
     let rating, sum = 0, value, avg;
 
 
@@ -21,6 +22,7 @@ const AllRestaurants = () => {
 
         const getRestaurants = async () => {
             dispatch(getAllRestaurantsThunk());
+            setisLoaded(true);
         };
         getRestaurants();
     }, [dispatch]);
@@ -31,6 +33,8 @@ const AllRestaurants = () => {
     }
 
     return (
+        <>
+     {isLoaded ?
         <div>
             {currentUser ?
                 <button style={{
@@ -127,6 +131,9 @@ const AllRestaurants = () => {
                 ))}
             </div>
         </div>
+         : <span>Loading..</span>
+        }
+    </>       
     );
 };
 

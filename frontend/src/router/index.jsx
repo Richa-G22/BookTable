@@ -8,6 +8,8 @@ import DetailedRestaurant from '../components/Restaurants/DetailedRestaurant';
 import GetCurrUserRestaurants from '../components/Restaurants/GetCurrUserRestaurants';
 import NewRestaurant from '../components/Restaurants/NewRestaurant';
 import EditRestaurant from '../components/Restaurants/EditRestaurant';
+import About from "../components/AboutPage/About";
+import NotFound from '../components/NotFound/NotFound';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <AllRestaurants />,
+      },
+      {
+        path: "/about/",
+        element: <About />,
       },
       {
         path: "/restaurants",
@@ -44,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

@@ -229,7 +229,8 @@ function LoginFormModal() {
 
   return (
     <>
-        <div>
+        <div style={{display:"flex", justifyContent:"center", alignContent:"center", paddingTop:"2em"}}>
+            <i className="fa-solid fa-utensils" style={{ color: "rgb(141,4,4)", fontSize: "2em", paddingRight:"1em", marginTop:"0.75em"}}></i>
             <h1 className="log-in">Log In</h1>
         </div>
 

@@ -118,7 +118,8 @@ function SignupFormModal() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
   </form> */}
-  <div>
+  <div style={{display:"flex", justifyContent:"center", alignContent:"center", paddingTop:"2em"}}>
+  <i className="fa-solid fa-utensils" style={{ color: "rgb(141,4,4)", fontSize: "2em", paddingRight:"1em", marginTop:"0.75em"}}></i>
           <h1 className="sign-up">Sign Up</h1>
       </div>
     

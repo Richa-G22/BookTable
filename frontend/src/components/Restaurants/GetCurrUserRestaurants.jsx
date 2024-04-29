@@ -12,6 +12,11 @@ const GetCurrUserRestaurants = () => {
     const user = useSelector((state) => state.session.user);
     // const currentRestaurants = useSelector((state) => state.restaurants.restaurants_arr);
     const currentRestaurants = useSelector((state) => state.restaurants.restaurants_arr);
+    //const currentRestaurants = useSelector((state) =>  {
+    //    const restaurants_arr = state.restaurants.restaurants_arr;
+    //    const userRestaurants = restaurants_arr.filter((res)=>res.ownerId = user.id)
+    //    return userRestaurants
+    //});
     console.log("......currRestaurants.....", currentRestaurants);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -20,10 +25,17 @@ const GetCurrUserRestaurants = () => {
 
     useEffect(() => {
         const getCurrentUserRestaurants = async () => {
-            await dispatch(getCurrUserOwnedRestaurantsThunk());
-            setisLoaded(true);
+           await dispatch(getCurrUserOwnedRestaurantsThunk(currentRestaurants));
+           setisLoaded(true);
         }
         getCurrentUserRestaurants()
+
+    //     const getCurrentUserRestaurants = async () => {
+    //         await dispatch(filterCurrUserOwnedRestaurant(currentRestaurants,user.id));
+    //         setisLoaded(true);
+    //     }
+    //     getCurrentUserRestaurants()
+
     }, [dispatch]);
 
     if (!user) {

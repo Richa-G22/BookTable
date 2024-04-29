@@ -18,6 +18,7 @@ const EditReviewModal = ({ review }) => {
     //const [reviewMsg, setReviewMsg] = useState('');
     const [reviewMsg, setReviewMsg] = useState(review.review);
     const [stars, setStars] = useState(review.stars);
+    const [errors, setErrors] = useState({});
     //const [star1, setStar1] = useState(1);
     //const [star2, setStar2] = useState(2);
     //const [star3, setStar3] = useState(3);
@@ -65,20 +66,20 @@ const EditReviewModal = ({ review }) => {
 
     const validate = () => {
         foundError = false;
-        //setError({});
+        setErrors({});
         console.log('.......inside validate........')
 
         console.log("review Msg",reviewMsg)
 
-        if (!reviewMsg.trim().length) {
+        if (!reviewMsg || !reviewMsg.trim() ) {
             foundError = true;
-            //setError((errors) => ({ ...errors, reviewMsg: "Review is required" }));
+            setErrors((errors) => ({ ...errors, reviewMsg: "Review is required" }));
             console.log('........review.....', reviewMsg, foundError);
         }
 
         if (!stars) {
             foundError = true;
-            //setError((errors) => ({ ...errors, stars: "Stars are required" }));
+            setErrors((errors) => ({ ...errors, stars: "Stars are required" }));
             console.log('........stars.....', stars, foundError);
         }
     };
@@ -88,44 +89,49 @@ const EditReviewModal = ({ review }) => {
         e.preventDefault();
         console.log('.........moving on to validate function..........');
         validate();
-        //console.log('..........errors after validate..........', errors)
+        console.log('..........errors after validate..........', errors)
         console.log("......foundError.....", foundError)
         //review.review = reviewMsg
         //review.stars = stars
-        try {
+        // try {
             if (!foundError) {
+                console.log("......1......")
                 review.review = reviewMsg
                 review.stars = stars
                 const updatedReview = await dispatch(
                     updateRestaurantReviewThunk(currentRestaurant.id,review)
 
                 ).catch(async (res) => {
+                    console.log(".......2......")
                     const data = await res.json();
                     if (data.errors) {
-             //           setError((errors) => ({ ...errors, ...data.errors }));
+                       setErrors((errors) => ({ ...errors, ...data.errors }));
                     }
                 })
 
             }
-        } catch (error) {
-            const data = await error.json();
+        // } catch (errors) {
+            if (foundError) {
+            console.log("......error3.......", errors)
+            const data = await errors.json();
             console.log('$$$$$$$$$$data', data)
             if (data.errors) {
-              //  setError((errors) => ({ ...errors, ...data.errors }));
+               setErrors((errors) => ({ ...errors, ...data.errors }));
             }
         };
+        console.log("......here4.....", errors)
         closeModal();
     };
 
     return (
         <div className="review-modal">
         <h3 style={{ paddingLeft: "0.25em", alignItems: "center", justifyContent: "center" }}>Please rate our food & service!</h3>
-        {/* <p className="error">{error}</p> */}
+        <p className="error">{errors.reviewMsg}</p>
         <textarea
             style={{ width: "100%", border: "solid 2px black" }}
             defaultValue={review.review}
             onChange={(e) => {
-               // setError({})
+               setErrors({})
                 setReviewMsg(e.target.value);
             }}
             placeholder="Updated review here..."

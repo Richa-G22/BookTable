@@ -52,12 +52,22 @@ const AllRestaurants = () => {
                             <div style={{ maxWidth: "60%", marginLeft: "20%" }} className="title">
                                 <p>{restaurant.name}</p>
                                 <i style={{ paddingLeft: "2rem", paddingTop: "1.25rem", color: "rgb(141, 4, 4)" }} className="fa-solid fa-star"></i>
+                            
                                 {rating = () => {
+                                    //sum = 0;
+                                    //for (let i = 0;  i < restaurant.Reviews.length; i++) {
+                                    //    sum = sum + restaurant.Reviews[i].stars
+                                    //}
+                                    //avg = sum / restaurant.Reviews.length;  
+
                                     sum = 0;
-                                    for (let i = 0; i < restaurant.Reviews.length; i++) {
+                                    let reviews = restaurant.Reviews;
+                                    for (let i = 0;  reviews && i < restaurant.Reviews.length; i++) {
                                         sum = sum + restaurant.Reviews[i].stars
                                     }
-                                    avg = sum / restaurant.Reviews.length;  
+                                    if ( reviews && reviews.length ) {
+                                        avg = sum / reviews.length;  
+                                    }
                                 }}
                                 {value = rating()}
                               

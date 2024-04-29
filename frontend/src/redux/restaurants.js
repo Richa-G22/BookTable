@@ -317,6 +317,15 @@ export const getCurrUserOwnedRestaurantsThunk = () => async (dispatch) => {
     }
 };
 
+// export const filterCurrUserOwnedRestaurant = (currentRestaurants,userId) => async (dispatch) => {
+//     console.log("userId : ",userId)
+//     console.log("currentRestaurants : ", currentRestaurants)
+//     let ownerRestaurants = currentRestaurants.filter((res)=>{return res.ownerId == userId})
+//     console.log("ownerRestaurants : ", ownerRestaurants)
+//     dispatch(getCurrUserOwnedRestaurants(ownerRestaurants));
+//     return ownerRestaurants;
+// };
+
 //----------------------------------------------------------------------------------------
 // Delete a restaurant by id
 
@@ -765,6 +774,18 @@ const restaurantsReducer = (state = initialState, action) => {
             newState.byId = newById
             return newState;
         }
+       // -----------------------------------------------------------------------------------------------------------------
+
+        // case GET_CURRENT_USER_OWNED_RESTAURANTS: {
+        //     const newById = {};
+        //     const newArr = [...action.payload];
+        //     newState.restaurants_arr = newArr;
+        //     for (let restaurant of action.payload) {
+        //         newById[restaurant.id] = restaurant
+        //     }
+        //     newState.byId = newById
+        //     return newState;
+        // }
         //-----------------------------------------------------------------------------------------------------------------
         
         case ADD_IMAGE_TO_RESTAURANT: {

@@ -256,7 +256,7 @@ const DetailedRestaurant = () => {
             <div style={{ paddingBottom: "2.5em", width: "67%", float: "right" }}>
                 <div style={{ width: "50%", float: "left" }}>
                     <h3 style={{ fontWeight: "bold", marginBottom: "10px", paddingTop: "1em" }}>
-                        Booking Details
+                        Booking Details <span style={{color: "red"}}>&nbsp; (Functionality in progress)</span>
                     </h3>
 
                     {/* <div>

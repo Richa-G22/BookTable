@@ -64,7 +64,7 @@ const AllRestaurants = () => {
                                     //}
                                     //avg = sum / restaurant.Reviews.length;  
 
-                                    sum = 0;
+                                    sum = 0; avg = 0;
                                     let reviews = restaurant.Reviews;
                                     for (let i = 0;  reviews && i < restaurant.Reviews.length; i++) {
                                         sum = sum + restaurant.Reviews[i].stars

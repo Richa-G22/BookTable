@@ -84,7 +84,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notNull: true,
@@ -101,7 +101,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     locationMapUrl: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     dayClosed: {
       type: DataTypes.STRING,

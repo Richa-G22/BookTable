@@ -43,7 +43,7 @@ const AllRestaurants = () => {
                     position: "relative", marginRight: "0%", marginTop: "1.9%", marginLeft: "93%"
                 }}>
                     <NavLink style={{ textDecoration: "none", color: 'white' }}
-                        to="/restaurants/current">Manage
+                        to="/restaurants/current">Your Profile
                     </NavLink>
                 </button>
                 : ""

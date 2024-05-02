@@ -51,6 +51,46 @@ module.exports = {
         reviewId: 10,
         reviewUrl: 'https://ozlemsturkishtable.com/files/2020/03/Ozlem_Shot_38_0331_-700x559.jpg',
       },
+      {
+        reviewId: 11,
+        reviewUrl: 'https://recipes.net/wp-content/uploads/2024/01/how-to-eat-burgers-in-restaurants-1706245153.jpg',
+      },
+      {
+        reviewId: 12,
+        reviewUrl: 'https://www.carolynscooking.com/wp-content/uploads/2024/01/Loaded-Bacon-Cheese-Fries-3.jpg',
+      },
+      {
+        reviewId: 13,
+        reviewUrl: 'https://www.chefspencil.com/wp-content/uploads/Gnocchi-1.jpg',
+      },
+      {
+        reviewId: 14,
+        reviewUrl: 'https://www.bonappetour.com/blog/wp-content/uploads/2015/03/1426576690-7820792-1030x521.jpeg',
+      },
+      {
+        reviewId: 15,
+        reviewUrl: 'https://www.rd.com/wp-content/uploads/2018/03/13-Foods-Worth-Trying-at-a-Greek-Restaurant.jpg',
+      },
+      {
+        reviewId: 16,
+        reviewUrl: 'https://s3-media0.fl.yelpcdn.com/bphoto/RM-YmRsnc06C9EF-75MyfQ/1000s.jpg',
+      },
+      {
+        reviewId: 17,
+        reviewUrl: 'https://tastet.ca/wp-content/uploads/2020/04/restaurant-sumac-montreal-st-henri-13.jpg',
+      },
+      {
+        reviewId: 18,
+        reviewUrl: 'https://www.nogarlicnoonions.com/images/article_images/2018-07/knafeh-platter-lebanese-food-desert-with-cheese-and-syrup-maureen-abood-12018-07-12-09-37-33.jpg',
+      },
+      {
+        reviewId: 19,
+        reviewUrl: 'https://robbadamatti.com/wp-content/uploads/2015/02/pasta-03.jpg',
+      },
+      {
+        reviewId: 20,
+        reviewUrl: 'https://static8.depositphotos.com/1005629/806/i/450/depositphotos_8068134-stock-photo-pasta-with-olives-and-parsley.jpg',
+      },
     ], { validate: true });
   },
 
@@ -58,7 +98,7 @@ module.exports = {
     options.tableName = 'ReviewImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      reviewId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+      reviewId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] }
     }, {});
   }
 };

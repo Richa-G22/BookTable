@@ -120,6 +120,126 @@ module.exports = {
         restaurantId: 5,
         restaurantUrl: 'https://i.pinimg.com/736x/de/c6/e2/dec6e2c5c3faeffd4ef92982011b03ad.jpg'
       },
+      {
+        restaurantId: 6,
+        restaurantUrl: 'https://thelemonapron.com/wp-content/uploads/2016/07/IMG_9270-e1468000440784.jpg'
+      },
+      {
+        restaurantId: 6,
+        restaurantUrl: 'https://www.anediblemosaic.com/wp-content/uploads//2021/12/babka-featured-image.jpg'
+      },
+      {
+        restaurantId: 6,
+        restaurantUrl: 'https://www.kitchensanctuary.com/wp-content/uploads/2021/05/Double-Cheeseburger-square-FS-42.jpg'
+      },
+      {
+        restaurantId: 6,
+        restaurantUrl: 'https://www.delscookingtwist.com/wp-content/uploads/2021/07/Perfect-Chocolate-Pancakes_1.jpg'
+      },
+      {
+        restaurantId: 6,
+        restaurantUrl: 'https://c.ndtvimg.com/sv5kh12o_healthy-breakfast-omelette_625x300_20_July_18.jpg'
+      },
+      {
+        restaurantId: 6,
+        restaurantUrl: 'https://www.shahrekado.com/blog/en/wp-content/uploads/2022/01/be176f4f5180cb24a4c2e8a706472a0b.jpeg'
+      },
+      {
+        restaurantId: 7,
+        restaurantUrl: 'https://www.platingsandpairings.com/wp-content/uploads/2018/05/blue-cheese-gnocchi.png'
+      },
+      {
+        restaurantId: 7,
+        restaurantUrl: 'https://www.foodnetwork.com/content/dam/images/food/fullset/2019/1/07/0/KC1911_Bucatini-al-Limone_s4x3.jpg'
+      },
+      {
+        restaurantId: 7,
+        restaurantUrl: 'https://cdn.loveandlemons.com/wp-content/uploads/2022/06/pasta-primavera-1.jpg'
+      },
+      {
+        restaurantId: 7,
+        restaurantUrl: 'https://cdn.pixabay.com/photo/2024/02/24/23/22/ai-generated-8594917_640.jpg'
+      },
+      {
+        restaurantId: 7,
+        restaurantUrl: 'https://img.freepik.com/premium-photo/fork-is-holding-fork-that-has-meat-it-word-spaghetti-it_25996-2451.jpg'
+      },
+      {
+        restaurantId: 7,
+        restaurantUrl: 'https://d3h1lg3ksw6i6b.cloudfront.net/media/image/2017/08/25/0ecd2370fa024856bb28984f588811d6_Bomboloni.jpg'
+      },
+      {
+        restaurantId: 8,
+        restaurantUrl: 'https://d22ko7latny6xj.cloudfront.net/uploads/image/image/162755/large_nisi_3.jpg'
+      },
+      {
+        restaurantId: 8,
+        restaurantUrl: 'https://www.unicornsinthekitchen.com/wp-content/uploads/2020/01/Chicken-souvlaki.jpg'
+      },
+      {
+        restaurantId: 8,
+        restaurantUrl: 'https://worldwildschooling.com/wp-content/uploads/2023/04/Lachanodolmades_378088267-1024x880.jpg'
+      },
+      {
+        restaurantId: 8,
+        restaurantUrl: 'https://cxgveiouca.cloudimg.io/familyhotelfinder.com/wp-content/uploads/Traditional-Greek-foods-to-try-in-Greece-SH-Souvlaki.jpg'
+      },
+      {
+        restaurantId: 8,
+        restaurantUrl: 'https://domesticfits.com/wp-content/uploads/2023/11/greek-food-gyros-640x427.jpeg'
+      },
+      {
+        restaurantId: 8,
+        restaurantUrl: 'https://www.thehungrybites.com/wp-content/uploads/2023/12/kourabiedes-recipe-Greek-butter-cookies-featured.jpg'
+      },
+      {
+        restaurantId: 9,
+        restaurantUrl: 'https://c8.alamy.com/comp/RTJ8MY/arabic-food-esfiha-mini-pizza-with-meat-and-pine-nut-closeup-on-the-table-horizontal-RTJ8MY.jpg'
+      },
+      {
+        restaurantId: 9,
+        restaurantUrl: 'https://falasteenifoodie.com/wp-content/uploads/2022/11/Best-Fried-Lebanese-Kubbeh-Recipe.jpeg'
+      },
+      {
+        restaurantId: 9,
+        restaurantUrl: 'https://domesticfits.com/wp-content/uploads/2023/05/lebanese-food-ingredients-fresh-640x427.jpg'
+      },
+      {
+        restaurantId: 9,
+        restaurantUrl: 'https://www.willflyforfood.net/wp-content/uploads/2021/06/lebanese-food-falafel.jpg'
+      },
+      {
+        restaurantId: 9,
+        restaurantUrl: 'https://ourplantbasedworld.com/wp-content/uploads/2021/03/IMG_6639-1200x1200-1.jpg'
+      },
+      {
+        restaurantId: 9,
+        restaurantUrl: 'https://thematbakh.com/wp-content/uploads/2021/08/bulgar-wheat-tabouli-15.jpg'
+      },
+      {
+        restaurantId: 10,
+        restaurantUrl: 'https://openthe.world/wp-content/uploads/2021/05/aperol-spritz.jpg'
+      },
+      {
+        restaurantId: 10,
+        restaurantUrl: 'https://alldayidreamaboutfood.com/wp-content/uploads/2023/05/Death-by-Keto-Chocolate-Cake.jpg'
+      },
+      {
+        restaurantId: 10,
+        restaurantUrl: 'https://img.freepik.com/free-photo/fresh-coffee-steams-wooden-table-close-up-generative-ai_188544-8923.jpg'
+      },
+      {
+        restaurantId: 10,
+        restaurantUrl: 'https://www.lacademie.com/wp-content/uploads/2022/01/finger-bread-for-appetizer.jpg'
+      },
+      {
+        restaurantId: 10,
+        restaurantUrl: 'https://img.freepik.com/premium-photo/macro-photo-focaccia-bread-stone-rustic-pub-generative-ai_918839-5179.jpg'
+      },
+      {
+        restaurantId: 10,
+        restaurantUrl: 'https://cdn4.tuscanynowandmore.com/storage/app/uploads/public/7c5/e1b/b46/thumb__0_356_0_0_crop.jpg'
+      },
     ], { validate: true })
   },
 

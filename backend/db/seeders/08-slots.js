@@ -291,6 +291,286 @@ module.exports = {
         tableCapacity: 6,
         tableNum: 4
       },
+      {
+        restaurantId: 6,
+        slotStartTime: '06:30',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 6,
+        slotStartTime: '07:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 6,
+        slotStartTime: '07:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 1,
+        slotStartTime: '08:00',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 6,
+        slotStartTime: '08:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 6,
+        slotStartTime: '09:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 6,
+        slotStartTime: '09:30',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 6,
+        slotStartTime: '10:00',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '06:30',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '07:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '07:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '08:00',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '08:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '09:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '09:30',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 7,
+        slotStartTime: '10:00',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '06:30',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '07:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '07:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '08:00',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '08:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '09:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '09:30',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 8,
+        slotStartTime: '10:00',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '06:30',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '07:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '07:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '08:00',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '08:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '09:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '09:30',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 9,
+        slotStartTime: '10:00',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '06:30',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '07:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '07:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '08:00',
+        slotDuration:  30,
+        tableCapacity: 4,
+        tableNum: 1
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '08:30',
+        slotDuration:  30,
+        tableCapacity: 5,
+        tableNum: 3
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '09:00',
+        slotDuration:  30,
+        tableCapacity: 3,
+        tableNum: 2
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '09:30',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
+      {
+        restaurantId: 10,
+        slotStartTime: '10:00',
+        slotDuration:  30,
+        tableCapacity: 6,
+        tableNum: 4
+      },
       
     ], { validate: true });
   },

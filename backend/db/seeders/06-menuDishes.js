@@ -138,6 +138,60 @@ module.exports = {
         dishCalories: 840,
         dishAllergies: 'nuts, soy'
       },
+      {
+        restaurantId: 10,
+        dishCategory: 'PASTA',
+        dishName: 'LASAGNE EMILIANE',
+        dishIngredients: 'Housemade Lasagna Sheets, Pork and Beef Ragù alla Bolognese,Bechamel',
+        dishPrice: 24,
+        dishCalories: 350,
+        dishAllergies: 'nuts'
+      },
+      {
+        restaurantId: 10,
+        dishCategory: 'PASTA',
+        dishName: 'GNOCCHI AL PESTO',
+        dishIngredients: 'Housemade Potato Gnocchi, Basil Pesto',
+        dishPrice: 26,
+        dishCalories: 480,
+        dishAllergies: 'nuts'
+      },
+      {
+        restaurantId: 10,
+        dishCategory: 'PASTA',
+        dishName: 'BUCATINI CACIO E PEPE',
+        dishIngredients: 'Afeltra Bucatini, Genuine Fulvi Pecorino Romano DOP, Freshly Ground Black Pepper ',
+        dishPrice: 29,
+        dishCalories: 340,
+        dishAllergies: 'nuts'
+      },
+      {
+        restaurantId: 10,
+        dishCategory: 'PIZZA',
+        dishName: 'MARGHERITA VERACE TSG',
+        dishIngredients: 'San Marzano Tomato Sauce, Buffalo Mozzarella, Basil, Extra Virgin Olive Oil',
+        dishPrice: 20,
+        dishCalories: 590,
+        dishAllergies: 'none'
+      },
+      {
+        restaurantId: 10,
+        dishCategory: 'PIZZA',
+        dishName: 'QUATTRO FORMAGGI',
+        dishIngredients: 'Buffalo Mozzarella, Pecorino Romano DOP, Gorgonzola Dolce DOP, Grana Padano DOP, Basil, Extra Virgin Olive Oil',
+        dishPrice: 22,
+        dishCalories: 680,
+        dishAllergies: 'none'
+      },
+      {
+        restaurantId: 10,
+        dishCategory: 'PIZZA',
+        dishName: 'DELICATA',
+        dishIngredients: 'Yellow Squash Purée, Buffalo Mozzarella, Yellow Squash Chips, Shaved Pecorino Romano, Basil, Extra Virgin Olive Oil',
+        dishPrice: 25,
+        dishCalories: 840,
+        dishAllergies: 'nuts, soy'
+      },
       
     ], { validate: true })
   },

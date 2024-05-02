@@ -59,7 +59,8 @@ module.exports = {
         unique: true
       },
       description: {
-        type: Sequelize.STRING,
+        // type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       cuisines: {
@@ -67,7 +68,8 @@ module.exports = {
         allowNull: false,
       },
       locationMapUrl: {
-        type: Sequelize.STRING,
+        //type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
         defaultValue: ""
       },

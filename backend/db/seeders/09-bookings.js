@@ -13,7 +13,7 @@ module.exports = {
     await Booking.bulkCreate([
       {
         restaurantId: 1,
-        userId: 1,
+        userId: 2,
         slotId: 1,
         bookingDate: '2024-04-15'
       },
@@ -25,19 +25,49 @@ module.exports = {
       },
       {
         restaurantId: 3,
-        userId: 1,
+        userId: 4,
         slotId: 18,
         bookingDate: "2024-04-17"
       },
       {
         restaurantId: 4,
-        userId: 1,
+        userId: 5,
         slotId: 25,
         bookingDate: "2024-04-18"
       },
       {
         restaurantId: 5,
+        userId: 2,
+        slotId: 34,
+        bookingDate: "2024-04-19"
+      },
+      {
+        restaurantId: 6,
+        userId: 2,
+        slotId: 1,
+        bookingDate: '2024-04-15'
+      },
+      {
+        restaurantId: 7,
         userId: 1,
+        slotId: 10,
+        bookingDate: '2024-04-10'
+      },
+      {
+        restaurantId: 8,
+        userId: 4,
+        slotId: 18,
+        bookingDate: "2024-04-17"
+      },
+      {
+        restaurantId: 9,
+        userId: 5,
+        slotId: 25,
+        bookingDate: "2024-04-18"
+      },
+      {
+        restaurantId: 10,
+        userId: 2,
         slotId: 34,
         bookingDate: "2024-04-19"
       },

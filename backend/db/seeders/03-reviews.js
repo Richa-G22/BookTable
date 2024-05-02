@@ -72,6 +72,66 @@ module.exports = {
         review: 'Totally enjoyed the kebabs.',
         stars: 4
       },
+      {
+        restaurantId: 6,
+        userId: 3,
+        review: 'Nice food',
+        stars: 4
+      },
+      {
+        restaurantId: 6,
+        userId: 1,
+        review: 'Totally enjoyed the food and the service.',
+        stars: 3
+      },
+      {
+        restaurantId: 7,
+        userId: 2,
+        review: 'Amazing food',
+        stars: 4
+      },
+      {
+        restaurantId: 7,
+        userId: 1,
+        review: 'Loved the food.Will visit again for sure.',
+        stars: 5
+      },
+      {
+        restaurantId: 8,
+        userId: 3,
+        review: 'Nice food',
+        stars: 4
+      },
+      {
+        restaurantId: 8,
+        userId: 2,
+        review: 'Fine. Could be better',
+        stars: 3
+      },
+      {
+        restaurantId: 9,
+        userId: 4,
+        review: 'Loved the food',
+        stars: 4
+      },
+      {
+        restaurantId: 9,
+        userId: 1,
+        review: 'wow....',
+        stars: 5
+      },
+      {
+        restaurantId: 10,
+        userId: 3,
+        review: 'Nice food',
+        stars: 4
+      },
+      {
+        restaurantId: 10,
+        userId: 1,
+        review: 'Excellent.',
+        stars: 5
+      },
       
     ], { validate: true })
   },

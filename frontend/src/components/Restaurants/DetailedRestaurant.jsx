@@ -371,12 +371,12 @@ const DetailedRestaurant = () => {
                             {currRestaurant.address}, {currRestaurant.state}, {currRestaurant.city}, {currRestaurant.zipCode}
                         </span>
 
-                        {/* {currRestaurant.locationMapUrl ?
+                        {currRestaurant.locationMapUrl ?
                             <iframe src={currRestaurant.locationMapUrl}
                                 style={{ width: "400", height: "300", style: "border:0", allowfullscreen: "", loading: "lazy", referrerpolicy: "no-referrer-when-downgrade" }}>
                             </iframe>
                             : ""
-                        } */}
+                        }
 
                         <div style={{ paddingTop: "1rem" }}>
                             <i className="fa-solid fa-phone" style={{ paddingRight: "0.5rem" }}></i>

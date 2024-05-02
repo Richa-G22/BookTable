@@ -80,6 +80,74 @@ module.exports = {
         restaurantId: 5,
         occasion: "President's Day"
       },
+      {
+        restaurantId: 6,
+        occasion: 'Christmas'
+      },
+      {
+        restaurantId: 6,
+        occasion: 'New Year'
+      },
+      {
+        restaurantId: 6,
+        occasion: 'Thanksgiving Day'
+      },
+      {
+        restaurantId: 7,
+        occasion: 'Christmas'
+      },
+      {
+        restaurantId: 7,
+        occasion: 'New Year'
+      },
+      {
+        restaurantId: 7,
+        occasion: 'Thanksgiving Day'
+      },
+      {
+        restaurantId: 7,
+        occasion: "President's Day"
+      },
+      {
+        restaurantId: 8,
+        occasion: 'New Year'
+      },
+      {
+        restaurantId: 8,
+        occasion: 'Thanksgiving Day'
+      },
+      {
+        restaurantId: 8,
+        occasion: 'Christmas'
+      },
+      {
+        restaurantId: 9,
+        occasion: 'New Year'
+      },
+      {
+        restaurantId: 9,
+        occasion: 'Thanksgiving Day'
+      },
+      {
+        restaurantId: 9,
+        occasion: 'Christmas'
+      },
+      {
+        restaurantId: 10,
+        occasion: 'New Year'
+      },
+      {
+        restaurantId: 10,
+        occasion: 'Thanksgiving Day'
+      },
+      {
+        restaurantId: 10,
+        occasion: 'Christmas'
+      },
+      {
+        restaurantId: 10,
+        occasion: "President's Day"
+      },
       
     ], { validate: true })
   },

@@ -1,0 +1,112 @@
+body {
+    background-color: rgb(232, 229, 229);
+    width: 70%;
+    margin: auto;
+}
+
+.curr-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    /* padding-top: 40px;
+    padding-bottom: 30px; */
+    /* max-width: 50%; */
+    /* margin: auto; */
+    grid-gap: 8px;
+    padding-left: 5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgb(141, 4, 4);
+}
+
+.curr-photo-div {
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;   
+}
+
+.curr-photos {
+    /* display: flex; */
+    /* padding-left: 5rem; */
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgb(141, 4, 4);
+    max-width: 70%;
+    /* margin-left: 12%; */
+}
+
+.curr-polaroid {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    background-color: white;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+    margin-bottom: 50px;
+    padding-top: 25px;
+    transition: all 1s ease;
+}
+
+.curr-photo-image {
+    display: flex;
+    width: 14rem;
+    height: 10rem;
+    border-radius: 1rem; 
+    cursor: pointer;
+}
+
+.curr-photo-image:hover {
+    box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 1.5), 0 16px 20px 0 rgba(0, 0, 0, 0.29);
+    transform: scale(1.0);
+}
+
+.curr-menu{
+  display: flex;
+  text-decoration: none;
+  align-items: right;
+  justify-content: end;
+  /* padding-right: 50px; */
+  position: relative;
+  margin-right: 0%;
+  padding-left: 45em;
+
+}
+
+.curr-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 93%;
+  padding-top: 10px;
+}
+
+.curr-title {
+    display: flex;
+    align-items:flex-start;
+    justify-content: flex-start;
+    padding-bottom: 1rem;
+    font-family:Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    /* color: rgb(141, 4, 4);  */
+}
+
+.curr-text {
+    padding-left: 0.05rem;
+    padding-top: 1rem;
+    
+}
+
+.curr-new-res-button {
+    background-color: rgb(141, 4, 4);
+    color: white;
+    box-shadow: 5px 5px 5px black;
+    height: 3em;
+    cursor: pointer;
+    position: relative;
+    margin-right: 0%;
+    margin-top: 2%;
+    margin-left: 75%;
+}
+
+.curr-restaurants-grid{
+    margin-left: 0px;
+    padding-left: 0px;
+}

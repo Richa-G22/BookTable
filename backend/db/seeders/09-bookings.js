@@ -44,31 +44,31 @@ module.exports = {
       {
         restaurantId: 6,
         userId: 2,
-        slotId: 1,
+        slotId: 42,
         bookingDate: '2024-04-15'
       },
       {
         restaurantId: 7,
         userId: 1,
-        slotId: 10,
+        slotId: 50,
         bookingDate: '2024-04-10'
       },
       {
         restaurantId: 8,
         userId: 4,
-        slotId: 18,
+        slotId: 57,
         bookingDate: "2024-04-17"
       },
       {
         restaurantId: 9,
         userId: 5,
-        slotId: 25,
+        slotId: 70,
         bookingDate: "2024-04-18"
       },
       {
         restaurantId: 10,
         userId: 2,
-        slotId: 34,
+        slotId: 79,
         bookingDate: "2024-04-19"
       },
     ], { validate: true })

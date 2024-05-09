@@ -14,7 +14,8 @@ module.exports = {
     await RestaurantImage.bulkCreate([
       {
         restaurantId: 1,
-        restaurantUrl: 'https://www.meatlovessalt.com/wp-content/uploads/2013/04/IMG_8958_630.jpg'
+        restaurantUrl: 'https://noburestaurants.com/assets/Downtown/Private-Events/Nobu-Downtown_DiningRoom_Eric-Laignel.jpg'
+        // restaurantUrl: 'https://www.meatlovessalt.com/wp-content/uploads/2013/04/IMG_8958_630.jpg'
       },
       {
         restaurantId: 1,
@@ -38,7 +39,7 @@ module.exports = {
       },
       {
         restaurantId: 2,
-        restaurantUrl: 'https://www.deliciousmagazine.co.uk/wp-content/uploads/2020/02/Best-Pizza-Restaurants-London-768x960.jpg'
+        restaurantUrl: 'https://www.newyorkbyrail.com/wp-content/uploads/2018/04/Eataly-in-Downtown-NYC.jpg'
       },
       {
         restaurantId: 2,
@@ -50,7 +51,7 @@ module.exports = {
       },
       {
         restaurantId: 2,
-        restaurantUrl: 'https://www.rayspizza.com/wp-content/uploads/2019/10/mushroom-olive-pizza.jpg'
+        restaurantUrl: 'https://images.pexels.com/photos/803963/pexels-photo-803963.jpeg?cs=srgb&dl=pexels-fariphotography-803963.jpg&fm=jpg'
       },
       {
         restaurantId: 2,
@@ -59,6 +60,10 @@ module.exports = {
       {
         restaurantId: 2,
         restaurantUrl: 'https://d1ralsognjng37.cloudfront.net/f7eb2f5f-e44c-4ac3-aa4d-b20ad863c2bc.jpeg'
+      },
+      {
+        restaurantId: 3,
+        restaurantUrl: 'https://www.fsrmagazine.com/wp-content/uploads/2023/11/Rosa20Mexicano-1480x832.jpeg'
       },
       {
         restaurantId: 3,
@@ -82,23 +87,33 @@ module.exports = {
       },
       {
         restaurantId: 4,
-        restaurantUrl: 'https://www.foodrepublic.com/img/gallery/7-things-you-didnt-know-about-hummus/l-intro-1686931598.jpg'
+        restaurantUrl: 'https://s3-media2.fl.yelpcdn.com/bphoto/LAvPyto3obvHvN7_1dPreA/l.jpg'
       },
       {
         restaurantId: 4,
-        restaurantUrl: 'https://t3.ftcdn.net/jpg/02/68/78/28/360_F_268782859_fmLoMazNerGOYNUwwLDZStYyaHOLQvyv.jpg'
+        restaurantUrl: 'https://www.tasteofhome.com/wp-content/uploads/2018/01/Spanakopita-Pinwheels_EXPS_THMBRDS19_91125_C10_03_3b.jpg'
+        // restaurantUrl: 'https://www.foodrepublic.com/img/gallery/7-things-you-didnt-know-about-hummus/l-intro-1686931598.jpg'
       },
       {
         restaurantId: 4,
-        restaurantUrl: 'https://resizer.otstatic.com/v2/photos/wide-medium/1/30088829.png'
+        restaurantUrl: 'https://bigseventravel.com/wp-content/uploads/2020/07/Mediterranean-dishes.png'
+        // restaurantUrl: 'https://t3.ftcdn.net/jpg/02/68/78/28/360_F_268782859_fmLoMazNerGOYNUwwLDZStYyaHOLQvyv.jpg'
       },
       {
         restaurantId: 4,
-        restaurantUrl: 'https://phoenicianrestaurant.com/wp-content/uploads/2024/02/lambs.png'
+        restaurantUrl: 'https://glutenfreecuppatea.co.uk/wp-content/uploads/2018/05/gluten-free-stuffed-aubergine-recipe-low-fodmap-vegan-4.jpg'
+      },
+      {
+        restaurantId: 4,
+        restaurantUrl: 'https://www.pcrm.org/sites/default/files/Grilled%20Tofu%20with%20Smoky%20Barbecue%20Sauce_0.jpg'
+      },
+      {
+        restaurantId: 4,
+        restaurantUrl: 'https://610city.com/wp-content/uploads/2024/05/needed-mediterranean-dishes-you-have-to-tryjpg-9.jpg'
       },
       {
         restaurantId: 5,
-        restaurantUrl: 'https://nomadsunveiled.com/wp-content/uploads/2022/02/turkish-kebab-meat.jpg'
+        restaurantUrl: 'https://www.eatout.co.za/wp-content/uploads/2013/11/2023-01-08.jpeg'
       },
       {
         restaurantId: 5,
@@ -122,11 +137,11 @@ module.exports = {
       },
       {
         restaurantId: 6,
-        restaurantUrl: 'https://thelemonapron.com/wp-content/uploads/2016/07/IMG_9270-e1468000440784.jpg'
+        restaurantUrl: 'https://cititour.com/NYC_News/photos/Metropolis_by_Marcus_Samuelsson,_Restaurant,_NYC_1.jpg'
       },
       {
         restaurantId: 6,
-        restaurantUrl: 'https://www.anediblemosaic.com/wp-content/uploads//2021/12/babka-featured-image.jpg'
+        restaurantUrl: 'https://toriavey.com/images/2019/01/P1288273.jpg'
       },
       {
         restaurantId: 6,
@@ -134,11 +149,11 @@ module.exports = {
       },
       {
         restaurantId: 6,
-        restaurantUrl: 'https://www.delscookingtwist.com/wp-content/uploads/2021/07/Perfect-Chocolate-Pancakes_1.jpg'
+        restaurantUrl: 'https://thelemonapron.com/wp-content/uploads/2016/07/IMG_9270-e1468000440784.jpg'
       },
       {
         restaurantId: 6,
-        restaurantUrl: 'https://c.ndtvimg.com/sv5kh12o_healthy-breakfast-omelette_625x300_20_July_18.jpg'
+        restaurantUrl: 'https://nishkitchen.com/wp-content/uploads/2012/09/Spinach-Omelette-1B-480x360.jpg'
       },
       {
         restaurantId: 6,
@@ -146,7 +161,7 @@ module.exports = {
       },
       {
         restaurantId: 7,
-        restaurantUrl: 'https://www.platingsandpairings.com/wp-content/uploads/2018/05/blue-cheese-gnocchi.png'
+        restaurantUrl: 'https://i.pinimg.com/originals/1f/a5/fd/1fa5fdd48df454e596f982a0f1c7a258.jpg'
       },
       {
         restaurantId: 7,
@@ -154,7 +169,7 @@ module.exports = {
       },
       {
         restaurantId: 7,
-        restaurantUrl: 'https://cdn.loveandlemons.com/wp-content/uploads/2022/06/pasta-primavera-1.jpg'
+        restaurantUrl: 'https://ordinaryvegan.net/wp-content/uploads/2014/06/thai-grilled-tofu-vegetables-shish-kebab.jpg'
       },
       {
         restaurantId: 7,
@@ -170,7 +185,8 @@ module.exports = {
       },
       {
         restaurantId: 8,
-        restaurantUrl: 'https://d22ko7latny6xj.cloudfront.net/uploads/image/image/162755/large_nisi_3.jpg'
+        restaurantUrl: 'https://usmenuguide.com/wp-content/uploads/2024/01/KellariTavernanewyorkhappyhour.jpg'
+        // restaurantUrl: 'https://domesticfits.com/wp-content/uploads/2023/11/greek-food-Moussaka-640x427.jpeg'
       },
       {
         restaurantId: 8,
@@ -190,11 +206,11 @@ module.exports = {
       },
       {
         restaurantId: 8,
-        restaurantUrl: 'https://www.thehungrybites.com/wp-content/uploads/2023/12/kourabiedes-recipe-Greek-butter-cookies-featured.jpg'
+        restaurantUrl: 'https://www.tastingtable.com/img/gallery/the-historic-difference-between-ale-and-beer/intro-1664830467.jpg'
       },
       {
         restaurantId: 9,
-        restaurantUrl: 'https://c8.alamy.com/comp/RTJ8MY/arabic-food-esfiha-mini-pizza-with-meat-and-pine-nut-closeup-on-the-table-horizontal-RTJ8MY.jpg'
+        restaurantUrl: 'https://images.squarespace-cdn.com/content/v1/55fd7c6de4b0209899c56252/1459462473457-KZUSIF52JBB90Y71B7H9/image-asset.jpeg'
       },
       {
         restaurantId: 9,
@@ -214,11 +230,11 @@ module.exports = {
       },
       {
         restaurantId: 9,
-        restaurantUrl: 'https://thematbakh.com/wp-content/uploads/2021/08/bulgar-wheat-tabouli-15.jpg'
+        restaurantUrl: 'https://i.pinimg.com/736x/33/3e/e6/333ee6251138a76d1f4d0720ff1a5c5c.jpg'
       },
       {
         restaurantId: 10,
-        restaurantUrl: 'https://openthe.world/wp-content/uploads/2021/05/aperol-spritz.jpg'
+        restaurantUrl: 'https://media.timeout.com/images/105678124/image.jpg'
       },
       {
         restaurantId: 10,
@@ -238,7 +254,7 @@ module.exports = {
       },
       {
         restaurantId: 10,
-        restaurantUrl: 'https://cdn4.tuscanynowandmore.com/storage/app/uploads/public/7c5/e1b/b46/thumb__0_356_0_0_crop.jpg'
+        restaurantUrl: 'https://assets.editorial.aetnd.com/uploads/2012/07/pizza-gettyimages-638790274.jpg'
       },
     ], { validate: true })
   },

@@ -313,7 +313,7 @@ module.exports = {
         tableNum: 3
       },
       {
-        restaurantId: 1,
+        restaurantId: 6,
         slotStartTime: '08:00',
         slotDuration:  30,
         tableCapacity: 4,

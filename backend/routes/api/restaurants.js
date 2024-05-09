@@ -126,15 +126,30 @@ router.get("/", async (req, res) => {
             },{
                 model: Holiday,
                 attributes: ['id','occasion']
-            },
+            },{
+                model: Booking,
+                attributes: ['restaurantId', 'userId', 'slotId', 'bookingDate'],
+                include: [
+                    {
+                        model: Slot,
+                        attributes: ['restaurantId', 'slotStartTime', 'slotDuration', 'tableCapacity']
+                    }
+                ]
+            },{
+                model: Slot,
+                attributes: ['id','restaurantId', 'slotStartTime', 'slotDuration', 'tableCapacity'] 
+            },{
+                model: MenuDish,
+                attributes: ['id','restaurantId','dishName','dishIngredients','dishPrice','dishCalories','dishAllergies']
+            }
         ],
         attributes: {
             include: [
                 [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating']
             ]
         },
-        group: ['Restaurant.id','RestaurantImages.id','Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id']
-        //group: ['Restaurant.id','RestaurantImages.id','Holidays.id']
+        group: ['Restaurant.id','RestaurantImages.id','Holidays.id','Reviews.id','Reviews.ReviewImages.id','Reviews.User.id','Bookings.id','Bookings.Slot.id','Slots.id','MenuDishes.id']
+       
     });
     
     const restaurantList = [];

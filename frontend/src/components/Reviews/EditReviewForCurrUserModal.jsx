@@ -1,32 +1,26 @@
-import "./EditReviewModal.css";
+import "./EditReviewForCurrUserModal.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRestaurantReviewThunk } from "../../redux/restaurants";
+import { getCurrentUserReviewsThunk } from "../../redux/reviews";
+
+//  import { updateReviewThunk } from "../../redux/reviews";
+
 import { useModal } from '../../context/Modal';
 
-const EditReviewModal = ({ review }) => {
+const EditReviewForCurrUserModal = ({ review }) => {
     const user = useSelector((state) => state.session.user);
     console.log("...review in props", review)
     const dispatch = useDispatch();
-    const currentRestaurant = useSelector((state) => state.restaurants.byId[review.restaurantId]);
-    console.log("....review.restaurantId.....", review.restaurantId)
-    console.log("....currentRestaurant....", currentRestaurant)
-    const currentReview = currentRestaurant.Reviews.filter((rev) => rev.id == review.id);
+    // const currentRestaurant = useSelector((state) => state.restaurants.byId[review.restaurantId]);
+    // console.log("....review.restaurantId.....", review.restaurantId)
+    // console.log("....currentRestaurant....", currentRestaurant)
+    const currentReview = useSelector((state) => state.reviews.byId[review.id]);
     console.log("....currentReview....", currentReview);
     const { closeModal } = useModal();
-    //const [reviewMsg, setReviewMsg] = useState(currentReview ? currentReview.review : reviewMsg);
-    //const [stars, setStars] = useState(currentReview ? currentReview.stars : stars);
-    //const [reviewMsg, setReviewMsg] = useState('');
     const [reviewMsg, setReviewMsg] = useState(review.review);
     const [stars, setStars] = useState(review.stars);
     const [errors, setErrors] = useState({});
-    //const [star1, setStar1] = useState(1);
-    //const [star2, setStar2] = useState(2);
-    //const [star3, setStar3] = useState(3);
-    //const [star4, setStar4] = useState(4);
-    //const [star5, setStar5] = useState(5);
-    //const [error, setError] = useState({});
-    //const [error, setError] = useState('');
     let foundError = false;
 
     let star1Value = false;
@@ -56,10 +50,6 @@ const EditReviewModal = ({ review }) => {
     console.log("star3 ",star3Value )
     console.log("star2 ",star2Value )
     console.log("star1 ",star1Value )
-
-    if (!currentRestaurant) {
-        return <h2>Restaurant not found!!</h2>
-    }
 
     if (!currentReview) {
         return <h2>Review to be edited not found!!</h2>
@@ -99,8 +89,11 @@ const EditReviewModal = ({ review }) => {
                 console.log("......1......")
                 review.review = reviewMsg
                 review.stars = stars
-                const updatedReview = await dispatch(
-                    updateRestaurantReviewThunk(currentRestaurant.id,review)
+                // const updatedReview = await dispatch(
+                await dispatch(
+                    updateRestaurantReviewThunk(review.restaurantId,review),
+                    getCurrentUserReviewsThunk()
+                    // updateReviewThunk(review)
 
                 ).catch(async (res) => {
                     console.log(".......2......")
@@ -240,4 +233,4 @@ const EditReviewModal = ({ review }) => {
 );
 };
 
-export default EditReviewModal;
+export default EditReviewForCurrUserModal;

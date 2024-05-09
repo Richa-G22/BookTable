@@ -7,19 +7,36 @@ const { setTokenCookie, restoreUser, requireAuth} = require('../../utils/auth');
 const { Restaurant, RestaurantImage, Holiday, Slot, MenuDish, Review, ReviewImage, User, Booking, sequelize } = require('../../db/models');
 const router = express.Router();
 
-const validateBooking = [
-    check('endDate')
-      .custom((endDate, { req }) => {
-        const startDate = req.body.startDate;
-        if (startDate >= endDate) {
-            return false
-        }
-        return true
-    })
-      .withMessage('EndDate cannot come before startDate'),
-    handleValidationErrors
-  ]; 
+// const validateBooking = [
+//     check('endDate')
+//       .custom((endDate, { req }) => {
+//         const startDate = req.body.startDate;
+//         if (startDate >= endDate) {
+//             return false
+//         }
+//         return true
+//     })
+//       .withMessage('EndDate cannot come before startDate'),
+//     handleValidationErrors
+//   ]; 
 
+//-----------------------------------------------------------------------------------------------------------------------
+// Get all bookings
+router.get("/", async (req, res) => {
+    const bookings = await Booking.findAll({
+        
+        include: [        
+            {
+                model: Slot,
+                attributes: ['id', 'restaurantId', 'slotStartTime', 'slotDuration', 'tableCapacity'],     
+            },    
+        ],
+       
+    });
+    
+    return res.json(bookings);
+});
+     
 //-----------------------------------------------------------------------------------------------------------------------
 // Get all of the Current User's Bookings 
 router.get("/current", requireAuth, async (req, res) => {
@@ -31,17 +48,20 @@ router.get("/current", requireAuth, async (req, res) => {
         },
         include: [
             {
+                model: Slot,
+                attributes: ['id', 'restaurantId', 'slotStartTime', 'slotDuration', 'tableCapacity'], 
+            },
+            {
                 model: Restaurant,
-                attributes: ['id','restaurantType','ownerId','address','city','state','country','zipCode','phone','name','description','cuisines','locationMapUrl','dayClosed','hoursOfOperation','avgMealPrice','parkingAvailability','paymentOption','dressCode','executiveChef','menuUrl'], 
+                attributes: ['id', 'name', 'address', 'city', 'state','country', 'zipCode'],
                 include: [
                     {
                         model: RestaurantImage,
-                        attributes: ['restaurantUrl'],
-                    },
-                ] ,
-            },    
-        ],
-        group: ['Booking.id','Restaurant.RestaurantImages.restaurantUrl','Restaurant.id']
+                        attributes: ['id', 'restaurantUrl']
+                    }
+                ]
+            }
+        ]
     });
     
 	return res.json({"Bookings": bookings});

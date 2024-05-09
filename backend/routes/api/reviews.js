@@ -22,10 +22,40 @@ const validateReview = [
     handleValidationErrors
   ]; 
 
+//-----------------------------------------------------------------------------------------------------------------------
+// Get all Reviews
+router.get("/", async (req, res) => {
+    const reviews = await Review.findAll({
+        
+        include: [        
+            {
+                model: ReviewImage,
+                attributes: ['id', 'reviewId', 'reviewUrl'],     
+            }, 
+            {
+                model: Restaurant,
+                attributes: ['id', 'name', 'address', 'city', 'state','country', 'zipCode'],
+                include: [
+                    {
+                        model: RestaurantImage,
+                        attributes: ['id', 'restaurantUrl']
+                    }
+                ]
+            }
+        ],
+       
+    });
+    
+    return res.json(reviews);
+});
+     
+//-----------------------------------------------------------------------------------------------------------------------
 // Get all Reviews of the Current User
 router.get("/current", requireAuth, async (req, res) => {
     
 	let reviews = await Review.findAll({
+        attributes: ['id','restaurantId', 'userId', 'restaurantId', 'review', 'stars', 'createdAt', 'updatedAt'] ,
+        order: [['updatedAt','DESC']],
         where: {
             userId: req.user.id,    
         },
@@ -114,35 +144,38 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
 
     await deleteReview.destroy();
     return res.json({ message: "Successfully deleted" });
-})
+});
 
-// //get
+//-----------------------------------------------------------------------------------------------------------------------
+// Edit a Review for a particular restaurant
 
-// router.get("/:restaurantId", async (req, res) => {
-//     const restaurantId  = req.params.restaurantId;
-//     const restaurant = await Restaurant.findByPk(restaurantId);
-
-//     if (!restaurant) {
-//         const err = new Error("Restaurant couldn't be found");
-//         err.status = 404;
-//         return res.json({ message: "Restaurant couldn't be found" }, err.status);
-//     };
+router.put("/:reviewId", requireAuth, validateReview, async (req, res) => {
     
-//     const reviews = await Review.findAll({
-//         include: [
-//             {
-//                 model: User,
-//                 attributes: ["id", "firstName", "lastName"] 
-//         }, {
-//                 model: ReviewImage,
-//                 attributes: ['id','reviewUrl'],  
-//         }],
-//         where: {
-//                 restaurantId: req.params.restaurantId
-//         },   
-//     });
-//     return res.json({"Reviews": reviews});    
-// });
+    const { review, stars } = req.body;
+    const reviewId  = req.params.reviewId;
+    const existingReview = await Review.findByPk(reviewId);
+    
+    if (!existingReview) {
+        const err = new Error("Review couldn't be found");
+        err.status = 404;
+        return res.json({ message: "Review couldn't be found" }, err.status);
+    };
+    
+    if (parseInt(existingReview.userId) !== parseInt(req.user.id)) {
+        const err = new Error("Forbidden");
+        err.status = 403;
+        return res.json({ message: "Forbidden" }, err.status); 
+    };
+
+    
+    existingReview.review = review;
+    existingReview.stars = stars;
+    
+    await existingReview.save();
+    return res.json( existingReview );
+});
+
+//-----------------------------------------------------------------------------------------------------------------------
 
 
 module.exports = router;

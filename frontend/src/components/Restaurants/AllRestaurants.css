@@ -44,8 +44,8 @@ body {
 
 .photo-image {
     display: flex;
-    width: 18rem;
-    height: 14rem;
+    width: 20rem;
+    height: 16rem;
     border-radius: 1rem; 
     cursor: pointer;
 }

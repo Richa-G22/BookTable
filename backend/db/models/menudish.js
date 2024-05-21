@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     dishName: { 
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     dishIngredients: {
       type: DataTypes.STRING,
@@ -33,17 +34,24 @@ module.exports = (sequelize, DataTypes) => {
     dishPrice: {
       type: DataTypes.DECIMAL,
       allowNull: false,
+      validate: {
+        min: 1,
+      },
     },
     dishCalories: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         isInt: true,
+        min: 1
       }
     },
     dishAllergies: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    spiceLevel: {
+      type: DataTypes.INTEGER
     },
   }, {
     sequelize,

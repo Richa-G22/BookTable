@@ -142,7 +142,7 @@ const AllRestaurants = () => {
             </div>
         </div>
          : <span>Loading..</span>
-        }
+         } 
     </>       
     );
 };

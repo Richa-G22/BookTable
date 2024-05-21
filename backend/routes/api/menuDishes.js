@@ -31,4 +31,38 @@ router.delete('/:menudishId', requireAuth, async (req, res, next) => {
     return res.json({ message: "Successfully deleted" });
 })
 
+//------------------------------------------------------------------------------------------------------
+// Create a MenuDish for a restaurant based on the Restaurant's id
+
+router.post("/new", requireAuth, async (req, res) => {
+    const { dishCategory, dishName, dishIngredients, dishPrice, dishCalories, dishAllergies } = req.body;    
+    
+    res.status = 201;
+    
+    const newMenuDish = await MenuDish.create({ 
+        restaurantId: req.params.restaurantId,
+        dishCategory,
+        dishName,
+        dishIngredients,
+        dishPrice,
+        dishCalories,
+        dishAllergies 
+    });
+    
+    const menudishObj = {};
+    menudishObj.id = newMenuDish.id;
+    menudishObj.userId = newMenuDish.userId;
+    menudishObj.restaurantId = newMenuDish.restaurantId;
+    menudishObj.review = newMenuDish.review;
+    menudishObj.stars = newMenuDish.stars;
+    menudishObj.createdAt = newMenuDish.createdAt;
+    menudishObj.updatedAt = newMenuDish.updatedAt;
+    
+    return res.json(menudishObj, res.status);
+    
+});
+
+//------------------------------------------------------------------------------------------------------
+
+
 module.exports = router;

@@ -39,6 +39,7 @@ const GetCurrUserRestaurants = () => {
     let convertedReviewDate = new Date();
     let reviewDate = new Date();
     let calculate, reviewStars;
+    let bdate;
 
     useEffect(() => {
         const getCurrentUserRestaurants = async () => {
@@ -194,14 +195,19 @@ const GetCurrUserRestaurants = () => {
 
                             <div style={{ paddingBottom: "2.5em", width: "68%", float: "right", fontSize: "1em" }} >
                                 <div style={{ width: "45%", float: "left" }} className="bookings">
-                                    <h3 style={{ paddingBottom: "0px", marginBottom: "0px", marginTop: "1.50em" }}>Your upcoming Bookings</h3>
+                                    <h3 style={{ paddingBottom: "1rem", marginBottom: "0px", marginTop: "1.50em" }}>Your upcoming Bookings</h3>
                                     {currentBookings.length ?
                                         currentBookings.map((booking) => (
                                             <div>
-                                                <span style={{ color: "rgb(232, 229, 229)" }}>{convertedBookingDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`}</span>
+                                                {bdate = () => {
+                                                    convertedBookingDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`;
+                                                    return convertedBookingDate;
+                                                }}
+                                                {/* <span style={{ color: "rgb(232, 229, 229)" }}>{convertedBookingDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`}</span> */}
                                                 {/* {booking ? */}
                                                 <div>
-                                                    {booking.bookingDate > convertedBookingDate && booking.bookingDate ?
+                                                    {/* {booking.bookingDate > convertedBookingDate && booking.bookingDate ? */}
+                                                    {booking.bookingDate > bdate() && booking.bookingDate ?
                                                         <div>
                                                             <div style={{ marginBottom: "2rem" }}>
                                                                 <div style={{ display: "flex", width: "28rem", justifyContent: "space-between" }}>
@@ -243,7 +249,7 @@ const GetCurrUserRestaurants = () => {
                                             </div>
 
                                         ))
-                                        : <div style={{  fontSize: "1rem",  paddingTop:"1rem" }}>No upcoming bookings found !!!</div>
+                                        : <div style={{ fontSize: "1rem", paddingTop: "1rem" }}>No upcoming bookings found !!!</div>
                                     }
                                     <hr style={{ height: "2px", backgroundColor: "rgb(141,4,4)", marginTop: "4em" }} />
 
@@ -286,7 +292,7 @@ const GetCurrUserRestaurants = () => {
                                                 }
                                             </div>
                                         ))
-                                        : <div style={{  fontSize: "1rem",  paddingTop:"1rem" }}>"No past bookings found !!!"
+                                        : <div style={{ fontSize: "1rem", paddingTop: "1rem" }}>"No past bookings found !!!"
                                         </div>
                                     }
                                 </div>
@@ -296,60 +302,60 @@ const GetCurrUserRestaurants = () => {
                                     </h3>
                                     {currentReviews.length ?
                                         currentReviews.sort((rev1, rev2) => new Date(rev2.updatedAt) - new Date(rev1.updatedAt)).
-                                        map((review) => (
-                                        // currentReviews.map((review) => (
-                                            <div style={{ marginBottom: "1rem", borderBottom: "1px solid rgb(141,4,4)"}}>
-                                                <div style={{ display: "flex", justifyContent: "space-between",marginBottom:"0px", paddingBottom:"0px" }}>
-                                                    <div style={{marginBottom:"0px", paddingBottom:"0px"}}>
-                                                        <div style={{ display: "flex" }}>
-                                                            <div style={{ fontWeight: "bold", paddingRight: "0.45rem", paddingBottom: "0.5rem", cursor: "pointer" }} onClick={() => navigate(`/restaurants/${review.Restaurant.id}`)}>{review.Restaurant.name} </div>
-                                                            {/* <div style={{ fontWeight: "bold", paddingRight: "0.45rem", paddingBottom: "0.5rem", cursor: "pointer" }} onClick={() => navigate(`/restaurants/${review.Restaurant.id}`)}> </div> */}
-                                                        </div>
-                                                        <div style={{ display: "flex" }}>
+                                            map((review) => (
+                                                // currentReviews.map((review) => (
+                                                <div style={{ marginBottom: "1rem", borderBottom: "1px solid rgb(141,4,4)" }}>
+                                                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0px", paddingBottom: "0px" }}>
+                                                        <div style={{ marginBottom: "0px", paddingBottom: "0px" }}>
+                                                            <div style={{ display: "flex" }}>
+                                                                <div style={{ fontWeight: "bold", paddingRight: "0.45rem", paddingBottom: "0.5rem", cursor: "pointer" }} onClick={() => navigate(`/restaurants/${review.Restaurant.id}`)}>{review.Restaurant.name} </div>
+                                                                {/* <div style={{ fontWeight: "bold", paddingRight: "0.45rem", paddingBottom: "0.5rem", cursor: "pointer" }} onClick={() => navigate(`/restaurants/${review.Restaurant.id}`)}> </div> */}
+                                                            </div>
+                                                            <div style={{ display: "flex" }}>
 
-                                                            {calculate = () => {
-                                                                reviewDate = review.updatedAt;
-                                                                reviewDate = reviewDate.slice(0, 10);                                                                
-                                                            }}
-                                                            {convertedReviewDate = calculate()}
-                                                            
-                                                            <div style={{ fontWeight: "bold", paddingRight: "0.65rem" }}>Rated &nbsp;&nbsp;<span style={{ color: "rgb(141,4,4" }}>{review.stars}</span><i style={{ fontWeight: "bold", paddingRight: "0.15rem", color: "rgb(141,4,4)" }} className="fa-solid fa-star"></i><span style={{ color: "rgb(141,4,4", paddingRight: "1rem" }}></span> On </div><span>{reviewDate}</span>
+                                                                {calculate = () => {
+                                                                    reviewDate = review.updatedAt;
+                                                                    reviewDate = reviewDate.slice(0, 10);
+                                                                }}
+                                                                {convertedReviewDate = calculate()}
+
+                                                                <div style={{ fontWeight: "bold", paddingRight: "0.65rem" }}>Rated &nbsp;&nbsp;<span style={{ color: "rgb(141,4,4" }}>{review.stars}</span><i style={{ fontWeight: "bold", paddingRight: "0.15rem", color: "rgb(141,4,4)" }} className="fa-solid fa-star"></i><span style={{ color: "rgb(141,4,4", paddingRight: "1rem" }}></span> On </div><span>{reviewDate}</span>
+                                                            </div>
+                                                            <div style={{ display: "flex" }}>
+                                                                <div style={{ fontWeight: "bold", paddingRight: "0.45rem" }}>Review: </div><span>{review.review}</span>
+                                                            </div>
                                                         </div>
-                                                        <div style={{ display: "flex" }}>
-                                                            <div style={{ fontWeight: "bold", paddingRight: "0.45rem" }}>Review: </div><span>{review.review}</span>
+                                                        <div>
+                                                            {review.ReviewImages && review.ReviewImages.length ?
+                                                                <img src={review.ReviewImages[0].reviewUrl} style={{ width: "7rem", height: "7rem", borderRadius: "1rem", cursor: "pointer" }} onClick={() => navigate(`/restaurants/${review.Restaurant.id}`)} />
+                                                                : ""}
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        {review.ReviewImages && review.ReviewImages.length ?
-                                                            <img src={review.ReviewImages[0].reviewUrl} style={{ width: "7rem", height: "7rem", borderRadius: "1rem",  cursor: "pointer" }} onClick={() => navigate(`/restaurants/${review.Restaurant.id}`)} />
-                                                            : ""}
-                                                    </div>
-                                                </div>
-                                                <div className='upadte-delete' style={{ display: "flex", marginBottom: "1.50em", paddingBottom: "0px", marginTop:"1rem" }}>
-                                                    <span style={{ marginLeft: "0%", margin: '0px', paddingBottom: "0px",marginRight:"0.25rem" }} className="Delete">
-                                                        <OpenReviewModalButton
-                                                        
-                                                            buttonText="Delete"
-                                                            modalComponent={
-                                                                <DeleteRevForCurrUserModal 
-                                                                    reviewId={review.id}
-                                                                    setUpdateMode={setUpdateMode} />
-                                                            }
-                                                        />
-                                                    </span> &nbsp;
-                                                    <span className="Edit">
-                                                        <OpenReviewModalButton
-                                                            buttonText="Edit"
-                                                            modalComponent={
-                                                                <EditReviewForCurrUserModal review={review} />
-                                                            }
-                                                        />
-                                                    </span>
-                                                </div>
+                                                    <div className='upadte-delete' style={{ display: "flex", marginBottom: "1.50em", paddingBottom: "0px", marginTop: "1rem" }}>
+                                                        <span style={{ marginLeft: "0%", margin: '0px', paddingBottom: "0px", marginRight: "0.25rem" }} className="Delete">
+                                                            <OpenReviewModalButton
 
-                                            </div>
-                                        ))
-                                        : <div style={{fontWeight:"1rem"}}>You did not review any restaurant yet!!</div>
+                                                                buttonText="Delete"
+                                                                modalComponent={
+                                                                    <DeleteRevForCurrUserModal
+                                                                        reviewId={review.id}
+                                                                        setUpdateMode={setUpdateMode} />
+                                                                }
+                                                            />
+                                                        </span> &nbsp;
+                                                        <span className="Edit">
+                                                            <OpenReviewModalButton
+                                                                buttonText="Edit"
+                                                                modalComponent={
+                                                                    <EditReviewForCurrUserModal review={review} />
+                                                                }
+                                                            />
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            ))
+                                        : <div style={{ fontWeight: "1rem" }}>You did not review any restaurant yet!!</div>
                                     }
                                 </div>
                             </div>

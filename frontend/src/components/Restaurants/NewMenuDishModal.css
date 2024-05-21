@@ -1,0 +1,136 @@
+.error {
+    color: red;
+    align-items:center;
+  }
+  
+  .menudish-modal {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 24rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+  
+  .starcss {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+    /*content : '\2605'*/
+  }
+
+  .starcss:not(:checked) > input {
+    position: absolute;
+    top: -9999px; 
+  }
+
+  .starcss:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+  }
+
+  .starcss:not(:checked) > label:before {
+    content : '\2605'
+  }
+
+  .starcss> input:checked ~ label  {
+    color: rgb(141, 4, 4);
+  }
+
+  .starcss:not(:checked) > label:hover,
+  .starcss:not(:checked) > label:hover ~ label {
+    color: rgb(141, 4, 4);
+  } 
+  
+  .submit-menudish-btn {
+    border-radius: 4px;
+    font-size: 14px;
+    /* margin: 11px 5px; */
+    margin-Top: 2rem;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(141, 4, 4);
+    color: white;
+    cursor: pointer;
+    border: 2px solid black;
+    box-shadow: 4px 4px 4px black;;
+  }
+
+  .submit-review-btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+  }
+
+  .create-restaurant-form {
+    width: 450px;
+    margin: auto;
+    padding-bottom: 5rem;
+    padding-top: 2em;
+  }
+  
+  .section-h3 {
+    margin: 0;
+    padding-bottom: 1rem;
+  }
+  .section-p {
+    margin: 0 0 15px 0;
+  }
+  
+  .input-row {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .error {
+    color: red;
+    margin: 0;
+  }
+  
+  .input-wide {
+    width: 100%;
+  }
+  
+  .small-input-div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-row-two-col {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+    align-items: flex-end;
+  }
+  
+  .inner-section-div {
+    margin-top: 10px;
+    border-top: 2px solid;
+    padding-top: 10px;
+  }
+  
+  .input-image-div {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .submit-button-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    border-top: 2px solid;
+    padding-top: 2em;
+  }
+  .submit-button {
+    height: 25px;
+    width: 150px;
+    background-color: tomato;
+    color: white;
+    cursor: pointer;
+  }

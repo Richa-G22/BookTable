@@ -140,7 +140,7 @@ router.get("/", async (req, res) => {
                 attributes: ['id','restaurantId', 'slotStartTime', 'slotDuration', 'tableCapacity'] 
             },{
                 model: MenuDish,
-                attributes: ['id','restaurantId','dishName','dishIngredients','dishPrice','dishCalories','dishAllergies']
+                attributes: ['id','restaurantId','dishName','dishIngredients','dishPrice','dishCalories','dishAllergies','spiceLevel']
             }
         ],
         attributes: {
@@ -270,7 +270,7 @@ router.get("/:restaurantId", async (req, res) => {
                 attributes: ['id','occasion']
             }, {
                 model: MenuDish,
-                attributes: ['id', 'dishCategory', 'dishName','dishIngredients','dishPrice','dishCalories','dishAllergies']
+                attributes: ['id', 'restaurantId', 'dishCategory', 'dishName','dishIngredients','dishPrice','dishCalories','dishAllergies','spiceLevel']
             }],
             where: {id},
             
@@ -452,7 +452,7 @@ router.get("/:restaurantId", async (req, res) => {
             return res.json({ message: "Forbidden" }, err.status); 
         };
         
-        const { dishCategory, dishName, dishIngredients, dishPrice, dishCalories, dishAllergies } = req.body;    
+        const { dishCategory, dishName, dishIngredients, dishPrice, dishCalories, dishAllergies, spiceLevel } = req.body;    
         const newMenuDish = await MenuDish.create({ 
             restaurantId: req.params.restaurantId,
             dishCategory,
@@ -460,7 +460,8 @@ router.get("/:restaurantId", async (req, res) => {
             dishIngredients,
             dishPrice,
             dishCalories,
-            dishAllergies
+            dishAllergies,
+            spiceLevel
         });
         
         const menuObj = {};
@@ -472,6 +473,7 @@ router.get("/:restaurantId", async (req, res) => {
         menuObj.dishPrice = parseFloat(newMenuDish.dishPrice);
         menuObj.dishCalories = newMenuDish.dishCalories;
         menuObj.dishAllergies = newMenuDish.dishAllergies;
+        menuObj.spiceLevel = newMenuDish.spiceLevel;
         
         return res.json(menuObj);
     });
@@ -809,7 +811,7 @@ router.get("/:restaurantId", async (req, res) => {
     //-----------------------------------------------------------------------------------------------------------------------
     // Get all open Slots for a Restaurant based on the Restaurant's id and booking date
 
-    router.get("/:restaurantId/slots/:bookingDate", requireAuth, async (req, res) => {
+    router.get("/:restaurantId/slots/:bookingDate",  async (req, res) => {
 
         const restaurant = await Restaurant.findByPk(req.params.restaurantId);
 
@@ -985,7 +987,35 @@ router.delete('/:restaurantId/reviews/:reviewId', requireAuth, async (req, res, 
     return res.json({ message: "Successfully deleted" });
 })
 
+//-----------------------------------------------------------------------------------------------------------------------
+// Delete a MenuDish for a particular restaurant
 
+router.delete('/:restaurantId/menudishes/:menudishId', requireAuth, async (req, res, next) => {
+    const restaurantId  = req.params.restaurantId;
+    const restaurant = await Restaurant.findByPk(restaurantId);
+    if (!restaurant) {
+        const err = new Error("Restaurant couldn't be found");
+        err.status = 404;
+        return res.json({ message: "Restaurant couldn't be found" }, err.status);
+    };
+
+    const deleteMenuDish = await MenuDish.findByPk(req.params.menudishId);
+    
+    if (!deleteMenuDish) {
+        const err = new Error("Menu Dish couldn't be found");
+        err.status = 404;
+        return res.json({ message: "Menu Dish couldn't be found" }, err.status);
+    };
+    
+    // if (parseInt(deleteMenuDish.userId) !== parseInt(req.user.id)) {
+    //     const err = new Error("Forbidden");
+    //     err.status = 403;
+    //     return res.json({ message: "Forbidden" }, err.status); 
+    // };
+    
+    await deleteMenuDish.destroy();
+    return res.json({ message: "Successfully deleted" });
+})
 //-----------------------------------------------------------------------------------------------------------------------
 // Get all MenuDishes of a restaurant by Restaurant's id
 
@@ -1063,14 +1093,15 @@ router.put("/:restaurantId/menudishes/:menudishId", requireAuth, async (req, res
         return res.json({ message: "Forbidden" }, err.status); 
     };
     
-    const { dishCategory, dishName, dishIngredients, dishPrice, dishCalories, dishAllergies } = req.body;
-    
+    const { dishCategory, dishName, dishIngredients, dishPrice, dishCalories, dishAllergies, spiceLevel } = req.body;
+    existingMenudish.restaurantId = restaurantId; 
     existingMenudish.dishCategory = dishCategory;
     existingMenudish.dishName = dishName;
     existingMenudish.dishIngredients = dishIngredients;
     existingMenudish.dishPrice = parseFloat(dishPrice);
     existingMenudish.dishCalories = dishCalories;
     existingMenudish.dishAllergies = dishAllergies;
+    existingMenudish.spiceLevel = spiceLevel;
     
     await existingMenudish.save();
     return res.json( existingMenudish );
@@ -1081,6 +1112,7 @@ router.put("/:restaurantId/menudishes/:menudishId", requireAuth, async (req, res
 
 router.post("/:restaurantId/menudishes", requireAuth, async (req, res) => {
     const restaurantId  = req.params.restaurantId;
+    console.log(".....restaurantId...", restaurantId)
     const restaurant = await Restaurant.findByPk(restaurantId);
     
     if (!restaurant) {
@@ -1105,19 +1137,25 @@ router.post("/:restaurantId/menudishes", requireAuth, async (req, res) => {
         dishIngredients,
         dishPrice,
         dishCalories,
-        dishAllergies 
+        dishAllergies,
+        spiceLevel 
     });
     
     const menudishObj = {};
     menudishObj.id = newMenuDish.id;
-    menudishObj.userId = newMenuDish.userId;
     menudishObj.restaurantId = newMenuDish.restaurantId;
-    menudishObj.review = newMenuDish.review;
-    menudishObj.stars = newMenuDish.stars;
+    menudishObj.dishCategory = newMenuDish.dishCategory;
+    menudishObj.dishName = newMenuDish.dishName;
+    menudishObj.dishIngredients = newMenuDish.dishIngredients;
+    menudishObj.dishPrice = newMenuDish.dishPrice;
+    menudishObj.dishCalories = newMenuDish.dishCalories;
+    menudishObj.dishAllergies = newMenuDish.dishAllergies;
+    menudishObj.spiceLevel = newMenuDish.spiceLevel;
     menudishObj.createdAt = newMenuDish.createdAt;
     menudishObj.updatedAt = newMenuDish.updatedAt;
     
-    return res.json(menudishObj, res.status);
+    return res.json({"MenuDishes": menudishObj}, res.status);
+    // return res.json({"Bookings": bookingObj}, res.status);
     
 });
 

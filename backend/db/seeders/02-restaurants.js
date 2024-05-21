@@ -32,7 +32,8 @@ module.exports = {
         paymentOption: 'AMEX, Diners Club, Discover, Mastercard, Visa',
         dressCode: 'Smart Casual',
         executiveChef: 'Matt Hoyle',
-        menuUrl: 'https://noburestaurants.com/fifty-seven/menus'
+        // menuUrl: 'https://noburestaurants.com/fifty-seven/menus'
+        menuUrl: 'https://noburestaurants.com/'
       },
       {
         restaurantType: 'Dine-in',
@@ -76,7 +77,7 @@ module.exports = {
         paymentOption: 'AMEX, Diners Club, Discover, Mastercard, Visa',
         dressCode: 'Smart Casual',
         executiveChef: 'Ishmael Lozano',
-        menuUrl: 'https://rosamexicano.com/menus/'
+        menuUrl: 'https://rosamexicano.com/location/lincoln-center/'
       },
       {
         restaurantType: 'Dine-in',
@@ -98,7 +99,7 @@ module.exports = {
         paymentOption: 'AMEX, Diners Club, Discover, Mastercard, Visa',
         dressCode: 'Smart Casual',
         executiveChef: 'Sezai Celikbas',
-        menuUrl: 'https://www.peranyc.com/menus'
+        menuUrl: 'https://www.peranyc.com/'
       },
       {
         restaurantType: 'Dine-in/Takeout',
@@ -120,7 +121,7 @@ module.exports = {
         paymentOption: 'AMEX, Discover, Mastercard, Visa',
         dressCode: 'Smart Casual',
         executiveChef: 'Ishmael',
-        menuUrl: 'https://checkle.menu/alaturka_nyc'
+        menuUrl: 'https://www.alaturkany.com/'
       },
       {
         restaurantType: 'Dine-in/Takeout',
@@ -142,7 +143,7 @@ module.exports = {
         paymentOption: 'AMEX, Discover, Mastercard, Visa',
         dressCode: 'Smart Casual',
         executiveChef: 'Ed Tinoco',
-        menuUrl: 'https://www.metropolisbymarcus.com/menus/'
+        menuUrl: 'https://www.metropolisbymarcus.com/'
       },
       {
         restaurantType: 'Dine-in',
@@ -164,7 +165,7 @@ module.exports = {
         paymentOption: 'AMEX, Discover, Mastercard, Visa',
         dressCode: 'Casual Elegant',
         executiveChef: 'Morsi',
-        menuUrl: 'https://www.granmorsi.com/menu'
+        menuUrl: 'https://www.granmorsi.com/'
       },
       {
         restaurantType: 'Dine-in',
@@ -186,7 +187,7 @@ module.exports = {
         paymentOption: 'AMEX, Discover, Mastercard, Visa',
         dressCode: 'Casual Elegant',
         executiveChef: 'Agnes',
-        menuUrl: 'https://kellariny.com/menu-1'
+        menuUrl: 'https://kellariny.com/'
       },
       {
         restaurantType: 'Dine-in/Takeout',
@@ -208,7 +209,7 @@ module.exports = {
         paymentOption: 'AMEX, Diners Club, Discover, Mastercard, Visa',
         dressCode: 'Smart Casual',
         executiveChef: 'Philippe Massoud',
-        menuUrl: 'https://www.ililirestaurants.com/ilili-nyc-menu/'
+        menuUrl: 'https://www.ililirestaurants.com/'
       },
       {
         restaurantType: 'Dine-in/Takeout',
@@ -230,7 +231,7 @@ module.exports = {
         paymentOption: 'AMEX, Discover, Mastercard, Visa',
         dressCode: 'Casuals',
         executiveChef: 'Aria',
-        menuUrl: 'https://eataly-us.cdn.prismic.io/eataly-us/2731e412-3789-46a9-b8af-f4fee9521993_ENY_Serra+Winter+_Main+Menu_2024.04.22.pdf'
+        menuUrl: 'https://www.eataly.com/us_en/stores/nyc-flatiron/restaurants/serra-by-birreria'
       },
     ], { validate: true })
   },

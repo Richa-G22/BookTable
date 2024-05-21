@@ -22,6 +22,7 @@ const ADD_MENUDISH_TO_RESTAURANT = "restaurants/ADD_MENUDISH_TO_RESTAURANT";
 const ADD_BOOKING_TO_RESTAURANT = "restaurants/ADD_BOOKING_TO_RESTAURANT";
 const GET_RESTAURANT_IMAGES = "restaurants/GET_RESTAURANT_IMAGES";
 const DELETE_REVIEW = "restaurants/DELETE_REVIEW";
+const DELETE_MENUDISH_BY_ID = "restaurants/DELETE_MENUDISH_BY_ID";
 
 //----------------------------------------------------------------------------------------
 
@@ -96,10 +97,10 @@ const addHoildayToRestaurant = (id, Holidays) => {
     }
 };
 
-const addMenudishToRestaurant = (id, menudish) => {
+const addMenudishToRestaurant = (menudish) => {
     return {
         type: ADD_MENUDISH_TO_RESTAURANT,
-        payload: { id, menudish } 
+        payload: { menudish } 
     }
 };
 
@@ -131,10 +132,10 @@ const updateRestaurantReview = (review) => {
     }
 };
 
-const updateRestaurantMenudish = (id, menudish) => {
+const updateRestaurantMenudish = (menudish) => {
     return {
         type: UPDATE_RESTAURANT_MENUDISH,
-        payload: { id, menudish }
+        payload: { menudish }
     }
 };
 
@@ -179,6 +180,17 @@ const deleteReview = (restaurantId, reviewId) => {
         payload: { 
             'restaurantId' : restaurantId,
              reviewId
+        }
+        
+    }
+};
+
+const deleteMenuDish = (restaurantId, menudishId) => {
+    return {
+        type: DELETE_MENUDISH_BY_ID,
+        payload: { 
+            'restaurantId' : restaurantId,
+             menudishId
         }
         
     }
@@ -377,6 +389,32 @@ export const deleteReviewThunk = (restaurantId, reviewId) => async (dispatch) =>
     }
 };
 
+//----------------------------------------------------------------------------------------
+// Delete a menudish by id
+
+export const deleteMenuDishThunk = (restaurantId, menudishId) => async (dispatch) => {
+    console.log("......inside delete menudish thunk........")
+    console.log(".....restaurantId, menudishId...", restaurantId, typeof restaurantId,menudishId, typeof menudishId);
+    try {   
+        const response = await csrfFetch(`/api/restaurants/${restaurantId}/menudishes/${menudishId}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+        });
+       console.log(".....response....", response)
+        if (response.ok) {
+            const data = await response.json();
+            console.log("....data before dispatch...",data)
+            console.log("..initial state..",initialState)
+            dispatch(deleteMenuDish(restaurantId, menudishId));
+            //dispatch(getReviewsForRestaurantThunk(restaurantId));
+        } else {
+            throw response;
+        }
+    } catch (e) {
+        const errors = e.json();
+        return errors;
+    }
+};
 
 //------------------------------------------------------------------------------------
 // Update a Restaurant
@@ -428,6 +466,37 @@ export const updateRestaurantReviewThunk = (restaurantId, review) => async(dispa
                 const data = await response.json();
                 console.log('&&&&&&&&&&&&&&data', data)
                 dispatch(updateRestaurantReview(data));
+                console.log("going to fetech all reviews again");
+                //dispatch(getReviewsForRestaurantThunk(restaurantId));
+                return data;
+        } else {
+                throw response;
+        }
+    } catch (e) {
+        const errors =  e.json();
+        return errors;
+    }
+};
+
+//----------------------------------------------------------------------------------------
+// Update a Menu Dish
+
+export const updateRestaurantMenudishThunk = (restaurantId, menudish) => async(dispatch) => {
+ 
+    try {
+         console.log('...................reached edit thunk............')
+         console.log('$$$$$$$$$$$$$$$$$ . restaurantId, menudish......',restaurantId, menudish)
+         const options = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(menudish)
+        };
+        const response = await csrfFetch(`/api/restaurants/${restaurantId}/menudishes/${menudish.id}`, options);
+        console.log('&&&&&&&&&&&&&&response', response)
+        if (response.ok) {
+                const data = await response.json();
+                console.log('&&&&&&&&&&&&&&data', data)
+                dispatch(updateRestaurantMenudish(data));
                 console.log("going to fetech all reviews again");
                 //dispatch(getReviewsForRestaurantThunk(restaurantId));
                 return data;
@@ -574,7 +643,7 @@ export const addMenudishToRestaurantThunk = (restaurantId, menudish) => async (d
         if (response.ok) {
                      const data = await response.json();
                      console.log(".........data.....", data)
-                     dispatch(addMenudishToRestaurant(restaurantId, menudish));
+                     dispatch(addMenudishToRestaurant(data));
                      console.log("SUCCESSFULL RETURN FROM DISPATCH")
                      return data;
         } else {
@@ -846,6 +915,44 @@ const restaurantsReducer = (state = initialState, action) => {
         
         //----------------------------------------------------------------------------------------------------------------
 
+        case ADD_MENUDISH_TO_RESTAURANT: {
+            console.log(".......inside...add menudish thunk....")
+            console.log(".....action.payload.....", action.payload);
+            const newById = {...newState.byId};
+            const newMenuDish = [action.payload.menudish]
+            console.log("....MenuDishes...", newMenuDish)
+            
+            let newArr = [...newState.restaurants_arr];
+            for(let i = 0; i < newState.restaurants_arr.length; i++){
+                let currRestaurant = newArr[i];
+                if(currRestaurant.id === action.payload.id){
+                    if (!newArr[i].MenuDishes) {
+                        newArr[i] = {...newArr[i],  MenuDishes: [action.payload.menudish] }
+                        break;
+                    } else {
+                        newArr[i].MenuDishes.push(action.payload.menudish)
+                    }
+                }
+            }
+            newState.restaurants_arr = JSON.parse(JSON.stringify(newArr))
+            
+            // if (!newState.byId[action.payload.menudish.restaurantId].MenuDishes){
+            //     newState.byId[action.payload.menudish.restaurantId] = {...newState.byId[action.payload.menudish.restaurantId], MenuDishes: [action.payload.menudish]}
+            // } else {
+            //     newState.byId[action.payload.menudish.restaurantId].MenuDishes.push(action.payload.menudish) 
+            // }
+            if (!newById[action.payload.menudish.restaurantId].MenuDishes){
+                newById[action.payload.menudish.restaurantId] = {...newById[action.payload.menudish.restaurantId], MenuDishes: [action.payload.menudish]}
+            } else {
+                newById[action.payload.menudish.restaurantId].MenuDishes.push(action.payload.menudish) 
+            }
+            newState.byId = JSON.parse(JSON.stringify(newById)) 
+            return newState;
+        }
+        
+        //newState.restaurants_arr = JSON.parse(JSON.stringify(newArr))
+        //newState.byId = JSON.parse(JSON.stringify(newUpdatedId))----------------------------------------------------------------------------------------------------------------
+
             case ADD_BOOKING_TO_RESTAURANT: {
             console.log(".......inside...add booking reducer ....")
             const newById = {};
@@ -1007,6 +1114,49 @@ const restaurantsReducer = (state = initialState, action) => {
             
             return newState;
         }
+        //---------------------------------------------------------------------------------------------------------
+        
+        case DELETE_MENUDISH_BY_ID: {
+            console.log("INSIDE DELETE MENUDISH REDUCER");
+            console.log("... prev state ... ", state)
+            console.log(".......action.payload.....", action.payload)
+
+            let newArr = [...newState.restaurants_arr]; 
+            let currRestaurant = {}
+            let newMenuDishes = [];
+
+            for(let i = 0; i < newState.restaurants_arr.length; i++){
+                if (newArr[i].id == action.payload.restaurantId){
+                    newMenuDishes = newArr[i].MenuDishes.filter((menudish) => {
+                        console.log("...menudish.id", menudish.id)
+                        console.log("...action.payload.menudishId",action.payload.menudishId)
+                        return menudish.id != action.payload.menudishId;
+                    })
+                  console.log("....newMenuDishes...", newMenuDishes);
+                  newArr[i].MenuDishes = newMenuDishes
+                  currRestaurant = newArr[i]
+                  console.log("....currRestaurant.MenuDishes...", currRestaurant.MenuDishes);
+                  break;
+                }
+            } 
+            
+            let newById = {...newState.byId};
+            // delete newById[action.payload.restaurantId].Reviews;
+            // newState.byId = newById
+            for ( let i = 0 ; i <  newById[action.payload.restaurantId].MenuDishes.length ; i++ ) {
+                if ( action.payload.menudishId == newById[action.payload.restaurantId].MenuDishes[i].id) { 
+                    newById[action.payload.restaurantId].MenuDishes.splice(i,1);
+                    break;
+                }
+            }
+            //delete newById[action.payload.restaurantId].MenuDishes[action.payload.menudishId]; 
+            console.log("....newbyid...", newById);
+
+            newState.restaurants_arr = JSON.parse(JSON.stringify(newArr));
+            newState.byId = JSON.parse(JSON.stringify(newById))
+            
+            return newState;
+        }
     
         //---------------------------------------------------------------------------------------------------------
         
@@ -1079,6 +1229,56 @@ const restaurantsReducer = (state = initialState, action) => {
             return newState;
         }
         
+        //---------------------------------------------------------------------------------------------------------
+
+        case UPDATE_RESTAURANT_MENUDISH: {
+            console.log(".....inside reducer....", action.payload);
+            console.log("....action.payload...", action.payload)
+            const newArr = [...newState.restaurants_arr];
+            const newUpdatedId = {...newState.byId};
+
+            let currRestaurant = {}
+            if ( newState.restaurants_arr.length ) {
+                for(let i = 0; i < newState.restaurants_arr.length; i++){
+                    currRestaurant = newArr[i];
+                    if(currRestaurant.id === action.payload.restaurantId){
+                        let menudishObj = currRestaurant.MenuDishes.find((menudish)=>{
+                            return menudish.id == action.payload.id
+                        });
+                        menudishObj.dishName = action.payload.dishName
+                        menudishObj.dishCategory = action.payload.dishCategory
+                        menudishObj.dishIngredients = action.payload.dishIngredients
+                        menudishObj.dishPrice = action.payload.dishPrice
+                        menudishObj.dishCalories = action.payload.dishCalories
+                        menudishObj.dishAllergies = action.payload.dishAllergies
+                        menudishObj.spiceLevel = action.payload.spiceLevel
+                        console.log("....menudishObj.....", menudishObj);
+                        newArr[i] = currRestaurant;
+                        break;
+                    }
+                }
+                newUpdatedId[action.payload.restaurantId] = currRestaurant;
+            } 
+                // currRestaurant = newUpdatedId[action.payload.restaurantId]
+                console.log("...newUpdatedId...", newUpdatedId);
+                console.log(".......newUpdatedId[action.payload.restaurantId]", newUpdatedId[action.payload.menudish.restaurantId])
+                let menudishObj = newUpdatedId[action.payload.menudish.restaurantId].MenuDishes.find((menudish)=>{
+                    return menudish.id == action.payload.menudish.id
+                });
+                menudishObj.dishName = action.payload.menudish.dishName
+                menudishObj.dishCategory = action.payload.menudish.dishCategory
+                menudishObj.dishIngredients = action.payload.menudish.dishIngredients
+                menudishObj.dishPrice = action.payload.menudish.dishPrice
+                menudishObj.dishCalories = action.payload.menudish.dishCalories
+                menudishObj.dishAllergies = action.payload.menudish.dishAllergies
+                menudishObj.spiceLevel = action.payload.menudish.spiceLevel
+                console.log("....menudishObj.....", menudishObj);
+            
+            newState.restaurants_arr = JSON.parse(JSON.stringify(newArr))
+            newState.byId = JSON.parse(JSON.stringify(newUpdatedId))
+            return newState; 
+        }
+
         //---------------------------------------------------------------------------------------------------------
         
         case UPDATE_RESTAURANT_IMAGE: {

@@ -49,6 +49,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      spiceLevel: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

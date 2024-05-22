@@ -60,7 +60,7 @@ module.exports = {
         dishPrice: 17,
         dishCalories: 150,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1  
       },
       {
         restaurantId: 3,
@@ -80,7 +80,7 @@ module.exports = {
         dishPrice: 29,
         dishCalories: 280,
         dishAllergies: 'nuts, soy',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 3,
@@ -100,7 +100,7 @@ module.exports = {
         dishPrice: 24,
         dishCalories: 350,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 2,
@@ -110,7 +110,7 @@ module.exports = {
         dishPrice: 26,
         dishCalories: 480,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 2,
@@ -130,7 +130,7 @@ module.exports = {
         dishPrice: 20,
         dishCalories: 590,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 2,
@@ -170,7 +170,7 @@ module.exports = {
         dishPrice: 26,
         dishCalories: 480,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 10,
@@ -210,7 +210,7 @@ module.exports = {
         dishPrice: 25,
         dishCalories: 840,
         dishAllergies: 'nuts, soy',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 7,
@@ -220,7 +220,7 @@ module.exports = {
         dishPrice: 23,
         dishCalories: 840,
         dishAllergies: 'nuts, soy',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 7,
@@ -230,7 +230,7 @@ module.exports = {
         dishPrice: 18,
         dishCalories: 100,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 7,
@@ -240,7 +240,7 @@ module.exports = {
         dishPrice: 21,
         dishCalories: 150,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 7,
@@ -250,7 +250,7 @@ module.exports = {
         dishPrice: 20,
         dishCalories: 150,
         dishAllergies: 'Sesame seeds',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 7,
@@ -280,7 +280,7 @@ module.exports = {
         dishPrice: 21,
         dishCalories: 150,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 7,
@@ -290,7 +290,7 @@ module.exports = {
         dishPrice: 27,
         dishCalories: 550,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 7,
@@ -330,7 +330,7 @@ module.exports = {
         dishPrice: 20,
         dishCalories: 480,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 7,
@@ -340,7 +340,7 @@ module.exports = {
         dishPrice: 28,
         dishCalories: 690,
         dishAllergies: 'nuts, honey',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 7,
@@ -370,7 +370,7 @@ module.exports = {
         dishPrice: 33,
         dishCalories: 620,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       }, 
       {
         restaurantId: 7,
@@ -380,7 +380,7 @@ module.exports = {
         dishPrice: 29,
         dishCalories: 520,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 7,
@@ -390,7 +390,7 @@ module.exports = {
         dishPrice: 31,
         dishCalories: 500,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 1,
@@ -410,7 +410,7 @@ module.exports = {
         dishPrice: 35,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 1,
@@ -420,7 +420,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 1,
@@ -430,7 +430,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 1,
@@ -459,7 +459,8 @@ module.exports = {
         dishIngredients: 'burrata, wild greens, preserved lemon aioli',
         dishPrice: 72,
         dishCalories: 720,
-        dishAllergies: 'none'
+        dishAllergies: 1,
+        spiceLevel: 1
       },
       {
         restaurantId: 1,
@@ -469,7 +470,7 @@ module.exports = {
         dishPrice: 15,
         dishCalories: 120,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 1,
@@ -489,7 +490,7 @@ module.exports = {
         dishPrice: 14,
         dishCalories: 310,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 1,
@@ -499,7 +500,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 1,
@@ -509,7 +510,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 1,
@@ -519,7 +520,7 @@ module.exports = {
         dishPrice: 18,
         dishCalories: 320,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 1,
@@ -529,7 +530,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 350,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 1,
@@ -539,7 +540,7 @@ module.exports = {
         dishPrice: 21,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 1,
@@ -559,7 +560,7 @@ module.exports = {
         dishPrice: 22,
         dishCalories: 390,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 4,
@@ -589,7 +590,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 4,
@@ -599,7 +600,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 4,
@@ -628,7 +629,8 @@ module.exports = {
         dishIngredients: 'burrata, wild greens, preserved lemon aioli',
         dishPrice: 72,
         dishCalories: 720,
-        dishAllergies: 'none'
+        dishAllergies: 1,
+        spiceLevel: 1
       },
       {
         restaurantId: 4,
@@ -638,7 +640,7 @@ module.exports = {
         dishPrice: 15,
         dishCalories: 120,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 4,
@@ -658,7 +660,7 @@ module.exports = {
         dishPrice: 14,
         dishCalories: 310,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 4,
@@ -668,7 +670,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 4,
@@ -678,7 +680,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 4,
@@ -688,7 +690,7 @@ module.exports = {
         dishPrice: 18,
         dishCalories: 320,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 4,
@@ -698,7 +700,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 350,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 4,
@@ -708,7 +710,7 @@ module.exports = {
         dishPrice: 21,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 4,
@@ -718,7 +720,7 @@ module.exports = {
         dishPrice: 18,
         dishCalories: 350,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 4,
@@ -728,7 +730,7 @@ module.exports = {
         dishPrice: 22,
         dishCalories: 390,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 9,
@@ -748,7 +750,7 @@ module.exports = {
         dishPrice: 35,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 9,
@@ -758,7 +760,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 9,
@@ -768,7 +770,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 9,
@@ -797,7 +799,8 @@ module.exports = {
         dishIngredients: 'burrata, wild greens, preserved lemon aioli',
         dishPrice: 72,
         dishCalories: 720,
-        dishAllergies: 'none'
+        dishAllergies: 2,
+        spiceLevel: 1
       },
       {
         restaurantId: 9,
@@ -807,7 +810,7 @@ module.exports = {
         dishPrice: 15,
         dishCalories: 120,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 9,
@@ -827,7 +830,7 @@ module.exports = {
         dishPrice: 14,
         dishCalories: 310,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 9,
@@ -837,7 +840,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 9,
@@ -847,7 +850,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 9,
@@ -857,7 +860,7 @@ module.exports = {
         dishPrice: 18,
         dishCalories: 320,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 9,
@@ -867,7 +870,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 350,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 9,
@@ -877,7 +880,7 @@ module.exports = {
         dishPrice: 21,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 9,
@@ -897,7 +900,7 @@ module.exports = {
         dishPrice: 22,
         dishCalories: 390,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 6,
@@ -917,7 +920,7 @@ module.exports = {
         dishPrice: 35,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 6,
@@ -927,7 +930,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 6,
@@ -937,7 +940,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 6,
@@ -966,7 +969,8 @@ module.exports = {
         dishIngredients: 'burrata, wild greens, preserved lemon aioli',
         dishPrice: 72,
         dishCalories: 720,
-        dishAllergies: 'none'
+        dishAllergies: 'none',
+        spiceLevel: 1
       },
       {
         restaurantId: 6,
@@ -976,7 +980,7 @@ module.exports = {
         dishPrice: 15,
         dishCalories: 120,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 6,
@@ -996,7 +1000,7 @@ module.exports = {
         dishPrice: 14,
         dishCalories: 310,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 6,
@@ -1006,7 +1010,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 6,
@@ -1016,7 +1020,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 6,
@@ -1026,7 +1030,7 @@ module.exports = {
         dishPrice: 18,
         dishCalories: 320,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 3
       },
       {
         restaurantId: 6,
@@ -1036,7 +1040,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 350,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 6,
@@ -1046,7 +1050,7 @@ module.exports = {
         dishPrice: 21,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 6,
@@ -1066,7 +1070,7 @@ module.exports = {
         dishPrice: 22,
         dishCalories: 390,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1086,7 +1090,7 @@ module.exports = {
         dishPrice: 35,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1096,7 +1100,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1106,7 +1110,7 @@ module.exports = {
         dishPrice: 38,
         dishCalories: 460,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1135,7 +1139,8 @@ module.exports = {
         dishIngredients: 'burrata, wild greens, preserved lemon aioli',
         dishPrice: 72,
         dishCalories: 720,
-        dishAllergies: 'none'
+        dishAllergies: 'none',
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1145,7 +1150,7 @@ module.exports = {
         dishPrice: 15,
         dishCalories: 120,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1165,7 +1170,7 @@ module.exports = {
         dishPrice: 14,
         dishCalories: 310,
         dishAllergies: 'nuts',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1175,7 +1180,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1185,7 +1190,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 310,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1195,7 +1200,7 @@ module.exports = {
         dishPrice: 18,
         dishCalories: 320,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1205,7 +1210,7 @@ module.exports = {
         dishPrice: 19,
         dishCalories: 350,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       {
         restaurantId: 5,
@@ -1215,7 +1220,7 @@ module.exports = {
         dishPrice: 21,
         dishCalories: 360,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 2
       },
       {
         restaurantId: 5,
@@ -1235,7 +1240,7 @@ module.exports = {
         dishPrice: 22,
         dishCalories: 390,
         dishAllergies: 'none',
-        spiceLevel: ""
+        spiceLevel: 1
       },
       
     ], { validate: true })

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './DeleteReviewModal.css';
 
 function TableReservedModal( name, bookingDate, startTime, duration, capacity ) {
-  console.log('......inside Modal...',name, bookingDate, startTime, duration, capacity);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();

@@ -10,19 +10,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 const AllRestaurants = () => {
 
     const currentUser = useSelector((state) => state.session.user);
-    console.log("....current user.....", currentUser)
     const restaurants = useSelector((state) => state.restaurants.restaurants_arr);
     const bookings = useSelector((state) => state.bookings.bookings_arr);
     const reviews = useSelector((state) => state.reviews.reviews_arr);
-    console.log("###restaurants in state###", restaurants);
-    console.log("typeof restaurants", typeof restaurants);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isLoaded, setisLoaded] = useState(false);
     let rating, sum = 0, value, avg;
-    console.log("....bookings....", bookings);
-    console.log("....reviews....", reviews);
-
 
     useEffect(() => {
 
@@ -41,7 +35,6 @@ const AllRestaurants = () => {
         return <h2>Loading...</h2>;
     }
 
-    console.log("....bookings....", bookings);
     return (
         <>
      {isLoaded ?

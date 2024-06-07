@@ -6,7 +6,6 @@ import "./images/cover.jpg";
 
 function Navigation() {
   const sessionUser = useSelector(state => state.session.user);
-  console.log("********", sessionUser);
 
   return (
 

@@ -190,13 +190,8 @@ function LoginFormModal() {
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
-        console.log('......message...', data.message)
-        console.log('......data.......',data)
-        console.log('.....datatype of data.....', typeof(data))
-        console.log('.....errors.....', errors)
         
         if (data) {
-          console.log('......inside if loop....', data.message);
           //setErrors((errors) => ({ ...errors, ...data.message }));
           setErrors({'email' : "The provided credentials are invalid"});
         } 

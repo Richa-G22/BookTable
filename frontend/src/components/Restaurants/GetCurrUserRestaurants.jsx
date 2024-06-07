@@ -26,9 +26,7 @@ const GetCurrUserRestaurants = () => {
     //});
     const currentBookings = useSelector((state) => state.bookings.bookings_arr);
     const currentReviews = useSelector((state) => state.reviews.reviews_arr);
-    console.log("......currRestaurants.....", currentRestaurants);
-    console.log("......currBookings1.....", currentBookings);
-    console.log("......currReviews1.....", currentReviews);
+   
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isLoaded, setisLoaded] = useState(false);
@@ -59,8 +57,6 @@ const GetCurrUserRestaurants = () => {
 
     }, [dispatch]);
 
-    console.log("......currBookings2.....", currentBookings);
-    console.log("......currReviews2.....", currentReviews);
 
     if (!user) {
         return (<h2>Please log in to view your Restaurants !!</h2>)

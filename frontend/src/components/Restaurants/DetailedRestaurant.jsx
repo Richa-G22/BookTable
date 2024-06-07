@@ -23,9 +23,8 @@ const DetailedRestaurant = () => {
     restaurantId = parseInt(restaurantId);
 
     const sessionUser = useSelector((state) => state.session.user);
-    console.log(".....sessionUser.....", sessionUser)
+    
     const currRestaurant = useSelector((state) => state.restaurants.byId[restaurantId]);
-    console.log('.......currentRestaurant........', currRestaurant);
     const [isLoaded, setisLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [updateMode, setUpdateMode] = useState(false);
@@ -66,28 +65,14 @@ const DetailedRestaurant = () => {
     let dateMDY = new Date();
     let testDate = new Date();
     let currTime = new Date().toLocaleTimeString();
-    console.log('........CURRENT date.....', currentDate);
-    console.log('........CURRENT time.....', currTime);
-    // const validate = () => {
-    //     console.log('.......inside validate........')
-    //     foundError = false;
-    //     setErrors({});
-
-    //     const bookingDate = new Date(date);
-    //     if (bookingDate < currentDate) {
-    //         foundError = true;
-    //         setErrors((errors) => ({ ...errors, date: "Booking Date can not be in the past" }));
-    //         console.log('........booking date.....', bookingDate, foundError);
-    //     }
-    // }
 
     const handleSubmit = () => async (e) => {
-        console.log("....inside handle submit....")
+        
         e.preventDefault();
         // validate();
         try {
             if (!foundError) {
-                console.log("...inside if...")
+                
                 const slots = await dispatch(
                     getslotsbyidDateThunk(restaurantId, bookingDate)
                 ).catch(async (res) => {
@@ -95,13 +80,12 @@ const DetailedRestaurant = () => {
                     if (data.errors) {
                         setErrors((errors) => ({ ...errors, ...data.errors }));
                     }
-                    console.log(".....errors.......", errors)
+                    
                 })
             }
-        } catch (error) {
-            console.log("......error.....", error)
+        } catch (error) { 
             const data = await error.json();
-            console.log(".....data......", data)
+            
             if (data.errors) {
                 setErrors((errors) => ({ ...errors, ...data.errors }));
             }
@@ -160,7 +144,7 @@ const DetailedRestaurant = () => {
                         {currRestaurant.Reviews.length ?
                             <div>{currRestaurant.Reviews.map((review) => (
                                 <div>
-                                    {console.log("...review...", review)}
+                                    
                                     <div className="user-info" style={{ display: "flex" }}>
                                         <img style={{ height: "3em", width: "3em", borderRadius: "2em" }}
                                             src={review.User.profileImg} />
@@ -216,20 +200,7 @@ const DetailedRestaurant = () => {
                             </div>
                             : " "
                         }
-
-                        {/* Check if review already present for the current logged in user */}
-                        {/* <div>
-                    {(() => {
-                        for (let i = 0; i < currRestaurant.Reviews.length; i++) {
-                            console.log("currentRestaurant.Reviews[i].userId, sessionUser.id", currRestaurant.Reviews[i].userId, sessionUser.id, typeof currRestaurant.Reviews[i].userId, typeof sessionUser.id )
-                            if (currRestaurant.Reviews[i].userId == sessionUser.id) {
-                                reviewPresent = "yes"
-                            }
-                        }
-                        return reviewPresent;
-                    })}
-                    </div> */}
-                        {console.log(".....review present....", reviewPresent)}
+                        
                         {sessionUser && sessionUser.id != currRestaurant.ownerId && !reviewExists ?
                             <>
                                 <div style={{ paddingTop: "1em" }}>
@@ -280,7 +251,7 @@ const DetailedRestaurant = () => {
                                     </button>
                                 </div>
                             </div>
-                            {console.log(".......currRestaurant.openslots...........", currRestaurant.OpenSlots)}
+                            
                             {currRestaurant.OpenSlots ?
                                 <div style={{ paddingTop: "1em" }}>
                                     <div style={{ fontWeight: "bold", display: "flex", paddingBottom: "1em" }}>
@@ -293,13 +264,10 @@ const DetailedRestaurant = () => {
                                             {currRestaurant.OpenSlots.map((slot) => (
                                                 <>
                                                     {/* {currentDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)}`} */}
-                                                    {console.log("....bookingDate..", bookingDate)}
-                                                    {console.log("....date..", date)}
-                                                    {console.log("....currentDate..", currentDate)}
-                                                    {console.log("....currTime..", currTime)}
+                                                    
                                                     {/* {bookingDate == currentDate && slot.slotStartTime > currTime ? */}
                                                     <div style={{ display: "flex", paddingBottom: "1.50em" }}>
-                                                        {console.log("....startTime..", slot.slotStartTime)}
+                                                        
 
                                                         <div style={{ paddingRight: "1em" }}>{slot.slotStartTime.substr(0, 5)} pm</div>
                                                         <div style={{ paddingRight: "3.5em" }}>{slot.slotDuration} min</div>
@@ -308,36 +276,7 @@ const DetailedRestaurant = () => {
                                                             <button style={{ backgroundColor: "rgb(141, 4, 4)", color: "white", boxShadow: "3px 3px 3px black", height: "1.5em", width: "5em", cursor: "pointer" }}
                                                                 onClick={() => dispatch(addNewBookingThunk(currRestaurant.id, slot.slotId, bookingDate)).then(() => alert("Slot Reserved"))} > 
                                                                 
-                                                                {/* onClick={() => dispatch(addNewBookingThunk(currRestaurant.id, slot.slotId, bookingDate)).then(() => 
-                                                                
-                                                                    // {console.log("here")}
-                                                                 { 
-                                                                            let startTime = slot.slotStartTime;
-                                                                            let duration = slot.slotDuration;
-                                                                            let capacity = slot.tableCapacity;
-                                                                            let name = currRestaurant.name;
-
-                                                                            console.log("name ",name)
-                                                                            console.log("startTime ",startTime)
-                                                                            console.log("duration ",duration)
-                                                                            console.log("capacity ",capacity)
-
-                                                                            return modalComponent(TableReservedModal (
-                                                                                                name,
-                                                                                                bookingDate,
-                                                                                                startTime,
-                                                                                                duration,
-                                                                                                capacity
-                                                                                                ))
-                                                                            // return TableReservedModal ({currRestaurant.name},
-                                                                            //                     {bookingDate},
-                                                                            //                     {slot.slotStartTime},
-                                                                            //                     {slot.slotDuration},
-                                                                            //                     {slot.tableCapacity})
-
-                                                                } 
-                                                                
-                                                                )} > */}
+                                                            
 
                                                                 Reserve
                                                             </button>
@@ -465,9 +404,9 @@ const DetailedRestaurant = () => {
                                 <div style={{ marginLeft: "14%", width: "65%", display: "flex", flexDirection: "column", border: "1px solid rgb(141,4,4)", paddingTop: "5rem", paddingRight: "5rem", paddingBottom: "3rem", height: isExpanded ? "auto" : "10rem" }} className="menu-content">
                                     {currRestaurant.MenuDishes.map((menudish) => (
                                         <>
-                                            {console.log(".....menudish....", menudish)}
+                                            
                                             {spiceValue = ""}
-                                            {/* {console.log(".......spiceValue1....", spiceValue, menudish.spiceLevel)} */}
+                                            
                                             {spice = () => {
                                                 spiceDisplay = "";
                                                 if (menudish.spiceLevel == 1) {
@@ -483,9 +422,7 @@ const DetailedRestaurant = () => {
                                                 return spiceValue;
                                             }
                                             }
-                                            {/* {spiceValue = spice()} */}
-                                            {/* {console.log(".......spiceValue2....", spiceValue, menudish.spiceLevel)} */}
-                                            {/* <div style={{ width: "50%", height:"auto", float: "left", paddingBottom: "2rem" }}> */}
+                                          
                                             <div style={{ height: "auto", float: "left", paddingBottom: "1rem" }}>
                                                 {/* <div style={{ width: "50%", float: "left", paddingBottom: "2rem" }}> */}
                                                 {/* <div style={{ display: "flex"}}> */}
@@ -502,7 +439,7 @@ const DetailedRestaurant = () => {
                                                 <div style={{ marginLeft: "25%", paddingTop: "0rem", paddingBottom: "1rem", marginRight: "30%", borderBottom: "1px solid rgb(141, 4, 4)", paddingLeft: "59%" }} className="edit-delete-buttons">
                                                     {sessionUser && sessionUser.id == currRestaurant.ownerId ?
                                                         <div style={{ display: "flex" }}>
-                                                            {console.log("..........here...........")}
+                                                            
                                                             <span style={{ marginLeft: "0%" }} className="Delete">
                                                                 <OpenReviewModalButton
                                                                     buttonText="Delete"
@@ -515,7 +452,7 @@ const DetailedRestaurant = () => {
                                                                 />
                                                             </span> &nbsp;
                                                             <span className="Edit">
-                                                                {console.log("....menudish...", menudish)}
+                                                                
                                                                 <OpenReviewModalButton
                                                                     buttonText="Edit"
                                                                     modalComponent={

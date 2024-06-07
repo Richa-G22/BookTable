@@ -19,18 +19,15 @@ import { csrfFetch } from "./csrf";
 //Delete a menudish by id
 
 // export const deleteReviewByIdThunk = (reviewId) => async (dispatch) => {
-//     console.log("......inside delete review thunk........")
-//     console.log(".....reviewId...", reviewId, typeof reviewId);
+
 //     try {   
 //         const response = await csrfFetch(`/api/reviews/${reviewId}`, {
 //             method: "DELETE",
 //             headers: { "Content-Type": "application/json" },
 //         });
-//        console.log(".....response....", response)
+
 //         if (response.ok) {
 //             const data = await response.json();
-//             console.log("....data before dispatch...",data)
-//             console.log("..initial state..",initialState)
 //             dispatch(deleteReviewById(reviewId));
 //             //dispatch(getReviewsForRestaurantThunk(restaurantId));
 //         } else {
@@ -57,9 +54,7 @@ const menudishesReducer = (state = initialState, action) => {
 //     switch (action.type) {
 
 //         case DELETE_REVIEW_BY_ID: {
-//             console.log('.......inside delete Reducer........');
-//             console.log('......newState before delete Review......', newState);
-//             console.log("....action.payload...", action.payload);
+
 //             const newById = {...newState.byId};
 //                 delete newById[action.payload];
 //                 newState.byId = newById

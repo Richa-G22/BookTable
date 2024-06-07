@@ -1,6 +1,6 @@
 import React from "react";
 // import pic1 from "./images/pic1.png";
-// import pic2 from "./images/pic2.png";
+import pic2 from "./images/pic2.png";
 import './About.css';
 
 function About() {
@@ -40,30 +40,59 @@ function About() {
                         <li>The owner of a particular restaurant can add/ edit or delete a particular menu dish.</li>
                         <li>Any user can view the menu of a particular restaurant.</li>
                     </ul>
+                    <br></br>
 
-                    {/* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" style={{width:"75px"}} />
-                    &nbsp;
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" sstyle={{width:"75px"}} />
-                    &nbsp;
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg" style={{width:"75px"}} />
-                    &nbsp;
-                    <img src="https://www.vectorlogo.zone/logos/sequelizejs/sequelizejs-icon.svg" style={{width:"75px"}} />
-                    &nbsp;
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" style={{width:"75px"}} /> */}
-                         {/* React &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Redux &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTML &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sequelize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CSS */}
-
-                        {/* <h2 style={{ paddingBottom: "0px", marginBottom: "0px" }}>Meet the Team:</h2><br></br> */}
-                        {/* <div className="team">
                     <div>
-                        <img style={{ width: "5em", height: "6em", borderRadius: "0.5rem", paddingBottom: "0px" }} src={pic1} alt="preview" /><br></br>
-                        <p style={{ marginTop: "0px" }}>Komal Aher</p>
-                    </div><br></br>
-                    <div>
-                        <img style={{ width: "5em", height: "6em", borderRadius: "0.5rem", paddingLeft: "1.5rem" }} src={pic2} alt="preview" /><br></br>
-                        <p style={{ marginTop: "0px", paddingLeft: "1.5rem" }}>Richa Garg</p>
+                        <h2 style={{ paddingBottom: "0px", marginBottom: "0px" }}>Project by:</h2>
+                        <br></br>
+                        <div className="team">
 
-                    </div> */}
-                        {/* </div> */}
+                            <div>
+                                <img style={{ width: "5em", height: "6em", borderRadius: "0.5rem" }} src={pic2} alt="preview" /><br></br>
+                                <div>Richa Garg</div>
+                                <br></br>
+                                <div style={{display:"flex"}}>
+                                    <div>
+                                    <a href="https://github.com/Richa-G22/BookTable" target="_blank" rel="noopener noreferrer">Github Link</a>
+                                    </div>
+                                    <div>
+                                     <a style={{paddingLeft: "2rem"}} href="https://www.linkedin.com/in/richa-garg-69969665/" target="_blank" rel="noopener noreferrer">linkedin profile Link</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br></br>
+
+                    <h2 style={{ paddingBottom: "0px", marginBottom: "0px" }}>Technologies Used</h2>
+                    <br></br>
+                    <div style={{ display: "flex" }}>
+                        <div>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" style={{ width: "75px" }} />
+                            <div style={{ display: "flex", alignContent: "center", justifyContent: "center", width: "75px" }}>React</div>
+                        </div>
+                        <div style={{ paddingLeft: "2rem" }}>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" style={{ width: "75px" }} />
+                            <div style={{ display: "flex", alignContent: "center", justifyContent: "center", width: "75px" }}>Redux</div>
+                        </div>
+                        <div style={{ paddingLeft: "2rem" }}>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg" style={{ width: "75px" }} />
+                            <div style={{ display: "flex", alignContent: "center", justifyContent: "center", width: "75px" }}>HTML</div>
+                        </div>
+                        <div style={{ paddingLeft: "2rem" }}>
+                            <img src="https://www.vectorlogo.zone/logos/sequelizejs/sequelizejs-icon.svg" style={{ width: "75px" }} />
+                            <div style={{ display: "flex", alignContent: "center", justifyContent: "center", width: "75px" }}>Sequelize</div>
+                        </div>
+                        <div style={{ paddingLeft: "2rem" }}>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" style={{ width: "75px" }} />
+                            <div style={{ display: "flex", alignContent: "center", justifyContent: "center", width: "75px" }}>CSS</div>
+                        </div>
+                        <div style={{ paddingLeft: "2rem" }}>
+                            <img src="https://cdn.worldvectorlogo.com/logos/express-2.svg" style={{ width: "75px", background: "gray" }} />
+                            <div style={{ display: "flex", alignContent: "center", justifyContent: "center", width: "75px" }}>Express JS</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </body>

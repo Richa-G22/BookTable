@@ -12,7 +12,6 @@ const CreateReviewModal = ({ restaurantId, setCreateMode }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const currRestaurant = useSelector((state) => state.restaurants.byId[restaurantId]);
-    console.log('......currRestaurant......', currRestaurant);
 
     const handleSubmit = () => {
         setError();

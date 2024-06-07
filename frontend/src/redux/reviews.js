@@ -53,17 +53,15 @@ export const getAllReviewsThunk = () => async (dispatch) => {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
-        console.log("....response in thunk after accessing database", response)
+        
         if (response.ok) {
             const data = await response.json();
-            console.log("data before dispatch", data)
             dispatch(getAllReviews(data));
             return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log("...error in catch..", e)
         const errors = await e.json();
         return errors;
     }
@@ -97,18 +95,15 @@ export const  getCurrentUserReviewsThunk = (userId) => async (dispatch) => {
 //Delete a review by id
 
 export const deleteReviewByIdThunk = (reviewId) => async (dispatch) => {
-    console.log("......inside delete review thunk........")
-    console.log(".....reviewId...", reviewId, typeof reviewId);
+    
     try {   
         const response = await csrfFetch(`/api/reviews/${reviewId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });
-       console.log(".....response....", response)
+       
         if (response.ok) {
-            const data = await response.json();
-            console.log("....data before dispatch...",data)
-            console.log("..initial state..",initialState)
+            const data = await response.json();           
             dispatch(deleteReviewById(reviewId));
             //dispatch(getReviewsForRestaurantThunk(restaurantId));
         } else {
@@ -127,20 +122,17 @@ export const deleteReviewByIdThunk = (reviewId) => async (dispatch) => {
 export const updateReviewThunk = (review) => async(dispatch) => {
  
     try {
-         console.log('...................reached edit thunk............')
-        //  console.log('$$$$$$$$$$$$$$$$$  reVIEW......' review)
+
          const options = {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(review)
         };
         const response = await csrfFetch(`/api/reviews/${review.id}`, options);
-        console.log('&&&&&&&&&&&&&&response', response)
+        
         if (response.ok) {
-                const data = await response.json();
-                console.log('&&&&&&&&&&&&&&data', data)
+                const data = await response.json();            
                 dispatch(updateReview(data));
-                // console.log("going to fetech all reviews again");
                 //dispatch(getReviewsForRestaurantThunk(restaurantId));
                 return data;
         } else {
@@ -155,8 +147,6 @@ export const updateReviewThunk = (review) => async(dispatch) => {
 //----------------------------------------------------------------------------------------
 
 // export const deleteReviewThunk = (reviewId) => async (dispatch) => {
-//   console.log('.....inside delete thunk....');
-//   console.log('.....reviewId.....', reviewId);
 //   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
 //     method: "DELETE",
 //   });
@@ -176,7 +166,7 @@ const reviewsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case GET_ALL_REVIEWS: {
-            console.log("...action.payload...", action.payload);
+            
             newState.reviews_arr = action.payload;
 
             for (let i = 0; i < action.payload.length; i++) {
@@ -199,9 +189,6 @@ const reviewsReducer = (state = initialState, action) => {
         }
 
         case DELETE_REVIEW_BY_ID: {
-            console.log('.......inside delete Reducer........');
-            console.log('......newState before delete Review......', newState);
-            console.log("....action.payload...", action.payload);
             const newById = {...newState.byId};
                 delete newById[action.payload];
                 newState.byId = newById
@@ -215,8 +202,6 @@ const reviewsReducer = (state = initialState, action) => {
         }
 
         case UPDATE_REVIEW: {
-            console.log(".....inside reducer....", action.payload.review);
-            console.log("....action.payload...", action.payload)
             const newArr = [...newState.reviews_arr];
             const newUpdatedId = {...newState.byId};
             for(let i = 0; i < newState.reviews_arr.length; i++){

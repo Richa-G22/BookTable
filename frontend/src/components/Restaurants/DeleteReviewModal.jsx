@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import './DeleteReviewModal.css';
 
 function DeleteReviewModal( {restaurantId, reviewId, setUpdateMode} ) {
-  console.log('......reviewId inside deleteModal...',restaurantId, typeof restaurantId, reviewId, typeof reviewId);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();

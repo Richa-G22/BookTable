@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import './DeleteRestaurantModal.css';
 
 function DeleteRestaurantModal( {id} ) {
-  console.log('......restaurantId inside deleteModal...',id, typeof(id));
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();

@@ -155,7 +155,7 @@ router.get("/", async (req, res) => {
     const restaurantList = [];
     restaurants.forEach(restaurant => {
         let restaurantJson = restaurant.toJSON()
-        console.log("getAllRestaurants restaurantJson ",restaurantJson)
+        
         if (restaurantJson['avgRating'] === null) {
             restaurantJson['avgRating'] = 0
         } 
@@ -186,7 +186,7 @@ router.get("/", async (req, res) => {
 // Get all Restaurants owned by the current logged in user
 
 router.get("/current", requireAuth, async (req, res) => { 
-    console.log("here", req)  
+     
 	const restaurants = await Restaurant.findAll({
         where: {
             ownerId: req.user.id,
@@ -487,7 +487,7 @@ router.get("/:restaurantId", async (req, res) => {
         // id = parseInt(id);
         
         const restaurant = await Restaurant.findByPk(id);
-        console.log("....restaurant....", restaurant);
+        
         if (!restaurant) {
             const err = new Error("Restaurant couldn't be found");
             err.status = 404;
@@ -681,14 +681,13 @@ router.get("/:restaurantId", async (req, res) => {
         })
 
 
-        console.log("$$$$$$$", bookings);
         const bookingList = []; 
         if ( bookings ) {
             for ( let index = 0; index < bookings.length ; index++ ) {
                 let slot_id = bookings[index].dataValues.slotId
-                console.log("slotId $$$", slot_id)
+                
                 const allOpenSlots = await Slot.findByPk(slot_id)
-                console.log('******', allOpenSlots);
+                
                 const bookingObj = {};
                 bookingObj.id = bookings[index].dataValues.id;
                 bookingObj.userId = bookings[index].dataValues.userId;
@@ -730,14 +729,14 @@ router.get("/:restaurantId", async (req, res) => {
                 },   
         })
 
-        console.log("$$$$$$$", bookings);
+        
         const bookingList = []; 
         if ( bookings ) {
             for ( let index = 0; index < bookings.length ; index++ ) {
                 let slot_id = bookings[index].dataValues.slotId
-                console.log("slotId $$$", slot_id)
+                
                 const slotDetails = await Slot.findByPk(slot_id)
-                console.log('******', slotDetails);
+                
                 const bookingObj = {};
                 bookingObj.id = bookings[index].dataValues.id;
                 bookingObj.userId = bookings[index].dataValues.userId;
@@ -757,56 +756,6 @@ router.get("/:restaurantId", async (req, res) => {
             return res.json({"Bookings": bookingList})
         }    
     );
-
-    //-----------------------------------------------------------------------------------------------------------------------
-    // // Get all current user Bookings 
-
-    // router.get("/:restaurantId/bookings/:bookingDate", requireAuth, async (req, res) => {
-
-    //     const restaurant = await Restaurant.findByPk(req.params.restaurantId);
-
-    //     if (!restaurant) {
-    //         const err = new Error("Restaurant couldn't be found");
-    //         err.status = 404;
-    //         return res.json({ message: "Restaurant couldn't be found" }, err.status);
-    //     };
-        
-    //         const bookings =  await Booking.findAll({
-           
-    //             where: {
-    //                     restaurantId: req.params.restaurantId,   
-    //                     bookingDate: req.params.bookingDate     
-    //             },   
-    //     })
-
-    //     console.log("$$$$$$$", bookings);
-    //     const bookingList = []; 
-    //     if ( bookings ) {
-    //         for ( let index = 0; index < bookings.length ; index++ ) {
-    //             let slot_id = bookings[index].dataValues.slotId
-    //             console.log("slotId $$$", slot_id)
-    //             const slotDetails = await Slot.findByPk(slot_id)
-    //             console.log('******', slotDetails);
-    //             const bookingObj = {};
-    //             bookingObj.id = bookings[index].dataValues.id;
-    //             bookingObj.userId = bookings[index].dataValues.userId;
-    //             bookingObj.bookingDate = req.params.bookingDate;
-    //             bookingObj.restaurantId = slotDetails.restaurantId;
-    //             bookingObj.slotId = bookings[index].dataValues.slotId;
-    //             bookingObj.slotStartTime = slotDetails.slotStartTime;
-    //             bookingObj.slotDuration = slotDetails.slotDuration;
-    //             bookingObj.tableCapacity = slotDetails.tableCapacity;
-    //             bookingObj.tableNum = slotDetails.tableNum;
-    //             bookingList.push(bookingObj)
-    //         }
-    //     } else {
-    //         return res.json({ message: "No bookings have been made for the restaurant." }); 
-    //     } 
-            
-    //         return res.json({"Bookings": bookingList})
-    //     }    
-    // );
-
 
     //-----------------------------------------------------------------------------------------------------------------------
     // Get all open Slots for a Restaurant based on the Restaurant's id and booking date
@@ -829,7 +778,6 @@ router.get("/:restaurantId", async (req, res) => {
                 },   
         })
 
-        console.log("$$$$$$$", bookings);
         const bookedSlots = [];
         const bookingList = []; 
 
@@ -838,7 +786,6 @@ router.get("/:restaurantId", async (req, res) => {
                  let booked_slotId = bookings[i].slotId;
                  bookedSlots.push(booked_slotId);
             }
-            console.log('^^^^^^^^^',bookedSlots);
 
             const allOpenSlots = await Slot.findAll({
                 where: {
@@ -848,7 +795,6 @@ router.get("/:restaurantId", async (req, res) => {
                     restaurantId : req.params.restaurantId
                 }
             })
-            console.log('###all Open slots###',allOpenSlots);
         
             for ( let i = 0; i < allOpenSlots.length; i++) {
                     const bookingObj = {};
@@ -891,7 +837,7 @@ router.get("/:restaurantId", async (req, res) => {
                 bookingDate: bookingDate
             }
         });
-        console.log('@@@@@@', booking);
+        
 
         if(booking) {
             const err = new Error("This slot has already been booked.");
@@ -1112,7 +1058,7 @@ router.put("/:restaurantId/menudishes/:menudishId", requireAuth, async (req, res
 
 router.post("/:restaurantId/menudishes", requireAuth, async (req, res) => {
     const restaurantId  = req.params.restaurantId;
-    console.log(".....restaurantId...", restaurantId)
+    
     const restaurant = await Restaurant.findByPk(restaurantId);
     
     if (!restaurant) {

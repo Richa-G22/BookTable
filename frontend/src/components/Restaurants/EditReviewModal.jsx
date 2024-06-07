@@ -6,13 +6,12 @@ import { useModal } from '../../context/Modal';
 
 const EditReviewModal = ({ review }) => {
     const user = useSelector((state) => state.session.user);
-    console.log("...review in props", review)
+    
     const dispatch = useDispatch();
     const currentRestaurant = useSelector((state) => state.restaurants.byId[review.restaurantId]);
-    console.log("....review.restaurantId.....", review.restaurantId)
-    console.log("....currentRestaurant....", currentRestaurant)
+    
     const currentReview = currentRestaurant.Reviews.filter((rev) => rev.id == review.id);
-    console.log("....currentReview....", currentReview);
+   
     const { closeModal } = useModal();
     //const [reviewMsg, setReviewMsg] = useState(currentReview ? currentReview.review : reviewMsg);
     //const [stars, setStars] = useState(currentReview ? currentReview.stars : stars);
@@ -51,11 +50,7 @@ const EditReviewModal = ({ review }) => {
       star1Value = true;
     }
 
-    console.log("star5 ",star5Value )
-    console.log("star4 ",star4Value )
-    console.log("star3 ",star3Value )
-    console.log("star2 ",star2Value )
-    console.log("star1 ",star1Value )
+    
 
     if (!currentRestaurant) {
         return <h2>Restaurant not found!!</h2>
@@ -68,42 +63,39 @@ const EditReviewModal = ({ review }) => {
     const validate = () => {
         foundError = false;
         setErrors({});
-        console.log('.......inside validate........')
-
-        console.log("review Msg",reviewMsg)
+       
 
         if (!reviewMsg || !reviewMsg.trim() ) {
             foundError = true;
             setErrors((errors) => ({ ...errors, reviewMsg: "Review is required" }));
-            console.log('........review.....', reviewMsg, foundError);
+           
         }
 
         if (!stars) {
             foundError = true;
             setErrors((errors) => ({ ...errors, stars: "Stars are required" }));
-            console.log('........stars.....', stars, foundError);
+            
         }
     };
 
     const handleSubmit = async (e) => {
-        console.log('..........inside handle submit..........');
+        
         e.preventDefault();
-        console.log('.........moving on to validate function..........');
+        
         validate();
-        console.log('..........errors after validate..........', errors)
-        console.log("......foundError.....", foundError)
+        
         //review.review = reviewMsg
         //review.stars = stars
         // try {
             if (!foundError) {
-                console.log("......1......")
+                
                 review.review = reviewMsg
                 review.stars = stars
                 const updatedReview = await dispatch(
                     updateRestaurantReviewThunk(currentRestaurant.id,review)
 
                 ).catch(async (res) => {
-                    console.log(".......2......")
+                    
                     const data = await res.json();
                     if (data.errors) {
                        setErrors((errors) => ({ ...errors, ...data.errors }));
@@ -113,14 +105,14 @@ const EditReviewModal = ({ review }) => {
             }
         // } catch (errors) {
             if (foundError) {
-            console.log("......error3.......", errors)
+            
             const data = await errors.json();
-            console.log('$$$$$$$$$$data', data)
+            
             if (data.errors) {
                setErrors((errors) => ({ ...errors, ...data.errors }));
             }
         };
-        console.log("......here4.....", errors)
+        
         closeModal();
     };
 

@@ -37,17 +37,15 @@ export const getAllBookingsThunk = () => async (dispatch) => {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
-        console.log("....response in thunk after accessing database", response)
+       
         if (response.ok) {
             const data = await response.json();
-            console.log("data before dispatch", data)
             dispatch(getAllBookings(data));
             return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log("...error in catch..", e)
         const errors = await e.json();
         return errors;
     }
@@ -82,13 +80,13 @@ export const  getCurrentUserBookingsThunk = (userId) => async (dispatch) => {
 // Delete a booking by id
 
 export const deleteBookingThunk = (bookingId) => async (dispatch) => {
-    console.log("......inside delete thunk........")
+    
     try {   
         const response = await csrfFetch(`/api/bookings/${bookingId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });
-       console.log(".....response....", response)
+       
         if (response.ok) {
             const data = await response.json();
             dispatch(deleteBooking(bookingId));
@@ -116,7 +114,7 @@ const bookingsReducer = (state = initialState, action) => {
     switch (action.type) {
     
         case GET_ALL_BOOKINGS: {
-            console.log("...action.payload...", action.payload);
+            
             newState.bookings_arr = action.payload;
 
             for (let i = 0; i < action.payload.length; i++) {
@@ -140,16 +138,12 @@ const bookingsReducer = (state = initialState, action) => {
 
         case DELETE_BOOKING: {
             const newById = {...newState.byId};
-            console.log("....newById....", newById)
-            console.log("...action.payload...", action.payload.bookingId)
             delete newById[action.payload];
-            console.log("....newById after delete....", newById)
+            
             newState.byId = newById
             const newBookings = newState.bookings_arr.filter((booking) => {
                 return booking.id !== action.payload.bookingId;
             })
-            console.log("....newBookings.....", newBookings)
-            
             newState.bookings_arr = newBookings;
             return newState;
         }

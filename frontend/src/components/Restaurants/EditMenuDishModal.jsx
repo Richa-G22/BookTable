@@ -6,13 +6,9 @@ import "./EditMenuDishModal.css";
 
 const EditMenuDishModal = ({ menudish }) => {
     const sessionUser = useSelector((state) => state.session.user);
-    console.log("...menudish in props", menudish)
     const dispatch = useDispatch();
     const currRestaurant = useSelector((state) => state.restaurants.byId[menudish.restaurantId]);
-    console.log("....menudish.restaurantId.....", menudish.restaurantId)
-    console.log("....currRestaurant....", currRestaurant)
     const currentMenuDish = currRestaurant.MenuDishes.filter((dish) => dish.id == menudish.id);
-    console.log("....currentMenuDish....", currentMenuDish);
     const { closeModal } = useModal();
     const [dishCategory, setdishCategory] = useState(currentMenuDish ? currentMenuDish[0].dishCategory : dishCategory);
     const [dishName, setdishName] = useState(currentMenuDish ? currentMenuDish[0].dishName : dishName);
@@ -21,7 +17,7 @@ const EditMenuDishModal = ({ menudish }) => {
     const [dishCalories, setdishCalories] = useState(currentMenuDish ? currentMenuDish[0].dishCalories : dishCalories);
     const [dishAllergies, setdishAllergies] = useState(currentMenuDish ? currentMenuDish[0].dishAllergies : dishAllergies);
     const [spiceLevel, setspiceLevel] = useState(currentMenuDish ? currentMenuDish[0].spiceLevel : spiceLevel);
-    console.log('......currRestaurant......', currRestaurant);
+    
 
     const [errors, setErrors] = useState([]);
     let foundError = false;
@@ -30,10 +26,9 @@ const EditMenuDishModal = ({ menudish }) => {
     const errorVal = (substr) => {
         errorDisp = " ";
         for (let str of errors) {
-            { console.log("str, errors", str, errors) }
+            
             if (str.indexOf(substr) != -1) {
-                errorDisp = str
-                { console.log("errorDisp", errorDisp) }
+                errorDisp = str    
             }
         }
         return errorDisp
@@ -42,15 +37,13 @@ const EditMenuDishModal = ({ menudish }) => {
     const validate = () => {
         foundError = false;
         const currErrors = [];
-        console.log('.......inside validate........')
+        
         if (!dishName.trim()) {
-            console.log(".....here1....")
             foundError = true;
             // setErrors((errors) => ({ ...errors, dishName: "Dish Name is required" }));
             currErrors.push("Dish Name is required")
-            console.log("...currErrors...", currErrors);
             setErrors(currErrors);
-            console.log('........dishName.....', dishName, foundError);
+            
         }
 
         if (!dishCategory.trim()) {
@@ -58,7 +51,7 @@ const EditMenuDishModal = ({ menudish }) => {
             currErrors.push("Dish Category is required")
             //     setErrors((errors) => ({ ...errors, dishIngredients: "Dish Ingredients are required" }));
             setErrors(currErrors);
-            console.log('........dishCategory.....', dishCategory, foundError);
+            
         }
 
         if (!dishIngredients.trim()) {
@@ -66,39 +59,24 @@ const EditMenuDishModal = ({ menudish }) => {
             currErrors.push("Dish Ingredients are required")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishIngredients: "Dish Ingredients are required" }));
-            console.log('........dishIngredients.....', dishIngredients, foundError);
+            
         }
 
-        // if (!dishPrice.trim()) {
-        //     foundError = true;
-        //     currErrors.push("Dish Price is required")
-        //     setErrors(currErrors);
-        //     //     setErrors((errors) => ({ ...errors, dishPrice: "Dish Price is required" }));
-        //     console.log('........dishPrice.....', dishPrice, foundError);
-        // }
 
         if (dishPrice && dishPrice < 1) {
             foundError = true;
             currErrors.push("Dish Price is not valid")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishPrice: "Dish Price is required" }));
-            console.log('........dishPrice.....', dishPrice, foundError);
+            
         }
-
-        // if (!dishCalories.trim()) {
-        //     foundError = true;
-        //     currErrors.push("Dish Calories are required")
-        //     setErrors(currErrors);
-        //     //     setErrors((errors) => ({ ...errors, dishCalories: "Dish Calories are required" }));
-        //     console.log('........dishCalories.....', dishCalories, foundError);
-        // }
 
         if (dishCalories && dishCalories < 1) {
             foundError = true;
             currErrors.push("Dish Calories are not valid")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishCalories: "Dish Calories are required" }));
-            console.log('........dishCalories.....', dishCalories, foundError);
+           
         }
 
         if (!dishAllergies && !dishAllergies.trim()) {
@@ -106,17 +84,15 @@ const EditMenuDishModal = ({ menudish }) => {
             currErrors.push("Dish Allergies are required")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishAllergies: "Dish Allergies are required" }));
-            console.log('........dishAllergies.....', dishAllergies, foundError);
+            
         }
     }
 
     const handleSubmit = async (e) => {
-        console.log('..........inside handle submit..........');
+        
         e.preventDefault();
-        console.log('.........moving on to validate function..........');
         validate();
-        console.log('..........errors after validate..........', errors)
-        console.log("......foundError.....", foundError)
+        
         const updateMenuDish = {
                     restaurantId: currRestaurant.id,
                     id: currentMenuDish[0].id,
@@ -141,13 +117,13 @@ const EditMenuDishModal = ({ menudish }) => {
                         if (currErrors) {
                             setErrors(currErrors);
                         }
-                        console.log(".....errors.......", errors)
+                        
                     });
             }
         } catch (error) {
-            console.log("......error.....", error)
+            
             const data = await error.json();
-            console.log(".....data......", data)
+            
             if (currErrors) {
                 setErrors(currErrors);
             }
@@ -158,7 +134,7 @@ const EditMenuDishModal = ({ menudish }) => {
         <div className="menudish-modal">
             {/* <h3 style={{ marginLeft: "6rem", alignItems: "center", justifyContent: "center" }}>Edit dish {currentMenuDish[0].dishName} !</h3> */}
             <h3 style={{ display:"flex", alignItems: "center", justifyContent: "center" }}>Edit dish {currentMenuDish[0].dishName} !</h3>
-            {console.log("...errors....", errors)}
+            
             <div style={{ paddingBottom: "0.59rem", paddingLeft: "0px" }}>
                 <label style={{ padding: "0px", margin: "0px" }} htmlFor="dishName">
                     Dish Name <span className="error">

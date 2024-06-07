@@ -7,18 +7,6 @@ const { setTokenCookie, restoreUser, requireAuth} = require('../../utils/auth');
 const { Restaurant, RestaurantImage, Holiday, Slot, MenuDish, Review, ReviewImage, User, Booking, sequelize } = require('../../db/models');
 const router = express.Router();
 
-// const validateBooking = [
-//     check('endDate')
-//       .custom((endDate, { req }) => {
-//         const startDate = req.body.startDate;
-//         if (startDate >= endDate) {
-//             return false
-//         }
-//         return true
-//     })
-//       .withMessage('EndDate cannot come before startDate'),
-//     handleValidationErrors
-//   ]; 
 
 //-----------------------------------------------------------------------------------------------------------------------
 // Get all bookings
@@ -92,7 +80,7 @@ router.get("/current", requireAuth, async (req, res) => {
     const { bookingDate, slotId } = req.body;
     const newbookingDate = new Date(bookingDate);
     const today = new Date();
-    console.log("--------", today);
+
 
     // Bookings in the past cannot be modified
     if (newbookingDate < today){    

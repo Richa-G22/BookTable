@@ -46,53 +46,53 @@ const NewRestaurant = () => {
     const validate = () => {
         foundError = false;
         setErrors({});
-        console.log('.......inside validate........')
+        
         if (!name.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, name: "Name is required" }));
-            console.log('........name.....', name, foundError);
+           
         }
 
         if (!restaurantType.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, restaurantType: "Restaurant Type is required" }));
-            console.log('........restaurantType.....', restaurantType, foundError);
+            
         }
 
         if (!address.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, address: "Address is required" }));
-            console.log('........address.....', address, foundError);
+            
         }
 
         if (!city.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, city: "City is required" }));
-            console.log('........city.....', city, foundError);
+            
         }
 
         if (!state.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, state: "State is required" }));
-            console.log('........state.....', state, foundError);
+           
         }
 
         if (!country.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, country: "Country is required" }));
-            console.log('........country.....', country);
+            
         }
 
         if (!zipCode.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, zipCode: "ZipCode is required" }));
-            console.log('........zipCode.....', zipCode, foundError);
+            
         }
 
         if (!phone.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, phone: "Phone is required" }));
-            console.log('........phone.....', phone, foundError);
+            
         }
 
         
@@ -100,13 +100,13 @@ const NewRestaurant = () => {
         if (!description.trim() || description.length < 30) {
             foundError = true;
             setErrors((errors) => ({ ...errors, description: "Description needs a minimum of 30 characters" }));
-            console.log('........description1.....', description, foundError);
+            
         }
 
         if (description.length > 255) {
             foundError = true;
             setErrors((errors) => ({ ...errors, description: "Description can not exceed 255 characters" }));
-            console.log('........description2.....', description, foundError);
+           
         }
 
         
@@ -114,53 +114,53 @@ const NewRestaurant = () => {
         if (!cuisines.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, cuisines: "Cuisines are required" }));
-            console.log('........cuisines.....', cuisines, foundError);
+            
         }
 
         if (!dayClosed.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, dayClosed: "Day Closed is required" }));
-            console.log('........dayClosed.....', dayClosed, foundError);
+            
         }
 
         if (!hoursOfOperation.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, hoursOfOperation: "Hours of Operation are required" }));
-            console.log('........hoursOfOperation.....', hoursOfOperation, foundError);
+            
         }
 
         if (!avgMealPrice.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, avgMealPrice: "Average Meal Price is required" }));
-            console.log('........avgMealPrice.....', avgMealPrice, foundError);
+            
         }
 
         if (!parkingAvailability.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, parkingAvailability: "Parking Availability is required" }));
-            console.log('........parkingAvailability.....', parkingAvailability, foundError);
+            
         }
 
         if (!paymentOption.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, paymentOption: "Payment Options are required" }));
-            console.log('........paymentOption.....', paymentOption, foundError);
+            
         }
 
         if (!dressCode.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, dressCode: "Dress Code is required" }));
-            console.log('........dressCode.....', dressCode, foundError);
+            
         }
 
         if (!executiveChef.trim()) {
             foundError = true;
             setErrors((errors) => ({ ...errors, executiveChef: "Executive Chef required" }));
-            console.log('........executiveChef.....', executiveChef, foundError);
+            
         }
 
         if (phone) { 
-            console.log("inside phone validation")
+            
             let str = phone;
             for ( let i = 0; i < str.length ; i++ ) {
                 if( str[i] != '0' &&  
@@ -180,7 +180,7 @@ const NewRestaurant = () => {
                 str[i] != '-' ) { 
                    foundError = true;
                    setErrors((errors) => ({ ...errors, phone: "Phone number contains invalid characters" }));
-                   console.log('........phone.....', phone, foundError);
+                   
                 }
             }
             if ( !foundError ) {
@@ -203,9 +203,9 @@ const NewRestaurant = () => {
                if ( phone_number_real.length != 10 ) {
                        foundError = true;
                        setErrors((errors) => ({ ...errors, phone: "Phone number should be 10 digits long" }));
-                       console.log('........phone.....', phone, foundError);
+                      
                } else {
-                   console.log('phone number cleaned : ', phone_number_real)
+                   
                    setPhone(phone_number_real)
                }
             }
@@ -221,7 +221,7 @@ const NewRestaurant = () => {
                 setErrors((errors) => ({ ...errors, locationMapUrl: "Please enter a valid Location URL" }));
 
             }
-            console.log('........locationMapUrl.....', locationMapUrl, foundError);
+            
         }
 
         if (menuUrl) {
@@ -233,7 +233,7 @@ const NewRestaurant = () => {
                 setErrors((errors) => ({ ...errors, menuUrl: "Please enter a valid Menu URL" }));
 
             }
-            console.log('........menuUrl.....', menuUrl, foundError);
+            
         }
 
         // if (
@@ -304,54 +304,18 @@ const NewRestaurant = () => {
             setErrors((errors) => ({ ...errors, image1: "Please add atleast 1 image." }));
         }
 
-        // console.log("near phone validation")
-        
-        // let str = phone;
-        // let regex = /[a-zA-Z0-9]/g; // only count letters and number
-        // console.log(str.match(regex).length); // prints 13 to the console
-        // let str2 = phone;
-        // let regex1 = /[^a-z]/gi; // only count letters
-        // console.log(str2.replace(/[^a-z]/gi, "").length); // prints 10 to the console
-        // const numbers = regex - regex1;
-
-        // if (numbers != 10) {
-        //     foundError = true;
-        //     setErrors((errors) => ({ ...errors, phone: "Phone number contains exactly 10 digits" }));
-        //     console.log('........phone.....', phone, foundError);
-        // } else {
-        //     foundError = true;
-        //     setErrors((errors) => ({ ...errors, phone: " " })); 
-        // }
-
-         //let str = phone;
-         //let regex = /[^(,), ,0-9]/g; // only count letters and number
-         //console.log("regex match : " , str.match(regex)); // prints 13 to the console
-         //if ( str.match(regex).length)  {
-         //    foundError = true;
-         //    setErrors((errors) => ({ ...errors, phone: "Phone number contains invalid characters" }));
-         //    console.log('........phone.....', phone, foundError);
-         //}
-         //let regex1 = /[0-9]/g; // only count letters
-         //console.log("regex1 match : " , str.match(regex1)); // prints 13 to the console
-         //if (str.match(regex1).length != 10) {
-         //    foundError = true;
-         //    setErrors((errors) => ({ ...errors, phone: "Phone number contains exactly 10 digits" }));
-         //    console.log('........phone.....', phone, foundError);
-         //}
     };
 
     const handleSubmit = async (e) => {
-        console.log('..........inside handle submit..........');
+        
         e.preventDefault();
-        console.log('.........moving on to validate function..........');
+        
         validate();
-        console.log('..........errors after validate..........', errors)
-        console.log("......foundError.....", foundError)
-
+        
         try {
-            console.log(".....inside try.......")
+            
             if (!foundError) {
-                console.log(".....inside if.......")
+            
                 const newRestaurant = await dispatch(
                     createNewRestaurantThunk({
                         restaurantType,
@@ -379,9 +343,9 @@ const NewRestaurant = () => {
                     if (data.errors) {
                         setErrors((errors) => ({ ...errors, ...data.errors }));
                     }
-                    console.log(".....errors.......", errors)
+                    
                 })
-                console.log(".....NEW Res.......", newRestaurant)
+                
                 if ( newRestaurant && newRestaurant.id && image1 ) {
                     const func_ = 
                             addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image1 });
@@ -441,12 +405,12 @@ const NewRestaurant = () => {
 
                 // if (newRestaurant && newRestaurant.id) {
 
-                //     console.log("inside the image block");
+               
 
                 //     if (image1) {
-                //         console.log("image1 ",image1);
+               
                 //         dispatch(addImageToRestaurantThunk(newRestaurant.id, { restaurantUrl: image1 }));
-                //         console.log("did not wait for thunk to complete");
+                
                 //     }
 
                 //     if (image2) {
@@ -493,16 +457,16 @@ const NewRestaurant = () => {
                 // navigate('/restaurants/current')
             }
         } catch (error) {
-            console.log("......error.....", error)
+            
             const data = await error.json();
-            console.log(".....data......", data)
+            
             if (data.errors) {
                 setErrors((errors) => ({ ...errors, ...data.errors }));
             }
         }
     }
 
-    // console.log('..........newRestaurant before entering images.........', newRestaurant);
+   
 
 
 

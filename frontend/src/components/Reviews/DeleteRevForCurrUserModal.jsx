@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import './DeleteRevForCurrUserModal.css';
 
 function DeleteRevForCurrUserModal( { reviewId, setUpdateMode} ) {
-  console.log('......reviewId inside deleteModal...',reviewId, typeof reviewId);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();

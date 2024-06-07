@@ -202,28 +202,25 @@ const deleteMenuDish = (restaurantId, menudishId) => {
 export const addNewBookingThunk = (restaurantId, slotId, bookingDate) => async (dispatch) => {
 
     try {
-        console.log(".....inside add New Booking thunk......")
-        console.log("...restaurantId, slotId, booking....", restaurantId, slotId, bookingDate)
+        
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/${slotId}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({bookingDate}),
           });
-        console.log(".............response in thunk....", response)
+       
         if (response.ok) {
                      const data = await response.json();
-                     console.log(".........data.....", data)
+                     
                      dispatch(addNewBooking(data));
                      dispatch(getslotsbyidDateThunk(restaurantId, bookingDate));
-                     console.log("SUCCESSFULL RETURN FROM DISPATCH")
+                    
                      return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log('eeeeeeeeeeeee', e)
         const errors = await e.json();
-        console.log(",,,,,,,,,,,,,,,,errors......", errors)
         return errors;
     }
 };
@@ -238,17 +235,15 @@ export const getAllRestaurantsThunk = () => async (dispatch) => {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
-        console.log("....response in thunk after accessing database", response)
+        
         if (response.ok) {
             const data = await response.json();
-            console.log("data before dispatch", data)
             dispatch(getAllRestaurants(data));
             return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log("...error in catch..", e)
         const errors = await e.json();
         return errors;
     }
@@ -289,10 +284,9 @@ export const createNewRestaurantThunk = (restaurant) => async (dispatch) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(restaurant)
         });
-        console.log(".....response inside thunk", response)
+        
         if(response.ok) {
             const data = await response.json();
-            console.log("......data.......", data)
             dispatch(createNewRestaurant(data));
             return data;
         } else {
@@ -329,26 +323,18 @@ export const getCurrUserOwnedRestaurantsThunk = () => async (dispatch) => {
     }
 };
 
-// export const filterCurrUserOwnedRestaurant = (currentRestaurants,userId) => async (dispatch) => {
-//     console.log("userId : ",userId)
-//     console.log("currentRestaurants : ", currentRestaurants)
-//     let ownerRestaurants = currentRestaurants.filter((res)=>{return res.ownerId == userId})
-//     console.log("ownerRestaurants : ", ownerRestaurants)
-//     dispatch(getCurrUserOwnedRestaurants(ownerRestaurants));
-//     return ownerRestaurants;
-// };
 
 //----------------------------------------------------------------------------------------
 // Delete a restaurant by id
 
 export const deleteRestaurantThunk = (id) => async (dispatch) => {
-    console.log("......inside delete thunk........")
+    
     try {   
         const response = await csrfFetch(`/api/restaurants/${id}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });
-       console.log(".....response....", response)
+       
         if (response.ok) {
             const data = await response.json();
             dispatch(deleteRestaurant(id));
@@ -366,18 +352,15 @@ export const deleteRestaurantThunk = (id) => async (dispatch) => {
 // Delete a review by id
 
 export const deleteReviewThunk = (restaurantId, reviewId) => async (dispatch) => {
-    console.log("......inside delete review thunk........")
-    console.log(".....restaurantId, reviewId...", restaurantId, typeof restaurantId,reviewId, typeof reviewId);
+    
     try {   
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/reviews/${reviewId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });
-       console.log(".....response....", response)
+       
         if (response.ok) {
             const data = await response.json();
-            console.log("....data before dispatch...",data)
-            console.log("..initial state..",initialState)
             dispatch(deleteReview(restaurantId, reviewId));
             //dispatch(getReviewsForRestaurantThunk(restaurantId));
         } else {
@@ -393,18 +376,16 @@ export const deleteReviewThunk = (restaurantId, reviewId) => async (dispatch) =>
 // Delete a menudish by id
 
 export const deleteMenuDishThunk = (restaurantId, menudishId) => async (dispatch) => {
-    console.log("......inside delete menudish thunk........")
-    console.log(".....restaurantId, menudishId...", restaurantId, typeof restaurantId,menudishId, typeof menudishId);
+   
     try {   
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/menudishes/${menudishId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });
-       console.log(".....response....", response)
+       
         if (response.ok) {
             const data = await response.json();
-            console.log("....data before dispatch...",data)
-            console.log("..initial state..",initialState)
+            
             dispatch(deleteMenuDish(restaurantId, menudishId));
             //dispatch(getReviewsForRestaurantThunk(restaurantId));
         } else {
@@ -422,19 +403,17 @@ export const deleteMenuDishThunk = (restaurantId, menudishId) => async (dispatch
 export const updateRestaurantThunk = (id, restaurant) => async(dispatch) => {
  
     try {
-         //console.log('...................reached edit thunk............')
-         //console.log('$$$$$$$$$$$$$$$$$ . id, restaurant......',id, restaurant)
+         
          const options = {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(restaurant)
         };
         const response = await csrfFetch(`/api/restaurants/update/${id}`, options);
-        console.log('&&&&&&&&&&&&&&response', response)
+        
         if (response.ok) {
-            console.log('&&&&&&&&&&&&&&response', response)
+        
                 const data = await response.json();
-                console.log('&&&&&&&&&&&&&&data', data)
                 dispatch(updateRestaurant(data));
                 dispatch(getRestaurantImagesThunk(id));
                 return data;
@@ -453,20 +432,17 @@ export const updateRestaurantThunk = (id, restaurant) => async(dispatch) => {
 export const updateRestaurantReviewThunk = (restaurantId, review) => async(dispatch) => {
  
     try {
-         //console.log('...................reached edit thunk............')
-         //console.log('$$$$$$$$$$$$$$$$$ . restaurantId, reVIEW......',id, review)
+         
          const options = {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(review)
         };
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/${review.id}`, options);
-        console.log('&&&&&&&&&&&&&&response', response)
+        
         if (response.ok) {
                 const data = await response.json();
-                console.log('&&&&&&&&&&&&&&data', data)
                 dispatch(updateRestaurantReview(data));
-                console.log("going to fetech all reviews again");
                 //dispatch(getReviewsForRestaurantThunk(restaurantId));
                 return data;
         } else {
@@ -484,20 +460,17 @@ export const updateRestaurantReviewThunk = (restaurantId, review) => async(dispa
 export const updateRestaurantMenudishThunk = (restaurantId, menudish) => async(dispatch) => {
  
     try {
-         console.log('...................reached edit thunk............')
-         console.log('$$$$$$$$$$$$$$$$$ . restaurantId, menudish......',restaurantId, menudish)
+         
          const options = {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(menudish)
         };
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/menudishes/${menudish.id}`, options);
-        console.log('&&&&&&&&&&&&&&response', response)
+        
         if (response.ok) {
                 const data = await response.json();
-                console.log('&&&&&&&&&&&&&&data', data)
-                dispatch(updateRestaurantMenudish(data));
-                console.log("going to fetech all reviews again");
+                dispatch(updateRestaurantMenudish(data));   
                 //dispatch(getReviewsForRestaurantThunk(restaurantId));
                 return data;
         } else {
@@ -514,26 +487,22 @@ export const updateRestaurantMenudishThunk = (restaurantId, menudish) => async(d
 
 export const addImageToRestaurantThunk = (restaurantId, image) => async (dispatch) => {
     try {
-        console.log("addImageToRestaurantThunk->");
+        
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/images`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(image),
           });
-        console.log(".............response in thunk....", response)
+        
         if (response.ok) {
                      const data = await response.json();
-                     console.log(".........data.....", data)
                      dispatch(addImageToRestaurant(restaurantId, image));
-                     console.log("SUCCESSFULL RETURN FROM DISPATCH")
                      return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log('eeeeeeeeeeeee', e)
         const errors = await e.json();
-        console.log(",,,,,,,,,,,,,,,,errors......", errors)
         return errors;
     }
 };
@@ -549,21 +518,18 @@ export const addReviewToRestaurantThunk = (restaurantId, review) => async (dispa
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(review),
           });
-        console.log(".............response in thunk....", response)
+        
         if (response.ok) {
-                     const data = await response.json();
-                     console.log(".........data.....", data)
+                     const data = await response.json();                
                      dispatch(addReviewToRestaurant(restaurantId,data.Reviews));
                      //dispatch(getReviewsForRestaurantThunk(restaurantId));
-                     console.log("SUCCESSFULL RETURN FROM DISPATCH")
+                     
                      return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log('eeeeeeeeeeeee', e)
         const errors = await e.json();
-        console.log(",,,,,,,,,,,,,,,,errors......", errors)
         return errors;
     }
 };
@@ -573,26 +539,23 @@ export const addReviewToRestaurantThunk = (restaurantId, review) => async (dispa
 export const updateRestaurantImageThunk = (restaurantId, id, image) => async (dispatch) => {
 
     try {
-        console.log("......inside thunk.....");
+        
         const response = await csrfFetch(`/api/restaurants/${restaurantId}/images/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(image),
           });
-        console.log(".............response in thunk....", response)
+        
         if (response.ok) {
                      const data = await response.json();
-                     console.log(".........data.....", data)
                      dispatch(updateRestaurantImage(restaurantId, id));
-                     console.log("SUCCESSFULL RETURN FROM DISPATCH")
+                     
                      return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log('eeeeeeeeeeeee', e)
         const errors = await e.json();
-        console.log(",,,,,,,,,,,,,,,,errors......", errors)
         return errors;
     }
 };
@@ -609,20 +572,16 @@ export const addHoildayToRestaurantThunk = (restaurantId, holiday) => async (dis
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(holiday),
           });
-        console.log(".............response in thunk....", response)
+       
         if (response.ok) {
                      const data = await response.json();
-                     console.log(".........data.....", data)
                      dispatch(addHoildayToRestaurant(restaurantId, holiday));
-                     console.log("SUCCESSFULL RETURN FROM DISPATCH")
                      return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log('eeeeeeeeeeeee', e)
         const errors = await e.json();
-        console.log(",,,,,,,,,,,,,,,,errors......", errors)
         return errors;
     }
 };
@@ -639,20 +598,16 @@ export const addMenudishToRestaurantThunk = (restaurantId, menudish) => async (d
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(menudish),
           });
-        console.log(".............response in thunk....", response)
+       
         if (response.ok) {
                      const data = await response.json();
-                     console.log(".........data.....", data)
                      dispatch(addMenudishToRestaurant(data));
-                     console.log("SUCCESSFULL RETURN FROM DISPATCH")
                      return data;
         } else {
             throw response;
         }
     } catch (e) {
-        console.log('eeeeeeeeeeeee', e)
         const errors = await e.json();
-        console.log(",,,,,,,,,,,,,,,,errors......", errors)
         return errors;
     }
 };
@@ -686,15 +641,14 @@ export const getReviewsForRestaurantThunk = (id) => async (dispatch) => {
 export const getRestaurantImagesThunk = (id) => async (dispatch) => {
     
     try {
-        console.log("....inside get images thunk,,,,") 
+        
         const response = await csrfFetch(`/api/restaurants/${id}/images`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
-        console.log("....response!!!!!!!!!!!!!!!!.....", response)
+        
         if (response.ok) {
             const data = await response.json();
-            console.log("......data.......", data)
             dispatch(getRestaurantImages(data));
             return data;
         } else {
@@ -760,18 +714,15 @@ export const getMenudishesForRestaurantThunk = (id) => async (dispatch) => {
 export const getslotsbyidDateThunk = (id, date) => async (dispatch) => {
     
     try {
-        console.log("......inside get slots by id date thunk......")
-        console.log("...id, date.......",id, date)
+        
         const response = await csrfFetch(`/api/restaurants/${id}/slots/${date}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
-        console.log(".......response.......", response);
+        
         if (response.ok) {
             const data = await response.json();
-            console.log("................data before dispatch....", data)
             dispatch(getSlotsByIdDate(data));
-            console.log(".....data.....", data)
             return data;
         } else {
             throw response;
@@ -825,7 +776,6 @@ const restaurantsReducer = (state = initialState, action) => {
         //-----------------------------------------------------------------------------------------------------------------
         
         case CREATE_NEW_RESTAURANT: {
-            console.log("inside new restaurant reducer........", action.payload)
             newState.restaurants_arr = [...newState.restaurants_arr, action.payload]
             newState.byId[action.payload.id] = action.payload
             return newState;
@@ -858,10 +808,8 @@ const restaurantsReducer = (state = initialState, action) => {
         //-----------------------------------------------------------------------------------------------------------------
         
         case ADD_IMAGE_TO_RESTAURANT: {
-            console.log(".......inside...add image thunk....")
             const newById = {};
             const RestaurantImages = [action.payload.RestaurantImages]
-            console.log("....RestaurantImages...", RestaurantImages)
             
             let newArr = [...newState.restaurants_arr];
             for(let i = 0; i < newState.restaurants_arr.length; i++){
@@ -888,10 +836,9 @@ const restaurantsReducer = (state = initialState, action) => {
         //-----------------------------------------------------------------------------------------------------------------
         
         case ADD_REVIEW_TO_RESTAURANT: {
-            console.log(".......inside...add review thunk....")
+            
             const newById = {};
             const reviews = action.payload.reviews;
-            console.log("....Reviews...", reviews)
             
             let newArr = [...newState.restaurants_arr];
             let currRestaurant = {};
@@ -916,11 +863,10 @@ const restaurantsReducer = (state = initialState, action) => {
         //----------------------------------------------------------------------------------------------------------------
 
         case ADD_MENUDISH_TO_RESTAURANT: {
-            console.log(".......inside...add menudish thunk....")
-            console.log(".....action.payload.....", action.payload);
+            
             const newById = {...newState.byId};
             const newMenuDish = [action.payload.menudish]
-            console.log("....MenuDishes...", newMenuDish)
+            
             
             let newArr = [...newState.restaurants_arr];
             for(let i = 0; i < newState.restaurants_arr.length; i++){
@@ -954,16 +900,15 @@ const restaurantsReducer = (state = initialState, action) => {
         //newState.byId = JSON.parse(JSON.stringify(newUpdatedId))----------------------------------------------------------------------------------------------------------------
 
             case ADD_BOOKING_TO_RESTAURANT: {
-            console.log(".......inside...add booking reducer ....")
+            
             const newById = {};
             const RestaurantBookings = [action.payload.Bookings]
-            console.log("....RestaurantBookings...", RestaurantBookings)
+            
             
             let newArr = [...newState.restaurants_arr];
             for(let i = 0; i < newState.restaurants_arr.length; i++){
                 let currRestaurant = newArr[i];
-                console.log("currRestaurant", currRestaurant);
-                console.log("RestaurantBookings[0].restaurantId", RestaurantBookings[0].restaurantId);
+                
                 if(currRestaurant.id == RestaurantBookings[0].restaurantId){
                     if (!newArr[i].RestaurantBookings) {
                         newArr[i] = {...newArr[i],  RestaurantBookings: RestaurantBookings}
@@ -989,7 +934,7 @@ const restaurantsReducer = (state = initialState, action) => {
         case ADD_HOLIDAY_TO_RESTAURANT: {
             const newById = {};
             const Holidays = [action.payload.Holidays]
-            console.log("....Holidays...", Holidays)
+            
             
             let newArr = [...newState.restaurants_arr];
             for(let i = 0; i < newState.restaurants_arr.length; i++){
@@ -1017,7 +962,7 @@ const restaurantsReducer = (state = initialState, action) => {
         
         case GET_RESTAURANT_IMAGES: {
             let newArr = [...newState.restaurants_arr];
-            console.log("....inside get restaurant images reducer...", action.payload)
+            
             for(let i = 0; i < newState.restaurants_arr.length; i++){
                 let currRestaurant = newArr[i];
                 if(currRestaurant.id === action.payload.RestaurantImages[0].restaurantId){
@@ -1034,7 +979,7 @@ const restaurantsReducer = (state = initialState, action) => {
         
         case GET_RESTAURANT_REVIEWS: {
             let newArr = [...newState.restaurants_arr];
-            console.log("....inside get restaurant reviews reducer...", action.payload)
+            
             let restaurant = {};
              for(let i = 0; i < newState.restaurants_arr.length; i++){
                  let currRestaurant = newArr[i];
@@ -1069,38 +1014,23 @@ const restaurantsReducer = (state = initialState, action) => {
         //---------------------------------------------------------------------------------------------------------
         
         case DELETE_REVIEW: {
-            console.log("INSIDE DELTE REVIEW REDUCER");
-            console.log("... prev state ... ", state)
-            console.log(".......action.payload.....", action.payload)
+           
 
             let newArr = [...newState.restaurants_arr]; 
             let currRestaurant = {}
             let newReviews = [];
-            //for(let i = 0; i < newState.restaurants_arr.length; i++){
-            //    currRestaurant = newArr[i];
-            //    console.log("....currRestaurant....", currRestaurant);
-            //    if (currRestaurant.id == action.payload.restaurantId){
-            //        newReviews = currRestaurant.Reviews.filter((review) => {
-            //            console.log("...review.id", review.id)
-            //            review.id != action.payload.reviewId
-            //           console.log("....newReviews...", newReviews);
-            //        })
-            //    }
-            //    currRestaurant.Reviews = newReviews
-            //    console.log("....currRestaurant.Reviews...", currRestaurant.Reviews);
-            //} 
+            
 
             for(let i = 0; i < newState.restaurants_arr.length; i++){
                 if (newArr[i].id == action.payload.restaurantId){
                     newReviews = newArr[i].Reviews.filter((review) => {
-                        console.log("...review.id", review.id)
-                        console.log("...action.payload.reviewId",action.payload.reviewId)
+                        
                         return review.id != action.payload.reviewId;
                     })
-                  console.log("....newReviews...", newReviews);
+                 
                   newArr[i].Reviews = newReviews
                   currRestaurant = newArr[i]
-                  console.log("....currRestaurant.Reviews...", currRestaurant.Reviews);
+                  
                   break;
                 }
             } 
@@ -1117,9 +1047,7 @@ const restaurantsReducer = (state = initialState, action) => {
         //---------------------------------------------------------------------------------------------------------
         
         case DELETE_MENUDISH_BY_ID: {
-            console.log("INSIDE DELETE MENUDISH REDUCER");
-            console.log("... prev state ... ", state)
-            console.log(".......action.payload.....", action.payload)
+            
 
             let newArr = [...newState.restaurants_arr]; 
             let currRestaurant = {}
@@ -1128,14 +1056,13 @@ const restaurantsReducer = (state = initialState, action) => {
             for(let i = 0; i < newState.restaurants_arr.length; i++){
                 if (newArr[i].id == action.payload.restaurantId){
                     newMenuDishes = newArr[i].MenuDishes.filter((menudish) => {
-                        console.log("...menudish.id", menudish.id)
-                        console.log("...action.payload.menudishId",action.payload.menudishId)
+                     
                         return menudish.id != action.payload.menudishId;
                     })
-                  console.log("....newMenuDishes...", newMenuDishes);
+                  
                   newArr[i].MenuDishes = newMenuDishes
                   currRestaurant = newArr[i]
-                  console.log("....currRestaurant.MenuDishes...", currRestaurant.MenuDishes);
+                  
                   break;
                 }
             } 
@@ -1150,7 +1077,7 @@ const restaurantsReducer = (state = initialState, action) => {
                 }
             }
             //delete newById[action.payload.restaurantId].MenuDishes[action.payload.menudishId]; 
-            console.log("....newbyid...", newById);
+           
 
             newState.restaurants_arr = JSON.parse(JSON.stringify(newArr));
             newState.byId = JSON.parse(JSON.stringify(newById))
@@ -1162,8 +1089,7 @@ const restaurantsReducer = (state = initialState, action) => {
         
         case GET_RESTAURANT_OPEN_SLOTS: {   
             const newById = {};
-            console.log("......inside...open slots reducer.....")
-            console.log("....action.payload...", action.payload.data.OpenSlots)
+         
             
             let newArr = [...newState.restaurants_arr];
             if (action.payload.data.OpenSlots.length) {
@@ -1173,7 +1099,7 @@ const restaurantsReducer = (state = initialState, action) => {
                         if (!newArr[i].OpenSlots) {
                             newArr[i] = {...newArr[i],  OpenSlots: action.payload.data.OpenSlots }
                         } 
-                        console.log("....newArr.....")
+                        
                     }
                 }
                 newState.byId[action.payload.data.OpenSlots[0].restaurantId] = {...newState.byId[action.payload.data.OpenSlots[0].restaurantId], OpenSlots: action.payload.data.OpenSlots }  
@@ -1185,8 +1111,7 @@ const restaurantsReducer = (state = initialState, action) => {
         //---------------------------------------------------------------------------------------------------------
         
         case UPDATE_RESTAURANT: {
-            console.log(".....inside reducer....", action.payload);
-            console.log("....action.payload...", action.payload)
+            
             const newArr = [...newState.restaurants_arr];
             const newUpdatedId = {...newState.byId};
             for(let i = 0; i < newState.restaurants_arr.length; i++){
@@ -1206,8 +1131,7 @@ const restaurantsReducer = (state = initialState, action) => {
         //---------------------------------------------------------------------------------------------------------
         
         case UPDATE_RESTAURANT_REVIEW: {
-            console.log(".....inside reducer....", action.payload);
-            console.log("....action.payload...", action.payload)
+           
             const newArr = [...newState.restaurants_arr];
             const newUpdatedId = {...newState.byId};
             let currRestaurant = {}
@@ -1232,8 +1156,7 @@ const restaurantsReducer = (state = initialState, action) => {
         //---------------------------------------------------------------------------------------------------------
 
         case UPDATE_RESTAURANT_MENUDISH: {
-            console.log(".....inside reducer....", action.payload);
-            console.log("....action.payload...", action.payload)
+            
             const newArr = [...newState.restaurants_arr];
             const newUpdatedId = {...newState.byId};
 
@@ -1252,7 +1175,7 @@ const restaurantsReducer = (state = initialState, action) => {
                         menudishObj.dishCalories = action.payload.dishCalories
                         menudishObj.dishAllergies = action.payload.dishAllergies
                         menudishObj.spiceLevel = action.payload.spiceLevel
-                        console.log("....menudishObj.....", menudishObj);
+                        
                         newArr[i] = currRestaurant;
                         break;
                     }
@@ -1260,8 +1183,7 @@ const restaurantsReducer = (state = initialState, action) => {
                 newUpdatedId[action.payload.restaurantId] = currRestaurant;
             } 
                 // currRestaurant = newUpdatedId[action.payload.restaurantId]
-                console.log("...newUpdatedId...", newUpdatedId);
-                console.log(".......newUpdatedId[action.payload.restaurantId]", newUpdatedId[action.payload.menudish.restaurantId])
+               
                 let menudishObj = newUpdatedId[action.payload.menudish.restaurantId].MenuDishes.find((menudish)=>{
                     return menudish.id == action.payload.menudish.id
                 });
@@ -1272,7 +1194,7 @@ const restaurantsReducer = (state = initialState, action) => {
                 menudishObj.dishCalories = action.payload.menudish.dishCalories
                 menudishObj.dishAllergies = action.payload.menudish.dishAllergies
                 menudishObj.spiceLevel = action.payload.menudish.spiceLevel
-                console.log("....menudishObj.....", menudishObj);
+                
             
             newState.restaurants_arr = JSON.parse(JSON.stringify(newArr))
             newState.byId = JSON.parse(JSON.stringify(newUpdatedId))
@@ -1283,9 +1205,9 @@ const restaurantsReducer = (state = initialState, action) => {
         
         case UPDATE_RESTAURANT_IMAGE: {
             const newById = {};
-            console.log(".....payload....", action.payload)
+           
             const image = [action.payload.image]
-            console.log("....RestaurantImages...", image)
+          
             
             let newArr = [...newState.restaurants_arr];
             for(let i = 0; i < newState.restaurants_arr.length; i++){

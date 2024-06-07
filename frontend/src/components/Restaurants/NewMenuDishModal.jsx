@@ -16,7 +16,7 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const currRestaurant = useSelector((state) => state.restaurants.byId[restaurantId]);
-    console.log('......currRestaurant......', currRestaurant);
+
 
     const [errors, setErrors] = useState([]);
     // const [errors, setErrors] = useState({});
@@ -26,10 +26,9 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
     const errorVal = (substr) => {
         errorDisp = " ";
         for (let str of errors) {
-            { console.log("str, errors", str, errors) }
+            
             if (str.indexOf(substr) != -1) {
                 errorDisp = str
-                { console.log("errorDisp", errorDisp) }
             }
         }
         return errorDisp
@@ -39,15 +38,15 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
         foundError = false;
         // setErrors({});
         const currErrors = [];
-        console.log('.......inside validate........')
+        
         if (!dishName.trim()) {
-            console.log(".....here1....")
+            
             foundError = true;
             // setErrors((errors) => ({ ...errors, dishName: "Dish Name is required" }));
             currErrors.push("Dish Name is required")
-            console.log("...currErrors...", currErrors);
+            
             setErrors(currErrors);
-            console.log('........dishName.....', dishName, foundError);
+            
         }
 
         if (!dishCategory.trim()) {
@@ -55,7 +54,7 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
             currErrors.push("Dish Category is required")
             //     setErrors((errors) => ({ ...errors, dishIngredients: "Dish Ingredients are required" }));
             setErrors(currErrors);
-            console.log('........dishCategory.....', dishCategory, foundError);
+            
         }
 
         if (!dishIngredients.trim()) {
@@ -63,7 +62,7 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
             currErrors.push("Dish Ingredients are required")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishIngredients: "Dish Ingredients are required" }));
-            console.log('........dishIngredients.....', dishIngredients, foundError);
+           
         }
 
         if (!dishPrice.trim()) {
@@ -71,7 +70,7 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
             currErrors.push("Dish Price is required")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishPrice: "Dish Price is required" }));
-            console.log('........dishPrice.....', dishPrice, foundError);
+            
         }
 
         if (dishPrice && dishPrice < 1) {
@@ -79,7 +78,7 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
             currErrors.push("Dish Price is not valid")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishPrice: "Dish Price is required" }));
-            console.log('........dishPrice.....', dishPrice, foundError);
+            
         }
 
         if (!dishCalories.trim()) {
@@ -87,7 +86,7 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
             currErrors.push("Dish Calories are required")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishCalories: "Dish Calories are required" }));
-            console.log('........dishCalories.....', dishCalories, foundError);
+            
         }
 
         if (dishCalories && dishCalories < 1) {
@@ -95,7 +94,7 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
             currErrors.push("Dish Calories are not valid")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishCalories: "Dish Calories are required" }));
-            console.log('........dishCalories.....', dishCalories, foundError);
+            
         }
 
         if (!dishAllergies && !dishAllergies.trim()) {
@@ -103,17 +102,15 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
             currErrors.push("Dish Allergies are required")
             setErrors(currErrors);
             //     setErrors((errors) => ({ ...errors, dishAllergies: "Dish Allergies are required" }));
-            console.log('........dishAllergies.....', dishAllergies, foundError);
+            
         }
     }
 
     const handleSubmit = async (e) => {
-        console.log('..........inside handle submit..........');
+        
         e.preventDefault();
-        console.log('.........moving on to validate function..........');
         validate();
-        console.log('..........errors after validate..........', errors)
-        console.log("......foundError.....", foundError)
+        
 
         try {
             if (!foundError) {
@@ -139,13 +136,13 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
                         if (currErrors) {
                             setErrors(currErrors);
                         }
-                        console.log(".....errors.......", errors)
+                        
                     });
             }
         } catch (error) {
-            console.log("......error.....", error)
+            
             const data = await error.json();
-            console.log(".....data......", data)
+            
             // if (data.errors) {
             //     setErrors((errors) => ({ ...errors, ...data.errors }));
             // }
@@ -159,23 +156,13 @@ const NewMenuDishModal = ({ restaurantId, setCreateDishMode }) => {
         <div className="menudish-modal">
             <h3 style={{ marginLeft: "6rem", alignItems: "center", justifyContent: "center" }}>Details of the new dish!</h3>
             {/* <p className="error">{errors}</p> */}
-            {console.log("...errors....", errors)}
+            
             <div style={{ paddingBottom: "0.59rem", paddingLeft: "0px" }}>
                 <label style={{ padding: "0px", margin: "0px" }} htmlFor="dishName">
                     {/* Dish Name <span className="error">{errors.dishName}</span> */}
                     {/* Dish Name <span className="error">{errors[0]}</span> */}
                     Dish Name <span className="error">
-                        {/* {errorVal = () => {
-                            { console.log("inside function") }
-                            for (let str of errors) {
-                                { console.log("str, errors", str, errors) }
-                                if (str.indexOf("Dish Name") != -1) {
-                                    errorDisp = str
-                                    { console.log("errorDisp", errorDisp) }
-                                }
-                            }
-                            return errorDisp
-                        }} */}
+                      
                         {errorVal("Dish Name")}</span>
                 </label>
                 <input

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import './DeleteBookingModal.css';
 
 function DeleteBookingModal( {id} ) {
-  console.log('......bookingId inside deleteModal...',id, typeof(id));
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();

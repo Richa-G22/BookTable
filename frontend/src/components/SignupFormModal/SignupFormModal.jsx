@@ -15,9 +15,88 @@ function SignupFormModal() {
   const [profileImg, setProfileImg] = useState("https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  let foundError = false;
+
+  const validate = () => {
+    foundError = false;
+    setErrors({});
+    
+    if (!firstName.trim()) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, firstName: "First Name is required" }));
+        // currErrors.push("First Name is required")
+        // setErrors(currErrors);
+        
+    }
+
+    if (!lastName.trim()) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, lastName: "Last Name is required" }));
+        // currErrors.push("Last Name is required")
+        // setErrors(currErrors);
+        
+    }
+
+    if (!password.trim()) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, password: "Password is required" }));
+        // currErrors.push("Password is required")
+        // setErrors(currErrors);
+        
+    }
+
+    if (!confirmPassword.trim()) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, confirmPassword: "Confirm Password is required" }));
+        // currErrors.push("Confirm Password is required")
+        // setErrors(currErrors);
+        
+    }
+
+    if (!email.trim()) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, email: "Email is required" }));
+        // currErrors.push("Email is required")
+        // setErrors(currErrors);
+        
+    }
+
+    if (!username.trim()) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, username: "Username is required" }));
+        // currErrors.push("Username is required")
+        // setErrors(currErrors);
+        
+    }
+
+    if (password && password.length < 6) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, password: "Password should have atleast 6 characters" }));
+        // currErrors.push("Password should have atleast 6 characters")
+        // setErrors(currErrors);
+        
+    }
+
+    if (confirmPassword !== password) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, confirmPassword: "Confirm Password field must be the same as the Password field" }));
+        // currErrors.push("Password should have atleast 6 characters")
+        // setErrors(currErrors);
+        
+    }
+
+    if (username && username.length < 4) {
+        foundError = true;
+        setErrors((errors) => ({ ...errors, username: "Username should have atleast 4 characters" }));
+        // currErrors.push("Username should have atleast 4 characters")
+        // setErrors(currErrors);
+       
+    }
+}
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    validate();
 
   //   if (password !== confirmPassword) {
   //     return setErrors({
@@ -42,7 +121,8 @@ function SignupFormModal() {
   //     closeModal();
   //   }
   // };
-  if (password === confirmPassword) {
+  // if (!foundError && password === confirmPassword) {
+  if (!foundError) {
     setErrors({});
     return dispatch(
       thunkSignup({
@@ -62,9 +142,9 @@ function SignupFormModal() {
         }
       });
   }
-  return setErrors({...errors,
-    confirmPassword: "Confirm Password field must be the same as the Password field"
-  });
+  // return setErrors({...errors,
+  //   confirmPassword: "Confirm Password field must be the same as the Password field"
+  // });
 };
 
   return (
@@ -119,12 +199,12 @@ function SignupFormModal() {
           <h1 className="sign-up">Sign Up</h1>
       </div>
     
-      {errors.firstName && <p className="error">{errors.firstName}</p>}
-      {errors.lastName && <p className="error">{errors.lastName}</p>}
-      {errors.email && <p className="error">{errors.email}</p>}
-      {errors.username && <p className="error">{errors.username}</p>}
-      {errors.password && <p className="error">{errors.password}</p>}
-      {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
+      {errors.firstName && <p className="error" style={{paddingLeft:"3rem", paddingTop:"1rem"}}>{errors.firstName}</p>}
+      {errors.lastName && <p className="error" style={{paddingLeft:"3rem", paddingTop:"1rem"}}>{errors.lastName}</p>}
+      {errors.email && <p className="error" style={{paddingLeft:"3rem", paddingTop:"1rem"}}>{errors.email}</p>}
+      {errors.username && <p className="error" style={{paddingLeft:"3rem", paddingTop:"1rem"}}>{errors.username}</p>}
+      {errors.password && <p className="error" style={{paddingLeft:"3rem", paddingTop:"1rem"}}>{errors.password}</p>}
+      {errors.confirmPassword && <p className="error" style={{paddingLeft:"3rem", paddingTop:"1rem"}}>{errors.confirmPassword}</p>}
 
       <div className='input-fields-div'>
       <form onSubmit={handleSubmit}>
@@ -204,11 +284,12 @@ function SignupFormModal() {
         </div>  */}
         <br></br> 
         
-        <button className="sign-up-button" type="submit" disabled={
+        {/* <button className="sign-up-button" type="submit" disabled={
           email.length === 0 || username.length < 4 ||
           firstName.length === 0 || lastName.length === 0 ||
           password.length < 6 || confirmPassword.length === 0
-        }>Sign Up</button> 
+        }>Sign Up</button>  */}
+        <button className="sign-up-button" type="submit">Sign Up</button> 
        
       </form>
       </div>
